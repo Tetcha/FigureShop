@@ -12,17 +12,26 @@ public class User {
     private String password;
     private String address;
     private String phone;
+    private boolean isAdmin;
 
     public User() {
     }
 
-    public User(String id, String fullName, String email, String password, String address, String phone) {
+    public User(String id, String fullName, String email, String password, String address, String phone, boolean isAdmin) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.address = address;
         this.phone = phone;
+        this.isAdmin = isAdmin;
+    }
+
+    public User(String fullName, String email, String password, boolean isAdmin) {
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.isAdmin = isAdmin;
     }
 
     public String getId() {
@@ -73,9 +82,17 @@ public class User {
         this.phone = phone;
     }
 
+    public boolean isIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", fullName=" + fullName + ", email=" + email + ", password=" + password + ", address=" + address + ", phone=" + phone + '}';
+        return "User{" + "id=" + id + ", fullName=" + fullName + ", email=" + email + ", password=" + password + ", address=" + address + ", phone=" + phone + ", isAdmin=" + isAdmin + '}';
     }
 
 }
