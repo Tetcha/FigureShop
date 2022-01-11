@@ -43,9 +43,9 @@ public class Helper {
         if (session == null) {
             return false;
         }
-        String userId = (String) session.getAttribute("userId");
+        User user = (User) session.getAttribute("user");
 
-        return userId != null;
+        return user != null;
     }
 
     //get file name of image
