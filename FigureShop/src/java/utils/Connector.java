@@ -16,7 +16,7 @@ public class Connector {
         try {
             Context context = new InitialContext();
             Context end = (Context) context.lookup("java:comp/env");
-            DataSource env = (DataSource) end.lookup("BookShop");
+            DataSource env = (DataSource) end.lookup("FigureShop");
             Connection conn = env.getConnection();
             return conn;
         } catch (SQLException | NamingException e) {
