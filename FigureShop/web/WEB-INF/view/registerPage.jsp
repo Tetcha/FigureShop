@@ -8,10 +8,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>BFF Shop</title>
         <link rel="stylesheet" href="asset/styles.css" type="text/css" />
-         <jsp:include page="./commonView/navbar.jsp"></jsp:include>
+        <jsp:include page="./commonView/init.jsp"></jsp:include>
+         
     </head>
 </head>
 <body>
+    <jsp:include page="./commonView/navbar.jsp"></jsp:include>
     <div
         class="flex flex-col justify-center min-h-screen py-12 bg-white lg:bg-gradient-to-b lg:from-gray-50 lg:to-gray-100 sm:px-6 lg:px-8"
         >

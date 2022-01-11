@@ -13,7 +13,7 @@ public class Router {
     public static final String ERROR = "/WEB-INF/view/commonView/errorPage.jsp";
 
     // jsp file mapping
-    public static final String HOME_PAGE = "/WEB-INF/view/home.jsp";
+    public static final String HOME_PAGE = "/WEB-INF/view/homePage.jsp";
     public static final String ME_PAGE = "WEB-INF/view/mePage.jsp";
     public static final String CHANGE_PASSWORD_PAGE = "WEB-INF/view/changePassword.jsp";
     public static final String ADD_PRODUCT_PAGE = "WEB-INF/view/addNewProductPage.jsp";
@@ -30,8 +30,8 @@ public class Router {
 
     // router mapping
     public static final String CHANGE_PASSWORD_CONTROLLER = "password";
+    public static final String HOME_PAGE_CONTROLLER = "";
     public static final String PROFILE_CONTROLLER = "me";
-    public static final String HOME_CONTROLLER = "home";
     public static final String ADD_PRODUCT_CONTROLLER = "addProduct";
     public static final String PRODUCT_DETAIL_CONTROLLER = "product";
     public static final String UPDATE_PRODUCT_CONTROLLER = "updateProduct";
