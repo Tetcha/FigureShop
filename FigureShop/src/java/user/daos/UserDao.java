@@ -37,17 +37,17 @@ public class UserDao {
         String uuid = UUID.randomUUID().toString().substring(0, 30);
         try {
             conn = Connector.getConnection();
-            String sql = "INSERT INTO bookshop_user (userId, username, fullName, email, address, phone, avatar, password, roleId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO figureshop_user (id, fullName, email, address, phone, password, isAdmin) VALUES (?, ?, ?, ?, ?, ?, ?)";
             preStm = conn.prepareStatement(sql);
-            //
+            // set param
             preStm.setString(1, uuid);
-            preStm.setString(3, user.getFullName());
-            preStm.setString(4, user.getEmail());
+            preStm.setString(2, user.getFullName());
+            preStm.setString(3, user.getEmail());
+            preStm.setString(4, null);
             preStm.setString(5, null);
-            preStm.setString(6, null);
-            preStm.setString(7, null);
-            preStm.setString(8, user.getPassword());
-            //
+            preStm.setString(6, user.getPassword());
+            preStm.setBoolean(7, user.isIsAdmin());
+            // insert
             preStm.executeUpdate();
         } finally {
             this.closeConnection();
@@ -59,7 +59,7 @@ public class UserDao {
         User user = null;
         try {
             conn = Connector.getConnection();
-            String sql = "SELECT * FROM bookshop_user WHERE email = ?";
+            String sql = "SELECT * FROM figureshop_user WHERE email = ?";
             preStm = conn.prepareStatement(sql);
             preStm.setString(1, email);
             rs = preStm.executeQuery();
@@ -69,7 +69,8 @@ public class UserDao {
                 String address = rs.getString("address");
                 String phone = rs.getString("phone");
                 String password = rs.getString("password");
-                user = new User(id, fullName, email, password, address, phone);
+                boolean isAdmin = rs.getBoolean("isAdmin");
+                user = new User(id, fullName, email, password, address, phone, isAdmin);
             }
         } finally {
             this.closeConnection();
