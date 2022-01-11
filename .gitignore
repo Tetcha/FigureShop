@@ -1,0 +1,16 @@
+**/nbproject/private/
+**/nbproject/Makefile-*.mk
+**/nbproject/Package-*.bash
+build/
+nbbuild/
+nbdist/
+.nb-gradle/
+.vscode/
+/dist/
+**/asset/styles.css
+/Planning
+/tailwind-fast-kit
+**/**.sql
+**context.xml
+/GameShop/dist/
+/SQL_query
