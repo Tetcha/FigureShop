@@ -37,7 +37,7 @@ public class UserDao {
         String uuid = UUID.randomUUID().toString().substring(0, 30);
         try {
             conn = Connector.getConnection();
-            String sql = "INSERT INTO figureshop_user (id, fullName, email, address, phone, password, isAdmin) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO figure_user (id, fullName, email, address, phone, password, isAdmin) VALUES (?, ?, ?, ?, ?, ?, ?)";
             preStm = conn.prepareStatement(sql);
             // set param
             preStm.setString(1, uuid);
@@ -59,7 +59,7 @@ public class UserDao {
         User user = null;
         try {
             conn = Connector.getConnection();
-            String sql = "SELECT * FROM figureshop_user WHERE email = ?";
+            String sql = "SELECT * FROM figure_user WHERE email = ?";
             preStm = conn.prepareStatement(sql);
             preStm.setString(1, email);
             rs = preStm.executeQuery();
