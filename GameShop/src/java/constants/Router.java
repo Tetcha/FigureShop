@@ -5,6 +5,7 @@ public class Router {
     // user
     public static final String LOGIN_CONTROLLER = "login";
     public static final String LOGIN_PAGE = "/WEB-INF/view/loginPage.jsp";
+    public static final String LOGOUT_CONTROLLER = "logout";
 
     // common
     public static final String ERROR = "/WEB-INF/view/commonView/errorPage.jsp";
@@ -30,7 +31,7 @@ public class Router {
     public static final String REGISTER_CONTROLLER = "register";
     public static final String CHANGE_PASSWORD_CONTROLLER = "password";
     public static final String PROFILE_CONTROLLER = "me";
-    public static final String SIGNOUT_CONTROLLER = "signout";
+
     public static final String HOME_CONTROLLER = "home";
     public static final String ADD_PRODUCT_CONTROLLER = "addProduct";
     public static final String PRODUCT_DETAIL_CONTROLLER = "product";

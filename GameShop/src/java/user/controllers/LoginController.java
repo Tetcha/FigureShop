@@ -19,7 +19,7 @@ import utils.Helper;
  *
  * @author locnh
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
+@WebServlet(name = "LoginController", urlPatterns = {"/" + Router.LOGIN_CONTROLLER})
 public class LoginController extends HttpServlet {
 
     protected boolean processRequest(HttpServletRequest request, HttpServletResponse response)
