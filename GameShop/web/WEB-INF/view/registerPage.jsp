@@ -1,161 +1,157 @@
-<%@page import="constant.Router"%>
-<%@page import="daos.UserDAO"%>
-<%@page import="models.User"%>
+
+<%@page import="constants.Router"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <title>BFF Shop</title>
+        <title>BFF Shop</title>
         <link rel="stylesheet" href="asset/styles.css" type="text/css" />
-
-        <jsp:include page="./commonView/Navbar.jsp">
-            <jsp:param name="title" value="Sannin SC |  Add Room" />
-        </jsp:include>
+         <jsp:include page="./commonView/navbar.jsp"></jsp:include>
     </head>
 </head>
 <body>
-    <%
-        User user =(User) request.getAttribute("user");
-    %>
-
-
-    <div class="flex flex-col items-center justify-center flex-1 h-screen bg-gradient-to-b from-gray-50 to-gray-100">
-        <form
-            action="<%=Router.PROFILE_CONTROLLER%>"
-            method="POST"
-            class="w-full max-w-3xl overflow-hidden bg-white sm:shadow sm:rounded-lg sm:w-180"
-            enctype="multipart/form-data"
-            >
-            <div class="px-4 py-5 sm:px-6">
-                <h3 class="text-lg font-medium leading-6 text-gray-900">
-                    Applicant Information
-                </h3>
-                <p class="max-w-2xl mt-1 text-sm text-gray-500">Personal details.</p>
-            </div>
-            <div class="px-4 py-5 border-t border-gray-200 sm:p-0">
-                <dl class="sm:divide-y sm:divide-gray-200">
-                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt class="flex items-center text-sm font-medium text-gray-500">
-                            <p>username</p>
-                        </dt>
-                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            <p><%= user.getUsername()%></p>
-                        </dd>
-                    </div>
-                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt class="flex items-center text-sm font-medium text-gray-500">
-                            <p>email</p>
-                        </dt>
-                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+    <div
+        class="flex flex-col justify-center min-h-screen py-12 bg-white lg:bg-gradient-to-b lg:from-gray-50 lg:to-gray-100 sm:px-6 lg:px-8"
+        >
+        <div class="sm:mx-auto sm:w-full sm:max-w-md">
+          
+            <h2 class="mt-6 text-4xl font-extrabold text-center text-gray-900">
+                Register
+            </h2>
+        </div>
+        <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+            <div class="px-4 py-8 bg-white lg:shadow-xl sm:rounded-xl sm:px-10">
+                <form class="space-y-6" action="<%=Router.REGISTER_CONTROLLER%>" method="POST">
+                    <div>
+                        <label
+                            for="email"
+                            class="block text-sm font-medium text-gray-700"
+                            >
+                            Email
+                        </label>
+                        <div class="mt-1">
                             <input
                                 id="email"
                                 name="email"
                                 type="email"
                                 autocomplete="email"
                                 required
-                                value="<%= user.getEmail() == null ? "" : user.getEmail()%>"
                                 class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 />
                             <p class="mt-2 text-sm text-red-600" id="email-error">
                                 ${requestScope.emailError}
                             </p>
-                        </dd>
+                        </div>
                     </div>
-                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt class="flex items-center text-sm font-medium text-gray-500">
-                            <p>Full name</p>
-                        </dt>
-                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <div>
+                        <label
+                            for="email"
+                            class="block text-sm font-medium text-gray-700"
+                            >
+                            User name
+                        </label>
+                        <div class="mt-1">
+                            <input
+                                id="username"
+                                name="username"
+                                type="text"
+                                autocomplete="email"
+                                required
+                                class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                />
+                            <p class="mt-2 text-sm text-red-600" id="email-error">
+                                ${requestScope.usernameError}
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <label
+                            for="email"
+                            class="block text-sm font-medium text-gray-700"
+                            >
+                            Full name
+                        </label>
+                        <div class="mt-1">
                             <input
                                 id="fullName"
                                 name="fullName"
                                 type="text"
+                                autocomplete="email"
                                 required
-                                value="<%= user.getFullName() == null ? "" : user.getFullName()%>"
                                 class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 />
                             <p class="mt-2 text-sm text-red-600" id="email-error">
                                 ${requestScope.fullNameError}
                             </p>
-                        </dd>
+                        </div>
                     </div>
-                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt class="flex items-center text-sm font-medium text-gray-500">
-                            <p>Address</p>
-                        </dt>
-                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <div>
+                        <label
+                            for="password"
+                            class="block text-sm font-medium text-gray-700"
+                            >
+                            Password
+                        </label>
+                        <div class="mt-1">
                             <input
-                                id="address"
-                                name="address"
-                                type="text"
-                                value="<%= user.getAddress() == null ? "" : user.getAddress()%>"
+                                id="password"
+                                name="password"
+                                type="password"
+                                autocomplete="email"
+                                required
                                 class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 />
                             <p class="mt-2 text-sm text-red-600" id="email-error">
-                                ${requestScope.addressError}
+                                ${requestScope.passwordError}
                             </p>
-                        </dd>
+                        </div>
                     </div>
-                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt class="flex items-center text-sm font-medium text-gray-500">
-                            <p>Phone</p>
-                        </dt>
-                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <div>
+                        <label
+                            for="password"
+                            class="block text-sm font-medium text-gray-700"
+                            >
+                            Confirm password
+                        </label>
+                        <div class="mt-1">
                             <input
-                                id="phone"
-                                name="phone"
-                                type="text"
-                                value="<%= user.getPhone() == null ? "" : user.getPhone()%>"
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                type="password"
+                                autocomplete="current-password"
+                                required
                                 class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 />
+
                             <p class="mt-2 text-sm text-red-600" id="email-error">
-                                ${requestScope.phoneError}
+                                ${requestScope.confirmPasswordError}
                             </p>
-                        </dd>
+                        </div>
                     </div>
-                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt class="flex items-center text-sm font-medium text-gray-500">
-                            <p>Avatar</p>
-                        </dt>
-                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            <!-- <input
-                                id="avatar"
-                                name="avatar"
-                                type="text"
-                                value="<%= user.getAvatar() == null ? "" : user.getAvatar()%>"
-                                class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                             /> -->
-                            <input
-                                type="file"
-                                id="avatar"
-                                name="avatar"
-                                />
-                            <p class="mt-2 text-sm text-red-600" id="email-error">
-                                ${requestScope.avatarError}
-                            </p>
-                        </dd>
+                    <div>
+                        <button
+                            type="submit"
+                            class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            >
+                            Register
+                        </button>
                     </div>
-                </dl>
-                <p class="mt-2 mr-5 text-sm font-semibold text-right text-green-600" id="successMessage">
-                    ${requestScope.successMessage}
-                </p>
+                    <div class="flex justify-end">
+                        <div class="self-end mt-4 text-sm">
+                            Already have an account?
+                            <a
+                                href="<%=Router.LOGIN_CONTROLLER%>"
+                                class="font-semibold text-indigo-600 underline hover:text-indigo-500"
+                                >
+                                Login
+                            </a>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="flex justify-end px-4 py-5 sm:px-6">
-                <a
-                    href="<%=Router.CHANGE_PASSWORD_CONTROLLER%>"
-                    class="inline-flex items-center px-3 py-2 mr-5 text-sm font-medium leading-4 text-white bg-red-500 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                    Change password
-                </a>
-                <input
-                    type="submit"
-                    class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    value="Save"
-                    >
-            </div>
-        </form>
+        </div>
     </div>
 </body>
 </html>
