@@ -1,5 +1,6 @@
 package user.controllers;
 
+import constants.Message;
 import constants.Router;
 import constants.StatusCode;
 import java.io.IOException;
@@ -37,7 +38,7 @@ public class LoginController extends HttpServlet {
         // checking existed user and correct password
         User existedUser = userDao.getUserByEmail(email);
         if (existedUser == null || !existedUser.getPassword().equals(password)) {
-            request.setAttribute("errorMessage", "Username or password is not correct");
+            request.setAttribute("errorMessage", Message.LOGIN_ERROR_MESSAGE.getContent());
             return false;
         }
 
@@ -75,7 +76,9 @@ public class LoginController extends HttpServlet {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             // forward on 500
-            Helper.setAttribute(request, StatusCode.INTERNAL_SERVER_ERROR.getValue(), "Something failed", "Please try again later");
+            Helper.setAttribute(request, StatusCode.INTERNAL_SERVER_ERROR.getValue(),
+                    Message.INTERNAL_ERROR_TITLE.getContent(),
+                    Message.INTERNAL_ERROR_MESSAGE.getContent());
             request.getRequestDispatcher(Router.ERROR).forward(request, response);
         }
     }
