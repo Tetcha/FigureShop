@@ -14,6 +14,7 @@ public enum Message {
     REGISTER_SUCCESS_MESSAGE("Register successful"),
     // product
     ADD_TO_CARD_SUCCESS_MESSAGE("Add product to cart successful"),
+    PRICE_ERROR_MESSAGE("Min price cannot greater than max price"),
     //order
     EMPTY_MESSAGE("There is no order yet"),
     //common

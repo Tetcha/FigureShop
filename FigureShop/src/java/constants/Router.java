@@ -12,6 +12,8 @@ public class Router {
     // product
     public static final String PRODUCT_DETAIL_PAGE = "WEB-INF/view/productDetailPage.jsp";
     public static final String PRODUCT_DETAIL_CONTROLLER = "product";
+    public static final String PRODUCT_FILTER_CONTROLLER = "filter";
+    public static final String PRODUCTS_PAGE = "WEB-INF/view/products.jsp";
 
     // order
     public static final String ORDER_HISTORY_CONTROLLER = "orders";
@@ -31,7 +33,6 @@ public class Router {
     public static final String UPDATE_PRODUCT_PAGE = "WEB-INF/view/updateProductPage.jsp";
     public static final String ADD_CATEGORY_PAGE = "WEB-INF/view/addCategoryPage.jsp";
     public static final String CART_PAGE = "WEB-INF/view/cartPage.jsp";
-    public static final String SEARCH_BOOK_PAGE = "WEB-INF/view/searchBook.jsp";
     public static final String ADMIN_ORDER_PAGE = "WEB-INF/view/adminOrderPage.jsp";
     public static final String ADMIN_ORDERITEM_PAGE = "WEB-INF/view/adminOrderItem.jsp";
     public static final String CATEGORY_SHOWCASE_PAGE = "WEB-INF/view/categoryShowcasePage.jsp";
@@ -50,7 +51,6 @@ public class Router {
     public static final String SHOW_PRODUCT_IN_CATEGORY_CONTROLLER = "categoryProducts";
     public static final String CANCEL_ORDER_CONTROLLER = "cancelOrder";
     public static final String SEARCH_BOOK_CONTROLLER = "searchBook";
-    public static final String FILTER_CONTROLLER = "filter";
     public static final String PRODUCT_IN_ORDER_CONTROLLER = "productInOrder";
     public static final String ADMIN_ORDER_CONTROLLER = "adminOrder";
     public static final String ORDER_STATUS_CONTROLLER = "orderStatus";
