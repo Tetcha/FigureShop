@@ -2,7 +2,7 @@
 contentType="text/html" pageEncoding="UTF-8"%> <% String avatarUrl = (String)
 session.getAttribute("avatarUrl");%> <%@page import="constants.Router"%>
 <header>
-  <div class="relative bg-black">
+  <div class="relative bg-gray-800">
     <div
       class="flex justify-between items-center max-w-7xl mx-auto px-4 py-6 sm:px-6 md:justify-start md:space-x-10 lg:px-8"
     >
