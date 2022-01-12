@@ -32,7 +32,7 @@ public class ProductDetailController extends HttpServlet {
         CategoryDao categoryDAO = new CategoryDao();
 
         // get productId
-        String productId = GetParam.getStringParam(request, "id", "Product", 0, 30, null);
+        String productId = GetParam.getStringParam(request, "id", "Product", 0, 40, null);
         if (productId == null) {
             return false;
         }

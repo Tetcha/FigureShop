@@ -19,8 +19,8 @@ import utils.Helper;
  *
  * @author locnh
  */
-@WebServlet(name = "ProductQuantityController", urlPatterns = {"/" + Router.PRODUCT_QUANTITY_CONTROLLER})
-public class ProductQuantityController extends HttpServlet {
+@WebServlet(name = "ProductQuantityController", urlPatterns = {"/" + Router.CART_PRODUCT_QUANTITY_CONTROLLER})
+public class CartProductQuantityController extends HttpServlet {
 
     protected boolean processRequest(HttpServletRequest request, HttpServletResponse response)
             throws Exception {

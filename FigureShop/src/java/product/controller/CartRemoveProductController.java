@@ -1,4 +1,4 @@
-package order.controller;
+package product.controller;
 
 import constants.Message;
 import constants.Router;
@@ -11,59 +11,48 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import order.daos.OrderDao;
-import orderitem.daos.OrderItemDao;
-import user.dtos.User;
-import order.dtos.Order;
-import orderitem.dtos.OrderItemDto;
+import product.daos.ProductDao;
 import utils.GetParam;
+import product.dtos.Product;
 import utils.Helper;
 
 /**
  *
  * @author locnh
  */
-@WebServlet(name = "OrderHistoryDetailController", urlPatterns = {"/" + Router.ORDER_HISTORY_DETAIL_CONTROLLER})
-public class OrderHistoryDetailController extends HttpServlet {
+@WebServlet(name = "CartRemoveProductController", urlPatterns = {"/" + Router.CART_REMOVE_PRODUCT_CONTROLLER})
+public class CartRemoveProductController extends HttpServlet {
 
     protected boolean processRequest(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        OrderDao orderDao = new OrderDao();
-        OrderItemDao orderItemDao = new OrderItemDao();
-        //Get user
-        User user = (User) session.getAttribute("user");
+        ProductDao productDao = new ProductDao();
 
-        //Get user's order
-        ArrayList<Order> orders = orderDao.getOrdersByUserId(user.getId());
+        // get productId
+        String productId = GetParam.getStringParam(request, "productId", "Product", 0, 40, null);
 
-        //Get orderId
-        String orderId = GetParam.getStringParam(request, "orderId", "Order id", 0, 40, null);
+        // find product by given id
+        Product product = productDao.getProductById(productId);
 
-        //Check params
-        if (orderId == null) {
+        // get the products from cart
+        ArrayList<Product> products = (ArrayList<Product>) session.getAttribute("products");
+
+        // check existed product
+        if (product == null || products.isEmpty()) {
             return false;
         }
 
-        //Check userId and orderId that matched
-        Order currentOrder = null;
-        for (Order order : orders) {
-            if (order.getId().equals(orderId)) {
-                currentOrder = order;
+        // remove product from cart
+        for (Product pro : products) {
+            if (pro.getId().equals(productId)) {
+                products.remove(pro);
                 break;
             }
         }
-        if (currentOrder == null) {
-            return false;
-        }
 
-        // Get list of orderItemDtos
-        ArrayList<OrderItemDto> orderItemDtos = orderItemDao.getOrderItemDtoByOrderId(orderId);
-
-        //send request
-        request.setAttribute("orderItems", orderItemDtos);
-        request.setAttribute("order", currentOrder);
+        // set products to session
+        session.setAttribute("products", products);
         return true;
     }
 
@@ -80,7 +69,7 @@ public class OrderHistoryDetailController extends HttpServlet {
                 return;
             }
             // forward on 200
-            request.getRequestDispatcher(Router.ORDER_HISTORY_DETAIL_PAGE).forward(request, response);
+            response.sendRedirect(Router.CART_CONTROLLER);
         } catch (Exception e) {
             System.out.println(e);
             // forward on 500
