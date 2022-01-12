@@ -12,7 +12,7 @@
       <div>
         <jsp:include page="./commonView/navbar.jsp"></jsp:include>
         <!-- Hero card -->
-        <div class="relative">
+        <div class="relative mt-10">
           <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="relative shadow-xl sm:rounded-2xl sm:overflow-hidden">
               <div class="absolute inset-0">

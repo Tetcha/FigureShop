@@ -2,7 +2,7 @@
 contentType="text/html" pageEncoding="UTF-8"%> <% String avatarUrl = (String)
 session.getAttribute("avatarUrl");%> <%@page import="constants.Router"%>
 <header>
-  <div class="relative bg-white">
+  <div class="relative bg-black">
     <div
       class="flex justify-between items-center max-w-7xl mx-auto px-4 py-6 sm:px-6 md:justify-start md:space-x-10 lg:px-8"
     >
@@ -40,7 +40,7 @@ session.getAttribute("avatarUrl");%> <%@page import="constants.Router"%>
       <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
         <a
           href="<%=Router.LOGIN_CONTROLLER %>"
-          class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
+          class="whitespace-nowrap text-base font-medium text-gray-100 hover:text-indigo-500"
         >
           Sign in
         </a>
