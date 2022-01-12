@@ -17,7 +17,7 @@ public class UserDao {
     private PreparedStatement preStm;
     private ResultSet rs;
 
-    //this function will close connection of database
+    //close connection of database
     private void closeConnection() throws Exception {
         if (rs != null) {
             rs.close();
