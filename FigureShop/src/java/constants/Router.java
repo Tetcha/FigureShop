@@ -23,6 +23,7 @@ public class Router {
     public static final String ADD_CATEGORY_PAGE = "WEB-INF/view/addCategoryPage.jsp";
     public static final String CART_PAGE = "WEB-INF/view/cartPage.jsp";
     public static final String ORDER_HISTORY_PAGE = "WEB-INF/view/orderHistoryPage.jsp";
+    public static final String ORDER_HISTORY_DETAIL_PAGE = "WEB-INF/view/orderHistoryDetailPage.jsp";
     public static final String SEARCH_BOOK_PAGE = "WEB-INF/view/searchBook.jsp";
     public static final String ADMIN_ORDER_PAGE = "WEB-INF/view/adminOrderPage.jsp";
     public static final String ADMIN_ORDERITEM_PAGE = "WEB-INF/view/adminOrderItem.jsp";
@@ -40,6 +41,8 @@ public class Router {
     public static final String REMOVE_PRODUCT_CONTROLLER = "remove";
     public static final String CHECKOUT_CONTROLLER = "checkout";
     public static final String ORDER_HISTORY_CONTROLLER = "orders";
+    public static final String ORDER_HISTORY_DETAIL_CONTROLLER = "orderHistory";
+
     public static final String CHANGE_QUANTITY_CONTROLLER = "changeQuantity";
     public static final String SHOW_PRODUCT_IN_CATEGORY_CONTROLLER = "categoryProducts";
     public static final String CANCEL_ORDER_CONTROLLER = "cancelOrder";
