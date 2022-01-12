@@ -14,6 +14,7 @@ public class Router {
     public static final String PRODUCT_DETAIL_CONTROLLER = "product";
     public static final String PRODUCT_FILTER_CONTROLLER = "filter";
     public static final String PRODUCTS_PAGE = "WEB-INF/view/products.jsp";
+    public static final String PRODUCT_QUANTITY_CONTROLLER = "changeQuantity";
 
     // order
     public static final String ORDER_HISTORY_CONTROLLER = "orders";
@@ -47,7 +48,6 @@ public class Router {
     public static final String CART_CONTROLLER = "cart";
     public static final String REMOVE_PRODUCT_CONTROLLER = "remove";
     public static final String CHECKOUT_CONTROLLER = "checkout";
-    public static final String CHANGE_QUANTITY_CONTROLLER = "changeQuantity";
     public static final String SHOW_PRODUCT_IN_CATEGORY_CONTROLLER = "categoryProducts";
     public static final String CANCEL_ORDER_CONTROLLER = "cancelOrder";
     public static final String SEARCH_BOOK_CONTROLLER = "searchBook";
