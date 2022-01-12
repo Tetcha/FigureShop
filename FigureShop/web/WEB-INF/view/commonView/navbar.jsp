@@ -2,13 +2,12 @@
 contentType="text/html" pageEncoding="UTF-8"%> <% String avatarUrl = (String)
 session.getAttribute("avatarUrl");%> <%@page import="constants.Router"%>
 <header>
-  <div class="relative bg-white">
+  <div class="relative bg-gray-800">
     <div
       class="flex justify-between items-center max-w-7xl mx-auto px-4 py-6 sm:px-6 md:justify-start md:space-x-10 lg:px-8"
     >
       <div class="flex justify-start lg:w-0 lg:flex-1">
-        <a href="#">
-          <span class="sr-only">Workflow</span>
+        <a href="/FigureShop/">
           <img class="h-8 w-auto sm:h-10" src="asset/images/logo.png" alt="" />
         </a>
       </div>
@@ -20,7 +19,6 @@ session.getAttribute("avatarUrl");%> <%@page import="constants.Router"%>
           id="openNavPopupButton"
         >
           <span class="sr-only">Open menu</span>
-          <!-- Heroicon name: outline/menu -->
           <svg
             class="h-6 w-6"
             xmlns="http://www.w3.org/2000/svg"
@@ -41,13 +39,13 @@ session.getAttribute("avatarUrl");%> <%@page import="constants.Router"%>
 
       <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
         <a
-          href="#"
-          class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
+          href="<%=Router.LOGIN_CONTROLLER %>"
+          class="whitespace-nowrap text-base font-medium text-gray-100 hover:text-indigo-500"
         >
           Sign in
         </a>
         <a
-          href="#"
+          href="<%=Router.REGISTER_CONTROLLER%>"
           class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
         >
           Sign up
@@ -64,13 +62,13 @@ session.getAttribute("avatarUrl");%> <%@page import="constants.Router"%>
       >
         <div class="pt-5 pb-6 px-5">
           <div class="flex items-center justify-between">
-            <div>
+            <a href="/FigureShop/">
               <img
                 class="h-8 w-auto"
                 src="asset/images/logo.png"
                 alt="Workflow"
               />
-            </div>
+            </a>
             <div class="-mr-2">
               <button
                 type="button"
@@ -161,14 +159,16 @@ session.getAttribute("avatarUrl");%> <%@page import="constants.Router"%>
         <div class="py-6 px-5">
           <div class="mt-6">
             <a
-              href="#"
+              href="<%=Router.REGISTER_CONTROLLER%>"
               class="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
             >
               Sign up
             </a>
             <p class="mt-6 text-center text-base font-medium text-gray-500">
               Existing customer?
-              <a href="#" class="text-gray-900"> Sign in </a>
+              <a href="<%=Router.LOGIN_CONTROLLER%>" class="text-gray-900">
+                Sign in
+              </a>
             </p>
           </div>
         </div>
@@ -176,6 +176,3 @@ session.getAttribute("avatarUrl");%> <%@page import="constants.Router"%>
     </div>
   </div>
 </header>
-<link rel="stylesheet" href="asset/css/styles.css" type="text/css" />
-<script src="asset/js/jquery.min.js"></script>
-<script src="asset/js/navbar.js"></script>

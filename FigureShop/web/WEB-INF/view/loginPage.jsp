@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>BFF Shop</title>
         <link rel="stylesheet" href="asset/css/styles.css" type="text/css" />
-        
+        <jsp:include page="./commonView/init.jsp"></jsp:include>
     </head>
 </head>
 <body>
@@ -45,9 +45,6 @@
                                 class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 />
                         </div>
-                        <p class="mt-2 text-sm text-red-600">
-                            ${requestScope.usernameError}
-                        </p>
                     </div>
 
                     <div>
@@ -67,9 +64,6 @@
                                 class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 />
                         </div>
-                        <p class="mt-2 text-sm text-red-600">
-                            ${requestScope.passwordError}
-                        </p>
                     </div>
                     <p class="text-sm text-left text-red-600">
                         ${requestScope.errorMessage}

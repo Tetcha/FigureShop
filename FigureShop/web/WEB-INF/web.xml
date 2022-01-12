@@ -10,7 +10,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>/WEB-INF/view/welcomePage.jsp</welcome-file>
+        <welcome-file>/WEB-INF/view/homePage.jsp</welcome-file>
         <welcome-file>/WEB-INF/view/loginPage.jsp</welcome-file>
     </welcome-file-list>
     <error-page>

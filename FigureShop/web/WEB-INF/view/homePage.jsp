@@ -4,14 +4,15 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Welcome to figure shop</title>
+    <jsp:include page="./commonView/init.jsp"></jsp:include>
   </head>
   <body>
     <div class="bg-white">
       <div>
         <jsp:include page="./commonView/navbar.jsp"></jsp:include>
         <!-- Hero card -->
-        <div class="relative">
+        <div class="relative mt-10">
           <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="relative shadow-xl sm:rounded-2xl sm:overflow-hidden">
               <div class="absolute inset-0">
