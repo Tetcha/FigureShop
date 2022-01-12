@@ -14,6 +14,8 @@ public enum Message {
     REGISTER_SUCCESS_MESSAGE("Register successful"),
     // product
     ADD_TO_CARD_SUCCESS_MESSAGE("Add product to cart successful"),
+    //order
+    EMPTY_MESSAGE("There is no order yet"),
     //common
     INTERNAL_ERROR_TITLE("Something failed"),
     INTERNAL_ERROR_MESSAGE("Please try again later"),
