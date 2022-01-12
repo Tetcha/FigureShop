@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@page
     contentType="text/html" pageEncoding="UTF-8"%>
-    <%@page import="constants.Router"%>
 
     <link rel="stylesheet" href="asset/css/styles.css" type="text/css" />
     <script src="asset/js/jquery.min.js"></script>
