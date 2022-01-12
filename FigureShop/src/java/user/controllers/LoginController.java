@@ -38,7 +38,6 @@ public class LoginController extends HttpServlet {
         // checking existed user and correct password
         User existedUser = userDao.getUserByEmail(email);
         if (existedUser == null || !existedUser.getPassword().equals(password)) {
-            request.setAttribute("errorMessage", Message.LOGIN_ERROR_MESSAGE.getContent());
             return false;
         }
 
@@ -68,6 +67,7 @@ public class LoginController extends HttpServlet {
         try {
             if (!processRequest(request, response)) {
                 // forward on 400
+                request.setAttribute("errorMessage", Message.LOGIN_ERROR_MESSAGE.getContent());
                 request.getRequestDispatcher(Router.LOGIN_PAGE).forward(request, response);
                 return;
             }
