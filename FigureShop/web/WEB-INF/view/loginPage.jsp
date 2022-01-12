@@ -20,7 +20,7 @@
             <h2
                 class="mt-6 text-4xl font-extrabold text-center text-gray-900 hello"
                 >
-                Sign in
+               Log in
             </h2>
         </div>
 
