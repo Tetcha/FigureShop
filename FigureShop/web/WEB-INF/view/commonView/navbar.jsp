@@ -7,7 +7,7 @@ session.getAttribute("avatarUrl");%> <%@page import="constants.Router"%>
       class="flex justify-between items-center max-w-7xl mx-auto px-4 py-6 sm:px-6 md:justify-start md:space-x-10 lg:px-8"
     >
       <div class="flex justify-start lg:w-0 lg:flex-1">
-        <a href="/FigureShop/">
+          <a href="<%=Router.HOME_CONTROLLER%>">
           <img class="h-8 w-auto sm:h-10" src="asset/images/logo.png" alt="" />
         </a>
       </div>
@@ -62,7 +62,7 @@ session.getAttribute("avatarUrl");%> <%@page import="constants.Router"%>
       >
         <div class="pt-5 pb-6 px-5">
           <div class="flex items-center justify-between">
-            <a href="/FigureShop/">
+            <a href="<%=Router.HOME_CONTROLLER%>">
               <img
                 class="h-8 w-auto"
                 src="asset/images/logo.png"
