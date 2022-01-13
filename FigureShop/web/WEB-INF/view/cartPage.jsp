@@ -1,3 +1,4 @@
+<%@page import="category.daos.CategoryDao"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>

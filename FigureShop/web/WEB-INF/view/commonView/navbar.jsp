@@ -1,8 +1,8 @@
 <%@page import="user.models.User"%>
 <%@ taglib prefix="c"
 uri="http://java.sun.com/jsp/jstl/core" %> <%@page contentType="text/html"
-pageEncoding="UTF-8"%> <%@page import="constants.Router"%> <% User user = (User)
-session.getAttribute("user");%>
+pageEncoding="UTF-8"%> <%@page import="constants.Router"%> 
+<% User user = (User)session.getAttribute("user");%>
 
 <div class="relative bg-gray-800">
   <div
