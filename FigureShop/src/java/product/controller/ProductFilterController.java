@@ -34,6 +34,10 @@ public class ProductFilterController extends HttpServlet {
         Float maxPrice = GetParam.getFloatParams(request, "to", "max price", 0, Float.MAX_VALUE, Float.MAX_VALUE);
         Integer page = GetParam.getIntParams(request, "page", "Page", 1, Integer.MAX_VALUE, 1);
 
+        if (categoryId.equals("all")) {
+            categoryId = "";
+        }
+
         // check price
         if (minPrice > maxPrice) {
             request.setAttribute("priceError", Message.PRICE_ERROR_MESSAGE.getContent());
