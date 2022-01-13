@@ -1,9 +1,12 @@
+<%@page import="category.daos.CategoryDao"%>
 <%@page import="category.models.Category"%>
 <%@page import="java.util.ArrayList"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@page
-    contentType="text/html" pageEncoding="UTF-8"%>
-    <% ArrayList<Category> categoryList = (ArrayList<Category>) session.getAttribute("categoryList");
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <%
+        CategoryDao categoryDao = new CategoryDao();
+        ArrayList<Category> categoryList = categoryDao.getAllCategory();
+       
     %>
 
     <div class="bg-white">
@@ -68,11 +71,9 @@
                             name="category"
                             class="mt-1 block w-52 pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                             >
-                            <c:forEach items="${categoryList}" var="category">
+                            <c:forEach items="<%= categoryList%>" var="category">
                                 <option>${category.getName()}</option>
                             </c:forEach>
-                            
-                            
                         </select>
                     </div>
                     <a href="#" class="flex items-end">
