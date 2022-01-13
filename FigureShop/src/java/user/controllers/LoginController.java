@@ -72,7 +72,7 @@ public class LoginController extends HttpServlet {
                 return;
             }
             // forward on 200
-            response.sendRedirect(Router.HOME_PAGE);
+            response.sendRedirect(Router.HOME_CONTROLLER);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             // forward on 500
