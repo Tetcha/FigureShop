@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import product.daos.ProductDao;
 import utils.GetParam;
-import product.dtos.Product;
+import product.models.Product;
 import utils.Helper;
 
 /**

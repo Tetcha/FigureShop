@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
-import order.dtos.Order;
+import order.models.Order;
 import utils.Connector;
 
 /**

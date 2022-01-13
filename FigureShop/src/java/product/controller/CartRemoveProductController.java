@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import product.daos.ProductDao;
 import utils.GetParam;
-import product.dtos.Product;
+import product.models.Product;
 import utils.Helper;
 
 /**

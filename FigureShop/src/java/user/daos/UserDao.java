@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.UUID;
-import user.dtos.User;
+import user.models.User;
 import utils.Connector;
 
 /**

@@ -1,4 +1,4 @@
-package orderitem.dtos;
+package orderitem.models;
 
 /**
  *

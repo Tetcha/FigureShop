@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import product.daos.ProductDao;
 import utils.GetParam;
 import utils.Helper;
-import product.dtos.Product;
-import category.dtos.Category;
+import product.models.Product;
+import category.models.Category;
 import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 

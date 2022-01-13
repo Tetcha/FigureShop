@@ -1,4 +1,4 @@
-package product.dtos;
+package product.models;
 
 /**
  *

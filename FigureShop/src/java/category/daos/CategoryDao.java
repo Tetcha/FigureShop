@@ -3,7 +3,7 @@ package category.daos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import category.dtos.Category;
+import category.models.Category;
 import utils.Connector;
 
 /**

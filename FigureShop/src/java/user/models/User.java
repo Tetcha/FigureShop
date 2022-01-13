@@ -1,4 +1,4 @@
-package user.dtos;
+package user.models;
 
 /**
  *

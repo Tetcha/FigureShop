@@ -1,4 +1,4 @@
-package category.dtos;
+package category.models;
 
 /**
  *

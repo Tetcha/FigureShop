@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import order.daos.OrderDao;
-import order.dtos.Order;
+import order.models.Order;
 import utils.Helper;
-import user.dtos.User;
+import user.models.User;
 
 /**
  *

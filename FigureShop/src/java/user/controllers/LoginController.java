@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import user.daos.UserDao;
 import utils.GetParam;
-import user.dtos.User;
+import user.models.User;
 import utils.Helper;
 
 /**

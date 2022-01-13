@@ -1,4 +1,4 @@
-package order.dtos;
+package order.models;
 
 import java.util.Date;
 
