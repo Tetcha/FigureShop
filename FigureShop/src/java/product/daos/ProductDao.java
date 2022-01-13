@@ -67,7 +67,7 @@ public class ProductDao {
             Integer offset = (page - 1) * LIMIT;
 
             conn = Connector.getConnection();
-            String sql = "SELECT * FROM figure_product WHERE name LIKE ? AND categoryId LIKE ? AND price BETWEEN ? AND ? OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+            String sql = "SELECT * FROM figure_product WHERE name LIKE ? AND categoryId LIKE ? AND price BETWEEN ? AND ? ORDER BY price ASC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
             preStm = conn.prepareStatement(sql);
             preStm.setString(1, name);
             preStm.setString(2, categoryId);
@@ -76,7 +76,6 @@ public class ProductDao {
             preStm.setInt(5, offset);
             preStm.setInt(6, LIMIT);
             rs = preStm.executeQuery();
-
             while (rs.next()) {
                 String id = rs.getString("id");
                 String pName = rs.getString("name");

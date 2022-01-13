@@ -15,7 +15,7 @@ $(document).ready(function () {
     if (!fromValue) fromValue = "0";
 
     let toValue = toElement.val();
-    if (!toValue) toValue = "9999999999";
+    if (!toValue) toValue = "99999999";
 
     const nameValue = nameElement.val();
 
