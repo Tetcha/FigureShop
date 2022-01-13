@@ -29,6 +29,7 @@ public class ProductFilterController extends HttpServlet {
 
         // get params
         String name = GetParam.getStringParam(request, "name", "Name", 0, 255, "");
+        String categoryId = GetParam.getStringParam(request, "categoryId", "Category", 0, 40, "");
         Float minPrice = GetParam.getFloatParams(request, "minPrice", "min price", 0, Float.MAX_VALUE, 0.0f);
         Float maxPrice = GetParam.getFloatParams(request, "maxPrice", "max price", 0, Float.MAX_VALUE, Float.MAX_VALUE);
 
@@ -39,7 +40,7 @@ public class ProductFilterController extends HttpServlet {
         }
 
         // get products
-        ArrayList<Product> products = productDao.getProducts(name, minPrice, maxPrice);
+        ArrayList<Product> products = productDao.getProducts(name, categoryId, minPrice, maxPrice);
 
         // send products
         request.setAttribute("products", products);
