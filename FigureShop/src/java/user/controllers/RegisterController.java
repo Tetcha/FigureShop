@@ -40,13 +40,13 @@ public class RegisterController extends HttpServlet {
         //Checking existed email
         User existedEmail = userDao.getUserByEmail(email);
         if (existedEmail != null) {
-            request.setAttribute("emailError", Message.EXISTED_EMAIL_MESSAGE);
+            request.setAttribute("emailError", Message.EXISTED_EMAIL_MESSAGE.getContent());
             isValid = false;
         }
 
         //Checking confirm password is correct
         if (confirmPassword != null && password != null && !password.equals(confirmPassword)) {
-            request.setAttribute("confirmPasswordError", Message.CONFIRM_PASSWORD_ERROR_MESSAGE);
+            request.setAttribute("confirmPasswordError", Message.CONFIRM_PASSWORD_ERROR_MESSAGE.getContent());
             isValid = false;
         }
 
