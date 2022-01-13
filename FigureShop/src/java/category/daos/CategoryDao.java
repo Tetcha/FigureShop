@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import category.models.Category;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import utils.Connector;
 
 /**
@@ -48,5 +50,26 @@ public class CategoryDao {
             this.closeConnection();
         }
         return category;
+    }
+
+    //get all category
+    public ArrayList<Category> getAllCategory() throws SQLException, Exception {
+        ArrayList<Category> categoryList = new ArrayList<Category>();
+        try {
+            Category category = null;
+            conn = Connector.getConnection();
+            String sql = "SELECT * FROM bookshop_category";
+            preStm = conn.prepareStatement(sql);
+            rs = preStm.executeQuery();
+            while (rs.next()) {
+                String categoryId = rs.getString("id");
+                String name = rs.getString("name");
+                category = new Category(categoryId, name);
+                categoryList.add(category);
+            }
+        } finally {
+            this.closeConnection();
+        }
+        return categoryList;
     }
 }
