@@ -15,6 +15,7 @@ public enum Message {
     // product
     ADD_TO_CARD_SUCCESS_MESSAGE("Add product to cart successful"),
     PRICE_ERROR_MESSAGE("Min price cannot greater than max price"),
+    EMPTY_CART_MESSAGE("There is no product in your cart yet"),
     //order
     EMPTY_MESSAGE("There is no order yet"),
     //common
