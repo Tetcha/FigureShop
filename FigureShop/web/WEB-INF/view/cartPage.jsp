@@ -7,8 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Your cart</title>
     <jsp:include page="./commonView/init.jsp"></jsp:include>
-    <% CategoryDao categoryDao = new CategoryDao(); %>
-   
   </head>
   <body>
     <jsp:include page="./commonView/navbar.jsp"></jsp:include>

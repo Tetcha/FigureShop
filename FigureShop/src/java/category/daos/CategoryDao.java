@@ -58,7 +58,7 @@ public class CategoryDao {
         try {
             Category category = null;
             conn = Connector.getConnection();
-            String sql = "SELECT * FROM bookshop_category";
+            String sql = "SELECT * FROM figure_category";
             preStm = conn.prepareStatement(sql);
             rs = preStm.executeQuery();
             while (rs.next()) {

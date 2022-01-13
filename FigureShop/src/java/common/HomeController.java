@@ -28,7 +28,7 @@ public class HomeController extends HttpServlet {
         CategoryDao categoryDao = new CategoryDao();
         ArrayList<Category> categoryList = categoryDao.getAllCategory();
 
-        // handle on login
+        // set category list on session
         HttpSession session = request.getSession();
         session.setAttribute("categoryList", categoryList);
     }
