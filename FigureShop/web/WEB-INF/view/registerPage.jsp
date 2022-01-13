@@ -1,6 +1,5 @@
-
 <%@page import="constants.Router"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,6 +11,7 @@
     </head>
 </head>
 <body>
+    <%request.setCharacterEncoding("UTF-8");%>
     <div class="flex flex-col w-screen h-screen">
         <jsp:include page="./commonView/navbar.jsp"></jsp:include>
     <div
