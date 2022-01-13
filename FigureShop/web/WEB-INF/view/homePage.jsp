@@ -18,8 +18,8 @@
               <div class="absolute inset-0">
                 <img
                   class="h-full w-full object-cover"
-                  src="asset/images/logo_demo1-modified.png"
-                  alt="People working on laptops"
+                  src="asset/images/banner.png"
+                  alt="banner"
                 />
                 <div
                   class="absolute inset-0 bg-indigo-700 mix-blend-multiply"
@@ -31,15 +31,13 @@
                 <h1
                   class="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl"
                 >
-                  <span class="block text-white">Take control of your</span>
-                  <span class="block text-indigo-200">customer support</span>
+                  <span class="block text-white">Every Figure have</span>
+                  <span class="block text-indigo-200">Spirit of Joy</span>
                 </h1>
                 <p
                   class="mt-6 max-w-lg mx-auto text-center text-xl text-indigo-200 sm:max-w-3xl"
                 >
-                  Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure
-                  qui lorem cupidatat commodo. Elit sunt amet fugiat veniam
-                  occaecat fugiat aliqua.
+                  We will bring you quality and diverse products. Let's take next step for your needs
                 </p>
                 <div
                   class="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center"
