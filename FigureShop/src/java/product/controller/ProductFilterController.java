@@ -36,7 +36,7 @@ public class ProductFilterController extends HttpServlet {
 
         // check price
         if (minPrice > maxPrice) {
-            request.setAttribute("priceError", Message.PRICE_ERROR_MESSAGE);
+            request.setAttribute("priceError", Message.PRICE_ERROR_MESSAGE.getContent());
             return false;
         }
 

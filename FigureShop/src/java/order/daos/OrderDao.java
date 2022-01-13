@@ -5,8 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 import order.models.Order;
 import utils.Connector;
+import product.models.Product;
 
 /**
  *
@@ -59,4 +61,45 @@ public class OrderDao {
         return orders;
     }
 
+    // add a new order
+    public boolean addNewOrder(ArrayList<Product> products, Integer status, String userId, String consigneeName, String address, String phoneNumber) throws Exception {
+        String uuid = UUID.randomUUID().toString().substring(0, 30);
+        boolean isTrue = true;
+        try {
+            PreparedStatement preStm1;
+            conn = Connector.getConnection();
+            conn.setAutoCommit(false);
+
+            // insert order to db
+            String sqlOrder = "INSERT INTO figure_order (id, status, userId, consigneeName, address, phoneNumber) VALUES (?, ?, ?, ?, ?, ?)";
+            preStm1 = conn.prepareStatement(sqlOrder);
+            preStm1.setString(1, uuid);
+            preStm1.setInt(2, status);
+            preStm1.setString(3, userId);
+            preStm1.setString(4, consigneeName);
+            preStm1.setString(5, address);
+            preStm1.setString(6, phoneNumber);
+            preStm1.executeUpdate();
+
+            // insert order items to db
+            for (Product product : products) {
+                String sql = "INSERT INTO figure_order_item (orderId, quantity, price, productId) VALUES (?, ?, ?, ?)";
+                preStm = conn.prepareStatement(sql);
+                preStm.setString(1, uuid);
+                preStm.setInt(2, product.getQuantity());
+                preStm.setFloat(3, product.getPrice());
+                preStm.setString(4, product.getId());
+                preStm.executeUpdate();
+            }
+
+            // commit if success
+            conn.commit();
+        } catch (Exception e) {
+            isTrue = false;
+            conn.rollback();
+        } finally {
+            this.closeConnection();
+        }
+        return isTrue;
+    }
 }

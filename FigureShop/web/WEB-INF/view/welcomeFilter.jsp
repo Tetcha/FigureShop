@@ -1,11 +1,8 @@
 <%@page import="category.models.Category"%>
 <%@page import="java.util.ArrayList"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@page
-    contentType="text/html" pageEncoding="UTF-8"%>
-    <% ArrayList<Category> categoryList = (ArrayList<Category>) session.getAttribute("categoryList");
-
-    %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+   
     <div class="bg-white">
         <div class="max-w-7xl mx-auto py-5 px-4 sm:px-6 lg:px-8">
             <div class="sm:flex sm:items-baseline sm:justify-between">
