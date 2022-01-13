@@ -47,9 +47,6 @@ public class LoginController extends HttpServlet {
         return true;
     }
 
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -57,9 +54,6 @@ public class LoginController extends HttpServlet {
         request.getRequestDispatcher(Router.LOGIN_PAGE).forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
