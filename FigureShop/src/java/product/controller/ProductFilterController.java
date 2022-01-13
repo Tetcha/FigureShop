@@ -1,5 +1,7 @@
 package product.controller;
 
+import category.daos.CategoryDao;
+import category.models.Category;
 import constants.Message;
 import constants.Router;
 import constants.StatusCode;
@@ -26,7 +28,7 @@ public class ProductFilterController extends HttpServlet {
             throws Exception {
         response.setContentType("text/html;charset=UTF-8");
         ProductDao productDao = new ProductDao();
-
+        CategoryDao categoryDao = new CategoryDao();
         // get params
         String name = GetParam.getStringParam(request, "name", "Name", 0, 255, "");
         String categoryId = GetParam.getStringParam(request, "categoryId", "Category", 0, 40, "");
@@ -46,6 +48,13 @@ public class ProductFilterController extends HttpServlet {
 
         // get products
         ArrayList<Product> products = productDao.getProducts(name, categoryId, minPrice, maxPrice, page);
+
+        for (int i = 0; i < products.size(); i++) {
+            Product product = products.get(i);
+            Category newCategory = categoryDao.getCategoryByID(product.getCategoryId());
+            product.setCategoryId(newCategory.getName());
+
+        }
         // send products
         request.setAttribute("products", products);
         return true;
