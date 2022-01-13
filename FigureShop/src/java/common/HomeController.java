@@ -39,8 +39,13 @@ public class HomeController extends HttpServlet {
         try {
             processRequest(request, response);
             request.getRequestDispatcher(Router.HOME_PAGE).forward(request, response);
-        } catch (Exception ex) {
-            System.out.println(ex);
+        } catch (Exception e) {
+            System.out.println(e);
+            // forward on 500
+            Helper.setAttribute(request, StatusCode.INTERNAL_SERVER_ERROR.getValue(),
+                    Message.INTERNAL_ERROR_TITLE.getContent(),
+                    Message.INTERNAL_ERROR_MESSAGE.getContent());
+            request.getRequestDispatcher(Router.ERROR).forward(request, response);
         }
 
     }

@@ -30,8 +30,9 @@ public class ProductFilterController extends HttpServlet {
         // get params
         String name = GetParam.getStringParam(request, "name", "Name", 0, 255, "");
         String categoryId = GetParam.getStringParam(request, "categoryId", "Category", 0, 40, "");
-        Float minPrice = GetParam.getFloatParams(request, "minPrice", "min price", 0, Float.MAX_VALUE, 0.0f);
-        Float maxPrice = GetParam.getFloatParams(request, "maxPrice", "max price", 0, Float.MAX_VALUE, Float.MAX_VALUE);
+        Float minPrice = GetParam.getFloatParams(request, "from", "min price", 0, Float.MAX_VALUE, 0.0f);
+        Float maxPrice = GetParam.getFloatParams(request, "to", "max price", 0, Float.MAX_VALUE, Float.MAX_VALUE);
+        Integer page = GetParam.getIntParams(request, "page", "Page", 1, Integer.MAX_VALUE, 1);
 
         // check price
         if (minPrice > maxPrice) {
@@ -40,7 +41,7 @@ public class ProductFilterController extends HttpServlet {
         }
 
         // get products
-        ArrayList<Product> products = productDao.getProducts(name, categoryId, minPrice, maxPrice);
+        ArrayList<Product> products = productDao.getProducts(name, categoryId, minPrice, maxPrice, page);
 
         // send products
         request.setAttribute("products", products);
@@ -48,7 +49,7 @@ public class ProductFilterController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             if (!processRequest(request, response)) {
