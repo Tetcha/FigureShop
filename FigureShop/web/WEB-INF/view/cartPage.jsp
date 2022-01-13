@@ -30,14 +30,16 @@
               role="list"
               class="border-t border-b border-gray-200 divide-y divide-gray-200"
             >
-                
               <!-- start an orderitem -->
-               <jsp:include page="./components/orderItem.jsp">
-                   <jsp:param name="avatar" value="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg" />
-                   <jsp:param name="name" value="test product" />
-                   <jsp:param name="price" value="19" />
-                   <jsp:param name="category" value="big figure" />
-               </jsp:include>
+              <jsp:include page="./components/orderItem.jsp">
+                <jsp:param
+                  name="avatar"
+                  value="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg"
+                />
+                <jsp:param name="name" value="test product" />
+                <jsp:param name="price" value="19" />
+                <jsp:param name="category" value="big figure" />
+              </jsp:include>
             </ul>
           </section>
 
@@ -100,6 +102,23 @@
                   <input
                     id="phone"
                     name="phone"
+                    type="text"
+                    required
+                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  />
+                </div>
+              </div>
+              <div class="mt-5">
+                <label
+                  for="consigneeName"
+                  class="block text-sm font-medium text-gray-700"
+                >
+                  Consignee name
+                </label>
+                <div class="mt-1">
+                  <input
+                    id="consigneeName"
+                    name="consigneeName"
                     type="text"
                     required
                     class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
