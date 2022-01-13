@@ -18,8 +18,8 @@
               <div class="absolute inset-0">
                 <img
                   class="h-full w-full object-cover"
-                  src="asset/images/logo_demo1-modified.png"
-                  alt="People working on laptops"
+                  src="asset/images/banner.png"
+                  alt="banner"
                 />
                 <div
                   class="absolute inset-0 bg-indigo-700 mix-blend-multiply"
