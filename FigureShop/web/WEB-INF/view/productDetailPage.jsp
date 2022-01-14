@@ -1,3 +1,4 @@
+<%@page import="constants.Router"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.text.NumberFormat"%>
 <%@page import="product.models.Product"%>
@@ -21,7 +22,7 @@
         class="max-w-2xl px-4 py-16 mx-auto sm:py-24 sm:px-6 flex flex-col-reverse lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:gap-x-8"
       >
         <!-- Product details -->
-        <div class="w-full flex flex-col">
+        <form class="w-full flex flex-col" action="<%=Router.PRODUCT_DETAIL_CONTROLLER%>" method="POST">
           <div class="lg:max-w-lg lg:self-start">
             <div class="mt-4">
               <h1 class="text-3x1 font-extrabold tracking-tight text-gray-900 sm:text-3xl">
@@ -50,13 +51,19 @@
                     >Quantity</label
                   >
                   <input
-                    id="address"
                     name="quantity"
                     type="number"
                     value="1"
                     class="flex w-4/5 px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none sm:w-16 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
                 </div>
+                   <input
+                    name="id"
+                    type="text"
+                    value="${requestScope.product.getId()}"
+                    class="hidden"
+                  />
+                  
                 <div class="flex items-center mt-4">
                   <c:choose>
                     <c:when test="${requestScope.product.getQuantity() > 0}">
@@ -94,7 +101,7 @@
             <section aria-labelledby="options-heading">
               <h2 id="options-heading" class="sr-only">Product options</h2>
 
-              <form>
+              <div>
                 <div class="">
                   <button
                     type="submit"
@@ -126,10 +133,10 @@
                     >
                   </a>
                 </div>
-              </form>
+              </div>
             </section>
           </div>
-        </div>
+        </form>
         <!-- Product image -->
         <div class="mt-10 lg:mt-0 lg:col-start-2 lg:row-span-2 lg:self-center">
           <div class="overflow-hidden rounded-lg aspect-w-1 aspect-h-1 shadow-xl">
