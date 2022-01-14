@@ -1,3 +1,4 @@
+<%@page import="constants.Router"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <div class="bg-white">
@@ -18,7 +19,7 @@
                 <div class="p-6 flex items-end">
                     <div>
                         <h3 class="font-semibold text-white">
-                            <a href="#">
+                            <a href="<%=Router.PRODUCT_FILTER_CONTROLLER%>?name=&from=0&to=99999999&categoryId=c944a88f-5ee6-4dfc-9022-1aad795998d4&page=1">
                                 <span class="absolute inset-0"></span>
                                 One Piece
                             </a>
@@ -35,7 +36,7 @@
                 <div class="p-6 flex items-end sm:absolute sm:inset-0">
                     <div>
                         <h3 class="font-semibold text-white">
-                            <a href="#">
+                            <a href="<%=Router.PRODUCT_FILTER_CONTROLLER%>?name=&from=0&to=99999999&categoryId=5a863c08-19d6-49fe-b07e-bb2b25cd1b6d&page=1">
                                 <span class="absolute inset-0"></span>
                                 Naruto
                             </a>
@@ -53,7 +54,7 @@
                 <div class="p-6 flex items-end sm:absolute sm:inset-0">
                     <div>
                         <h3 class="font-semibold text-white">
-                            <a href="#">
+                            <a href="<%=Router.PRODUCT_FILTER_CONTROLLER%>?name=&from=0&to=99999999&categoryId=55d2db37-c0bc-4598-8965-fd1fe9048918&page=1">
                                 <span class="absolute inset-0"></span>
                                 Honkai Impact
                             </a>
