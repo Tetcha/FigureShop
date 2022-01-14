@@ -50,6 +50,7 @@ CategoryDao(); ArrayList<Category>
                 </span>
               </div>
             </div>
+            <span id="fromFilterText" class="text-red-500 text-xs"></span>
           </div>
           <div>
             <label for="to" class="block text-sm font-medium text-gray-700"
@@ -73,6 +74,7 @@ CategoryDao(); ArrayList<Category>
                 </span>
               </div>
             </div>
+            <span id="toFilterText" class="text-red-500 text-xs"></span>
           </div>
           <div>
             <label
