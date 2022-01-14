@@ -19,5 +19,6 @@ public class HomeController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getRequestDispatcher(Router.HOME_PAGE).forward(request, response);
+
     }
 }

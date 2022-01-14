@@ -17,6 +17,7 @@ import product.models.Product;
 import category.models.Category;
 import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
+import category.models.Category;
 
 /**
  *
@@ -80,9 +81,10 @@ public class ProductDetailController extends HttpServlet {
             throws Exception {
         response.setContentType("text/html;charset=UTF-8");
         ProductDao productDao = new ProductDao();
+        CategoryDao categoryDao = new CategoryDao();
 
         // get productId
-        String productId = GetParam.getStringParam(request, "id", "Product", 0, 30, null);
+        String productId = GetParam.getStringParam(request, "id", "Product", 0, 40, null);
         Integer quantity = GetParam.getIntParams(request, "quantity", "Quantity", 1, Integer.MAX_VALUE, 1);
 
         // find product
@@ -90,6 +92,8 @@ public class ProductDetailController extends HttpServlet {
         if (product == null) {
             return false;
         }
+
+        Category category = categoryDao.getCategoryByID(product.getCategoryId());
 
         // get products in cart
         HttpSession session = request.getSession();
@@ -104,18 +108,17 @@ public class ProductDetailController extends HttpServlet {
             if (pro.getId().equals(product.getId())) {
                 quantity += pro.getQuantity();
                 pro.setQuantity(quantity);
-                request.setAttribute("productId", productId);
-                session.setAttribute("successMessage", "Add product to cart successful");
+                request.setAttribute("id", productId);
                 return true;
             }
         }
         product.setQuantity(quantity);
+        product.setCategoryId(category.getName());
 
         // send product to session
         products.add(product);
-        request.setAttribute("productId", productId);
+        request.setAttribute("id", productId);
         session.setAttribute("products", products);
-        session.setAttribute("successMessage", Message.ADD_TO_CARD_SUCCESS_MESSAGE);
         return true;
     }
 
@@ -123,9 +126,6 @@ public class ProductDetailController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            if (!Helper.protectedRouter(request, response, 0, 0, Router.LOGIN_PAGE)) {
-                return;
-            }
             if (!postHandler(request, response)) {
                 // forward on 404
                 Helper.setAttribute(request, StatusCode.NOT_FOUND.getValue(),
@@ -135,7 +135,7 @@ public class ProductDetailController extends HttpServlet {
                 return;
             }
             // forward on 200
-            response.sendRedirect(Router.PRODUCT_DETAIL_CONTROLLER + "?productId=" + request.getAttribute("productId"));
+            response.sendRedirect(Router.PRODUCT_DETAIL_CONTROLLER + "?id=" + request.getAttribute("id"));
         } catch (Exception e) {
             System.out.println(e);
             // forward on 500

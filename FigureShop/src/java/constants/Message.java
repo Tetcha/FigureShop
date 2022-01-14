@@ -10,12 +10,13 @@ public enum Message {
     LOGIN_ERROR_MESSAGE("Username or password is not correct"),
     // register
     EXISTED_EMAIL_MESSAGE("Email already existed"),
-    CONFIRM_PASSWORD_ERROR_MESSAGE("Confirm password have to be the same with password"),
+    CONFIRM_PASSWORD_ERROR_MESSAGE("Confirm password should be same with password"),
     REGISTER_SUCCESS_MESSAGE("Register successful"),
     // product
     ADD_TO_CARD_SUCCESS_MESSAGE("Add product to cart successful"),
     PRICE_ERROR_MESSAGE("Min price cannot greater than max price"),
     EMPTY_CART_MESSAGE("There is no product in your cart yet"),
+    DULICATE_NAME_MESSAGE("This product's name is already existed"),
     //order
     EMPTY_MESSAGE("There is no order yet"),
     //common

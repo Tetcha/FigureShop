@@ -1,5 +1,7 @@
 package product.controller;
 
+import category.daos.CategoryDao;
+import category.models.Category;
 import constants.Message;
 import constants.Router;
 import constants.StatusCode;
@@ -26,37 +28,65 @@ public class ProductFilterController extends HttpServlet {
             throws Exception {
         response.setContentType("text/html;charset=UTF-8");
         ProductDao productDao = new ProductDao();
-
+        CategoryDao categoryDao = new CategoryDao();
         // get params
         String name = GetParam.getStringParam(request, "name", "Name", 0, 255, "");
-        Float minPrice = GetParam.getFloatParams(request, "minPrice", "min price", 0, Float.MAX_VALUE, 0.0f);
-        Float maxPrice = GetParam.getFloatParams(request, "maxPrice", "max price", 0, Float.MAX_VALUE, Float.MAX_VALUE);
+        String categoryId = GetParam.getStringParam(request, "categoryId", "Category", 0, 40, "");
+        Float minPrice = GetParam.getFloatParams(request, "from", "min price", 0, Float.MAX_VALUE, 0.0f);
+        Float maxPrice = GetParam.getFloatParams(request, "to", "max price", 0, Float.MAX_VALUE, Float.MAX_VALUE);
+        Integer page = GetParam.getIntParams(request, "page", "Page", 1, Integer.MAX_VALUE, 1);
+
+        request.setAttribute("name", name);
+        request.setAttribute("categoryId", categoryId);
+        request.setAttribute("minPrice", minPrice);
+        request.setAttribute("maxPrice", maxPrice);
+
+        if (categoryId.equals("all")) {
+            categoryId = "";
+        }
+
+        if (minPrice == null || maxPrice == null || page == null) {
+            return false;
+        }
 
         // check price
         if (minPrice > maxPrice) {
-            request.setAttribute("priceError", Message.PRICE_ERROR_MESSAGE);
+            request.setAttribute("priceError", Message.PRICE_ERROR_MESSAGE.getContent());
             return false;
         }
 
         // get products
-        ArrayList<Product> products = productDao.getProducts(name, minPrice, maxPrice);
+        ArrayList<Product> products = productDao.getProducts(name, categoryId, minPrice, maxPrice, page);
+        int maxPage = productDao.getAllProduct().size() / 20;
+        if (productDao.getAllProduct().size() % 20 > 0) {
+            maxPage = maxPage + 1;
+        }
+        for (int i = 0; i < products.size(); i++) {
+            Product product = products.get(i);
+            Category newCategory = categoryDao.getCategoryByID(product.getCategoryId());
+            product.setCategoryId(newCategory.getName());
 
+        }
         // send products
         request.setAttribute("products", products);
+        request.setAttribute("maxPage", maxPage);
         return true;
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             if (!processRequest(request, response)) {
                 // forward on 400
-                request.getRequestDispatcher(Router.PRODUCTS_PAGE).forward(request, response);
+                ArrayList<Product> products = new ArrayList<Product>();
+                request.setAttribute("products", products);
+                request.setAttribute("maxPage", 1);
+                request.getRequestDispatcher(Router.PRODUCT_FILTER_PAGE).forward(request, response);
                 return;
             }
             // forward on 200
-            request.getRequestDispatcher(Router.PRODUCTS_PAGE).forward(request, response);
+            request.getRequestDispatcher(Router.PRODUCT_FILTER_PAGE).forward(request, response);
         } catch (Exception e) {
             System.out.println(e);
             // forward on 500
