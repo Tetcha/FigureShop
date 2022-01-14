@@ -47,7 +47,7 @@
                         >
                         Shopping Cart
                     </h1>
-                    <form
+                    <div
                         class="mt-12 lg:grid lg:grid-cols-12 lg:gap-x-12 lg:items-start xl:gap-x-16"
                         >
                         <section aria-labelledby="cart-heading" class="lg:col-span-7">
@@ -70,6 +70,8 @@
                                 <jsp:param name="price" value="<%= products.get(i).getPrice()%>" />
                                 <jsp:param name="category" value="<%= products.get(i).getCategoryId()%>" />
                                 <jsp:param name="quantity" value="<%= products.get(i).getQuantity()%>" />
+                                <jsp:param name="index" value="<%= i%>" />
+                                <jsp:param name="id" value="<%= products.get(i).getId() %>" />
                             </jsp:include>
                             <%}%>
                         </ul>
@@ -108,7 +110,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="flex flex-col">
+                        <form method="post" class="flex flex-col">
                             <div class="mt-5">
                                 <label
                                     for="email"
@@ -163,7 +165,7 @@
                                         />
                                 </div>
                             </div>
-                        </div>
+                        </form>
                         <div class="mt-6">
                             <button
                                 type="submit"
