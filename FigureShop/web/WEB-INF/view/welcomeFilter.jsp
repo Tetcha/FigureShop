@@ -1,9 +1,10 @@
-<%@page import="category.daos.CategoryDao"%> <%@page
-import="category.models.Category"%> <%@page import="java.util.ArrayList"%> <%@
-taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@page
-contentType="text/html" pageEncoding="UTF-8"%> <% CategoryDao categoryDao = new
-CategoryDao(); ArrayList<Category>
-  categoryList = categoryDao.getAllCategory(); %>
+<%@page import="category.daos.CategoryDao"%> 
+<%@page import="category.models.Category"%> 
+<%@page import="java.util.ArrayList"%> 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@page contentType="text/html" pageEncoding="UTF-8"%> 
+<% CategoryDao categoryDao = new CategoryDao();
+    ArrayList<Category>  categoryList = categoryDao.getAllCategory(); %>
   <script src="asset/js/filter.js"></script>
   <div class="bg-white">
     <div class="max-w-7xl mx-auto py-5 px-4 sm:px-6 lg:px-8">
@@ -16,7 +17,7 @@ CategoryDao(); ArrayList<Category>
         <div class="flex mt-5 gap-10">
           <div>
             <label for="name" class="block text-sm font-medium text-gray-700"
-              >name</label
+              >Name</label
             >
             <div class="mt-1">
               <input
