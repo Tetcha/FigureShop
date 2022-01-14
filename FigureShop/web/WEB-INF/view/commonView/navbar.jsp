@@ -6,8 +6,6 @@
 <%@page import="constants.Router"%> 
 <% User user = (User) session.getAttribute("user");
     ArrayList<Product> products = (ArrayList<Product>) session.getAttribute("products");
-    System.out.println(products);
-//    int sizeCart = products.size();
 %>
 
 <div class="relative bg-gray-800">
