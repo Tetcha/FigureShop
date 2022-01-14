@@ -17,6 +17,7 @@ import product.models.Product;
 import category.models.Category;
 import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
+import category.models.Category;
 
 /**
  *
@@ -80,6 +81,7 @@ public class ProductDetailController extends HttpServlet {
             throws Exception {
         response.setContentType("text/html;charset=UTF-8");
         ProductDao productDao = new ProductDao();
+        CategoryDao categoryDao = new CategoryDao();
 
         // get productId
         String productId = GetParam.getStringParam(request, "id", "Product", 0, 40, null);
@@ -90,6 +92,8 @@ public class ProductDetailController extends HttpServlet {
         if (product == null) {
             return false;
         }
+
+        Category category = categoryDao.getCategoryByID(product.getCategoryId());
 
         // get products in cart
         HttpSession session = request.getSession();
@@ -109,6 +113,7 @@ public class ProductDetailController extends HttpServlet {
             }
         }
         product.setQuantity(quantity);
+        product.setCategoryId(category.getName());
 
         // send product to session
         products.add(product);
