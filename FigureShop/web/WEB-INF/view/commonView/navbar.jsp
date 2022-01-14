@@ -6,8 +6,9 @@
 <%@page import="constants.Router"%> 
 <% User user = (User) session.getAttribute("user");
     ArrayList<Product> products = (ArrayList<Product>) session.getAttribute("products");
-    System.out.println(products);
-//    int sizeCart = products.size();
+    if (products == null) {
+        products = new ArrayList<Product>();
+    }
 %>
 
 <div class="relative bg-gray-800">
@@ -61,11 +62,14 @@
                         d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
                         />
                 </svg>
-                <div
-                    class="w-4 h-4 absolute top-0 -right-2 text-xs bg-red-500 rounded-full flex justify-center items-center text-white"
-                    >
-                    4
-                </div>
+                <c:if test="<%= products.size() > 0%>">
+                    <div
+                        class="w-4 h-4 absolute top-0 -right-2 text-xs bg-red-500 rounded-full flex justify-center items-center text-white"
+                        >
+                        <%= products.size()%>
+                    </div>
+                </c:if>
+
             </a>
             <c:choose>
                 <c:when test="${user != null}">
