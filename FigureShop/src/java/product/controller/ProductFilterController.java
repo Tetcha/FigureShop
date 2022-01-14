@@ -36,8 +36,17 @@ public class ProductFilterController extends HttpServlet {
         Float maxPrice = GetParam.getFloatParams(request, "to", "max price", 0, Float.MAX_VALUE, Float.MAX_VALUE);
         Integer page = GetParam.getIntParams(request, "page", "Page", 1, Integer.MAX_VALUE, 1);
 
+        request.setAttribute("name", name);
+        request.setAttribute("categoryId", categoryId);
+        request.setAttribute("minPrice", minPrice);
+        request.setAttribute("maxPrice", maxPrice);
+
         if (categoryId.equals("all")) {
             categoryId = "";
+        }
+
+        if (minPrice == null || maxPrice == null || page == null) {
+            return false;
         }
 
         // check price
@@ -61,10 +70,6 @@ public class ProductFilterController extends HttpServlet {
         // send products
         request.setAttribute("products", products);
         request.setAttribute("maxPage", maxPage);
-        request.setAttribute("name", name);
-        request.setAttribute("categoryId", categoryId);
-        request.setAttribute("minPrice", minPrice);
-        request.setAttribute("maxPrice", maxPrice);
         return true;
     }
 
@@ -74,6 +79,9 @@ public class ProductFilterController extends HttpServlet {
         try {
             if (!processRequest(request, response)) {
                 // forward on 400
+                ArrayList<Product> products = new ArrayList<Product>();
+                request.setAttribute("products", products);
+                request.setAttribute("maxPage", 1);
                 request.getRequestDispatcher(Router.PRODUCT_FILTER_PAGE).forward(request, response);
                 return;
             }

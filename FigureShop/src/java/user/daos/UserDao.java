@@ -34,7 +34,7 @@ public class UserDao {
 
     // add a new user
     public void addNewUser(User user) throws Exception {
-        String uuid = UUID.randomUUID().toString().substring(0, 30);
+        String uuid = UUID.randomUUID().toString();
         try {
             conn = Connector.getConnection();
             String sql = "INSERT INTO figure_user (id, fullName, email, address, phone, password, isAdmin) VALUES (?, ?, ?, ?, ?, ?, ?)";

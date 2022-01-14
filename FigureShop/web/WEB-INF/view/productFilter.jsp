@@ -20,10 +20,6 @@
             <div class="mt-5">
             <jsp:include page="./welcomeFilter.jsp"></jsp:include>
             </div>
-
-        <c:forEach var="product" items="${requestScope.products}">
-        <div>${product.getName()}</div>
-    </c:forEach>
     <% ArrayList<Product> products = (ArrayList<Product>) request.getAttribute("products");
         Locale vi = new Locale("vi", "VN");
         NumberFormat vndFormat = NumberFormat.getCurrencyInstance(vi);
@@ -62,8 +58,8 @@
                             <p class="mt-1 text-sm text-gray-500">
                                 <%= products.get(i).getCategoryId()%>
                             </p>
-                            <p class="text-sm font-medium text-gray-900">$
-                                <%=products.get(i).getPrice()%>
+                            <p class="text-sm font-medium text-gray-900">
+                                <%=vndFormat.format(products.get(i).getPrice()) %>
                             </p>
                         </div>
 

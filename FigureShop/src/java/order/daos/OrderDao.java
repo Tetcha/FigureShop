@@ -63,7 +63,7 @@ public class OrderDao {
 
     // add a new order
     public boolean addNewOrder(ArrayList<Product> products, Integer status, String userId, String consigneeName, String address, String phoneNumber) throws Exception {
-        String uuid = UUID.randomUUID().toString().substring(0, 30);
+        String uuid = UUID.randomUUID().toString();
         boolean isTrue = true;
         try {
             PreparedStatement preStm1;
