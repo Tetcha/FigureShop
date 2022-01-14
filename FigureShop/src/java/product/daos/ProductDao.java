@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.UUID;
 import product.models.Product;
 import utils.Connector;
 
@@ -117,5 +118,51 @@ public class ProductDao {
             this.closeConnection();
         }
         return products;
+    }
+
+    // get product by name
+    public Product getProductByName(String name) throws Exception {
+        Product product = null;
+        try {
+            conn = Connector.getConnection();
+            String sql = "SELECT * FROM figure_product WHERE name = ?";
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, name);
+            rs = preStm.executeQuery();
+            if (rs.next()) {
+                String id = rs.getString("id");
+                String categoryId = rs.getString("categoryId");
+                String image = rs.getString("image");
+                Integer quantity = rs.getInt("quantity");
+                Float price = rs.getFloat("price");
+                String description = rs.getString("description");
+                product = new Product(id, name, image, quantity, price, description, categoryId);
+            }
+        } finally {
+            this.closeConnection();
+        }
+        return product;
+    }
+
+    // add a new product
+    public void addNewProduct(Product product) throws Exception {
+        String uuid = UUID.randomUUID().toString();
+        try {
+            conn = Connector.getConnection();
+            String sql = "INSERT INTO figure_product (id, name, image, quantity, price, description, categoryId) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            preStm = conn.prepareStatement(sql);
+            //
+            preStm.setString(1, uuid);
+            preStm.setString(2, product.getName());
+            preStm.setString(3, product.getImage());
+            preStm.setInt(4, product.getQuantity());
+            preStm.setFloat(5, product.getPrice());
+            preStm.setString(6, product.getDescription());
+            preStm.setString(7, product.getCategoryId());
+            //
+            preStm.executeUpdate();
+        } finally {
+            this.closeConnection();
+        }
     }
 }
