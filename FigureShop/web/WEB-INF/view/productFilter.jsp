@@ -54,11 +54,27 @@
                         
                         </div>
                     </div>
+                    <div class="mt-4 flex justify-between">
+                        <div>
+                            <h3 class="text-sm text-gray-700">
+                                <a href="#">
+                                    <span aria-hidden="true" class="absolute inset-0"></span>
+                                    <%= products.get(i).getName()%>
+                                </a>
+                            </h3>
+                            <p class="mt-1 text-sm text-gray-500"><%= products.get(i).getCategoryId()%></p>
+                            <p class="text-sm font-medium text-gray-900">$<%= products.get(i).getPrice()%></p>
+                        </div>
 
-
+                    </div>
+                </div>
                 <%}%>
+            </div>
+            <div class="w-full flex justify-end mt-6">
+                <jsp:include page="./components/pagination.jsp"></jsp:include>
             </div>
         </div>
     </div>
+    
 </body>
 </html>
