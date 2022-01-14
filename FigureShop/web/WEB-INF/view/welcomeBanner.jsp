@@ -1,3 +1,4 @@
+<%@page import="constants.Router"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@page
 contentType="text/html" pageEncoding="UTF-8"%>
 <!-- Hero card -->
@@ -29,7 +30,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
           class="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center"
         >
           <a
-            href="#"
+              href="<%=Router.PRODUCT_FILTER_CONTROLLER%>?name=&from=0&to=99999999&categoryId=&page=1"
             class="flex items-center justify-center px-1 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-indigo-700 bg-white hover:bg-indigo-50 sm:px-8"
           >
             Shop now

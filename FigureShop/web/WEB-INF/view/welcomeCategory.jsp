@@ -6,11 +6,6 @@ contentType="text/html" pageEncoding="UTF-8"%>
       <h2 class="text-2xl font-extrabold tracking-tight text-gray-900">
         Shop by Category
       </h2>
-      <a
-        href="#"
-        class="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block"
-        >Browse all categories<span aria-hidden="true"> &rarr;</span></a
-      >
     </div>
 
     <div

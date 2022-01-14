@@ -64,7 +64,7 @@ pageEncoding="UTF-8"%> <%@page import="constants.Router"%>
       <c:choose>
         <c:when test="${user != null}">
           <div class="text-white font-semibold capitalize">
-            Hello, ${user.getFullName()}
+            Welcome, ${user.getFullName()}
           </div>
           <div>
             <a
