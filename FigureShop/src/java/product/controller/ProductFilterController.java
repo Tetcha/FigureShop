@@ -48,7 +48,10 @@ public class ProductFilterController extends HttpServlet {
 
         // get products
         ArrayList<Product> products = productDao.getProducts(name, categoryId, minPrice, maxPrice, page);
-
+        int maxPage = productDao.getAllProduct().size() / 20;
+        if (productDao.getAllProduct().size() % 20 > 0) {
+            maxPage = maxPage + 1;
+        }
         for (int i = 0; i < products.size(); i++) {
             Product product = products.get(i);
             Category newCategory = categoryDao.getCategoryByID(product.getCategoryId());
@@ -57,6 +60,11 @@ public class ProductFilterController extends HttpServlet {
         }
         // send products
         request.setAttribute("products", products);
+        request.setAttribute("maxPage", maxPage);
+        request.setAttribute("name", name);
+        request.setAttribute("categoryId", categoryId);
+        request.setAttribute("minPrice", minPrice);
+        request.setAttribute("maxPrice", maxPrice);
         return true;
     }
 
