@@ -1,10 +1,9 @@
-<%@page import="category.daos.CategoryDao"%> 
-<%@page import="category.models.Category"%> 
-<%@page import="java.util.ArrayList"%> 
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<%@page contentType="text/html" pageEncoding="UTF-8"%> 
-<% CategoryDao categoryDao = new CategoryDao();
-    ArrayList<Category>  categoryList = categoryDao.getAllCategory(); %>
+<%@page import="category.daos.CategoryDao"%> <%@page
+import="category.models.Category"%> <%@page import="java.util.ArrayList"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@page
+contentType="text/html" pageEncoding="UTF-8"%> <% CategoryDao categoryDao = new
+CategoryDao(); ArrayList<Category>
+  categoryList = categoryDao.getAllCategory(); %>
   <script src="asset/js/filter.js"></script>
   <div class="bg-white">
     <div class="max-w-7xl mx-auto py-5 px-4 sm:px-6 lg:px-8">
@@ -36,6 +35,7 @@
             <div class="mt-1 relative rounded-md shadow-sm">
               <input
                 type="text"
+                min="0"
                 name="from"
                 id="fromFilter"
                 class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-2 pr-2 sm:text-sm border-gray-300 rounded-md"
@@ -50,6 +50,7 @@
                 </span>
               </div>
             </div>
+            <span id="fromFilterText" class="text-red-500 text-xs"></span>
           </div>
           <div>
             <label for="to" class="block text-sm font-medium text-gray-700"
@@ -60,6 +61,7 @@
                 type="text"
                 name="to"
                 id="toFilter"
+                min="0"
                 class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-2 pr-2 sm:text-sm border-gray-300 rounded-md"
                 placeholder="0.00"
                 aria-describedby="price-currency"
@@ -72,6 +74,7 @@
                 </span>
               </div>
             </div>
+            <span id="toFilterText" class="text-red-500 text-xs"></span>
           </div>
           <div>
             <label

@@ -1,7 +1,10 @@
 $(document).ready(function () {
   const fromElement = $("#fromFilter");
+  const fromText = $("#fromFilterText");
   const toElement = $("#toFilter");
+  const toText = $("#toFilterText");
   const nameElement = $("#nameFilter");
+
   let selectedVal = "";
   $("#categoryFilter").change(function (e) {
     e.preventDefault();
@@ -10,15 +13,26 @@ $(document).ready(function () {
   const baseUrl = "http://localhost:8080/FigureShop";
   $("#filterSearchButton").click(function (e) {
     e.preventDefault();
-
+    const canMove = true;
     let fromValue = fromElement.val();
-    if (!fromValue) fromValue = "0";
-
     let toValue = toElement.val();
-    if (!toValue) toValue = "99999999";
 
+    if (isNaN(fromValue) || parseInt(fromValue) <= 0) {
+      fromText.append("From value should be a valid positive number");
+      canMove = false;
+    }
+    if (isNaN(toValue) || parseInt(toValue) <= 0) {
+      toText.append("To value should be a valid positive number");
+      canMove = false;
+    }
+    if (parseInt(fromValue) > parseInt(toValue)) {
+      toText.append("To value should be higher than from value");
+    }
+    if (!toValue) toValue = "99999999";
+    if (!fromValue) fromValue = "0";
     const nameValue = nameElement.val();
 
-    window.location.href = `${baseUrl}/filter?name=${nameValue}&from=${fromValue}&to=${toValue}&categoryId=${selectedVal}&page=${1}`;
+    if (canMove)
+      window.location.href = `${baseUrl}/filter?name=${nameValue}&from=${fromValue}&to=${toValue}&categoryId=${selectedVal}&page=${1}`;
   });
 });
