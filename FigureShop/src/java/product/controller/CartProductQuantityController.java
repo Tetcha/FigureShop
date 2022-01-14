@@ -63,12 +63,13 @@ public class CartProductQuantityController extends HttpServlet {
             throws ServletException, IOException {
         try {
             if (!processRequest(request, response)) {
+
                 // forward on 400
-                request.getRequestDispatcher(Router.CART_PAGE).forward(request, response);
+                request.getRequestDispatcher(Router.CART_CONTROLLER).forward(request, response);
                 return;
             }
             // forward on 200
-            request.getRequestDispatcher(Router.CART_PAGE).forward(request, response);
+            request.getRequestDispatcher(Router.CART_CONTROLLER).forward(request, response);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             // forward on 500
