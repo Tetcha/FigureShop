@@ -1,6 +1,8 @@
+<%@page import="java.util.Locale"%>
 <%@page import="orderitem.dtos.OrderItemDto"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="order.models.Order"%>
+<%@page import="java.text.NumberFormat"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14,7 +16,9 @@
         <%
             Order currentOrder = (Order) request.getAttribute("order");
             ArrayList<OrderItemDto> orderItems = (ArrayList<OrderItemDto>) request.getAttribute("orderItems");
-
+            Locale vi = new Locale("vi", "VN");
+            NumberFormat vndFormat = NumberFormat.getCurrencyInstance(vi);
+            request.setCharacterEncoding("UTF-8");
         %>
         <div class="bg-white">
             <jsp:include page="./commonView/navbar.jsp"></jsp:include>
@@ -52,7 +56,7 @@
                         </div>
                         <div class="flex justify-between pt-6 sm:block sm:pt-0 mt-5">
                             <dt class="font-medium text-gray-900">Total</dt>
-                            <dd class="sm:mt-1"><%= currentOrder.getTotalPrice()%>đ</dd>
+                            <dd class="sm:mt-1"><%= vndFormat.format(currentOrder.getTotalPrice()) %></dd>
                         </div>
                     </dl>
                 </div>
@@ -83,7 +87,7 @@
                             <jsp:include page="./components/orderHistoryDetailItem.jsp">
                                 <jsp:param name="name" value="<%= orderItems.get(i).getName()%>" />
                                 <jsp:param name="category" value="<%= orderItems.get(i).getName()%>" />
-                                <jsp:param name="price" value="<%= orderItems.get(i).getPrice()%>" />
+                                <jsp:param name="price" value="<%= vndFormat.format(orderItems.get(i).getPrice()) %>" />
                                 <jsp:param name="quantity" value="<%= orderItems.get(i).getQuantity()%>" />
                                 <jsp:param
                                     name="avatar"

@@ -52,6 +52,12 @@ public class AdminOrdersController extends HttpServlet {
             currentOrderId = orders.get(0).getId();
         }
         ArrayList<OrderItemDto> currentShow = orderItemDao.getOrderItemDtoByOrderId(currentOrderId);
+        Order currentOrderShow = null;
+        for (Order order : orders) {
+            if (order.getId().equals(currentOrderId)) {
+                currentOrderShow = order;
+            }
+        }
 
         Integer maxPage = allOrders.size() / 20;
         if (allOrders.size() % 20 != 0) {
@@ -61,6 +67,7 @@ public class AdminOrdersController extends HttpServlet {
         request.setAttribute("orders", orders);
         request.setAttribute("maxPage", maxPage);
         request.setAttribute("currentShow", currentShow);
+        request.setAttribute("currentOrderShow", currentOrderShow);
         return true;
     }
 
