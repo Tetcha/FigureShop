@@ -1,13 +1,16 @@
+<%@page import="orderitem.dtos.OrderItemDto"%>
 <%@page import="order.models.Order"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="constants.Router"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    //String fromDate = (String) request.getAttribute("fromDate");
-    //String toDate = (String) request.getAttribute("toDate");
-    //int currentPage = (int) request.getAttribute("page");
-    // maxPage = (int) request.getAttribute("maxPage");
+    String fromDate = (String) request.getAttribute("fromDate");
+    String toDate = (String) request.getAttribute("toDate");
+    int currentPage = (Integer) request.getAttribute("page");
+    int maxPage = (int) request.getAttribute("maxPage");
+    ArrayList<OrderItemDto> currentShow = (ArrayList<OrderItemDto>) request.getAttribute("currentShow");
+    Order currentOrderShow = (Order) request.getAttribute("currentOrderShow");
     ArrayList<Order> orders = (ArrayList<Order>) request.getAttribute("orders");
 %>
 <div class="flex p-5 gap-5 h-screen overflow-hidden">
@@ -17,11 +20,11 @@
                 <form method="get" action="<%= Router.ADMIN_ORDERS_CONTROLLER%>" class="flex flex-row gap-10 mb-5">
                     <div class="flex flex-col gap-3">
                         <label for="fromDate" class="capitalize font-semibold">from</label>
-                        <input name="fromDate" type="date" class="rounded-sm" />
+                        <input value="<%= fromDate%>" name="fromDate" type="date" class="rounded-sm" />
                     </div>
                     <div class="flex flex-col gap-3">
                         <label for="toDate" class="capitalize font-semibold">to</label>
-                        <input name="toDate" type="date" class="rounded-sm" />
+                        <input value="<%= toDate%>" name="toDate" type="date" class="rounded-sm" />
                     </div>
                     <input name="page" value="1" type="number" class="hidden" />
                     <div class="flex flex-col justify-end">
@@ -95,7 +98,7 @@
                                 <td
                                     class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
                                     >
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900"
+                                    <a href="<%= Router.ADMIN_ORDERS_CONTROLLER %>?fromDate=<%= fromDate%>&toDate=<%= toDate%>&page=<%= currentPage%>&currentShow=<%= orders.get(i).getId() %>" class="text-indigo-600 hover:text-indigo-900"
                                        >Edit</a
                                     >
                                 </td>
@@ -109,7 +112,7 @@
         </div>
     </div>
     <!-- summary -->
-    <div class="flex-1">
+    <div class="flex-1 overflow-auto">
         <div class="overflow-y-auto" role="dialog" aria-modal="true">
             <div class="flex min-h-screen text-center sm:block" style="font-size: 0">
                 <div
@@ -131,9 +134,17 @@
                                 role="list"
                                 class="divide-y divide-gray-200 px-4 sm:px-6 lg:px-8"
                                 >
+                                <%
+                                    float totalPrice = 0;
+                                %>
+                                <%for (int i = 0; i < currentShow.size(); i++) {%>
+                                <%
+                                    OrderItemDto item = currentShow.get(i);
+                                    totalPrice += item.getPrice() * item.getQuantity();
+                                %>
                                 <li class="py-8 flex text-sm sm:items-center">
                                     <img
-                                        src="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-03.jpg"
+                                        src="https://<%= item.getImage()%>"
                                         alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
                                         class="flex-none w-20 h-1w-20 rounded-lg border border-gray-200"
                                         />
@@ -142,17 +153,18 @@
                                         >
                                         <div class="flex-auto row-end-1 sm:pr-6">
                                             <h3 class="font-medium text-gray-900">
-                                                <a href="#">Zip Tote Basket</a>
+                                                <a href="#"><%= item.getName()%></a>
+                                                <span class="text-gray-500" >x<%= item.getQuantity()%></span>
                                             </h3>
-                                            <p class="mt-1 text-gray-500">White and black</p>
                                         </div>
                                         <p
                                             class="row-end-2 row-span-2 font-medium text-gray-900 sm:ml-6 sm:order-1 sm:flex-none sm:w-1/3 sm:text-right"
                                             >
-                                            $140.00
+                                            <%= item.getPrice()%>đ
                                         </p>
                                     </div>
                                 </li>
+                                <%}%>
 
                                 <!-- More products... -->
                             </ul>
@@ -171,7 +183,7 @@
                                                 Order total
                                             </dt>
                                             <dd class="text-base font-medium text-gray-900">
-                                                $320.40
+                                                <%= totalPrice%>đ
                                             </dd>
                                         </div>
                                     </dl>
@@ -197,15 +209,16 @@
                             <!-- email field -->
                             <div class="">
                                 <label
-                                    for="email"
+                                    for="consigneeName"
                                     class="block text-sm font-medium text-gray-700"
                                     >Email</label
                                 >
                                 <div class="mt-1">
                                     <input
-                                        type="email"
-                                        name="email"
-                                        id="email"
+                                        type="text"
+                                        name="consigneeName"
+                                        id="consigneeName"
+                                        value="<%= currentOrderShow.getConsigneeName()%>"
                                         class="shadow-sm w-full focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border-gray-300 rounded-md"
                                         placeholder=""
                                         />
@@ -223,6 +236,7 @@
                                         type="text"
                                         name="address"
                                         id="address"
+                                        value="<%= currentOrderShow.getAddress()%>"
                                         class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                                         placeholder=""
                                         />
@@ -240,6 +254,7 @@
                                         type="text"
                                         name="phone"
                                         id="phone"
+                                        value="<%= currentOrderShow.getPhoneNumber()%>"
                                         class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                                         placeholder=""
                                         />
@@ -257,10 +272,39 @@
                                     name="location"
                                     class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                                     >
-                                    <option>Waiting</option>
-                                    <option selected>Confirm</option>
-                                    <option>Done</option>
-                                    <option>Cancel</option>
+
+                                    <c:choose>
+                                        <c:when test="<%= currentOrderShow.getStatus() == 0%>">
+                                            <option selected>Waiting</option>
+                                        </c:when> 
+                                        <c:otherwise>
+                                            <option>Waiting</option>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <c:choose>
+                                        <c:when test="<%= currentOrderShow.getStatus() == 1%>">
+                                            <option selected>Confirm</option>
+                                        </c:when> 
+                                        <c:otherwise>
+                                            <option>Confirm</option>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <c:choose>
+                                        <c:when test="<%= currentOrderShow.getStatus() == 2%>">
+                                            <option selected>Done</option>
+                                        </c:when> 
+                                        <c:otherwise>
+                                            <option>Done</option>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <c:choose>
+                                        <c:when test="<%= currentOrderShow.getStatus() == 3%>">
+                                            <option selected>Cancel</option>
+                                        </c:when> 
+                                        <c:otherwise>
+                                            <option>Cancel</option>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </select>
                             </div>
                         </div>

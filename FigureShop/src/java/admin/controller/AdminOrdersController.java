@@ -37,11 +37,11 @@ public class AdminOrdersController extends HttpServlet {
         String currentOrderId = GetParam.getStringParam(request, "currentShow", "current show", 0, 40, null);
 
         if (fromDate == null) {
-            fromDate = "2000-1-1";
+            fromDate = "2000-01-01";
         }
 
         if (toDate == null) {
-            toDate = "2077-1-1";
+            toDate = "2077-01-01";
         }
 
         // get orders
@@ -52,6 +52,12 @@ public class AdminOrdersController extends HttpServlet {
             currentOrderId = orders.get(0).getId();
         }
         ArrayList<OrderItemDto> currentShow = orderItemDao.getOrderItemDtoByOrderId(currentOrderId);
+        Order currentOrderShow = null;
+        for (Order order : orders) {
+            if (order.getId().equals(currentOrderId)) {
+                currentOrderShow = order;
+            }
+        }
 
         Integer maxPage = allOrders.size() / 20;
         if (allOrders.size() % 20 != 0) {
@@ -61,6 +67,10 @@ public class AdminOrdersController extends HttpServlet {
         request.setAttribute("orders", orders);
         request.setAttribute("maxPage", maxPage);
         request.setAttribute("currentShow", currentShow);
+        request.setAttribute("currentOrderShow", currentOrderShow);
+        request.setAttribute("fromDate", fromDate);
+        request.setAttribute("toDate", toDate);
+        request.setAttribute("page", page);
         return true;
     }
 
