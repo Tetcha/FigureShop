@@ -8,11 +8,11 @@
 
 ## Case Study
 
-A large hotel chain in the US, the SanninSC Hotels Group. The group consists of ten hotels, organized in one place. Each hotel has between 40 and 100 bedrooms (can extend), which are categorized as double (D), twin(T), single(S), queen(Q), King(K), or luxury(L). Double and twin rooms may be let as singles. There are no online systems. A new group managing director has recently been appointed. One of the director's primary objectives is to increase profit. Therefore, the director plans to develop a web application to manage online systems. This web application needs to include manage system for staff and booking system for customer.
+A longtime shop specializing in figures is called Tetcha. This store has a full range of models and accessories on display. The business situation is not very positive with the current epidemic, the shop owner has decided to develop a web application to be able to manage and sell online. This web application needs to include an item management system and a customer ordering system.
 
-It needs to follow some business rule below:
+Some rules that this web application needs to follow:
 
-Only authenticated user has the ability to make a booking or review. Manager ability and customer ability must be separate. In detail, an authenticated user know as a customer can view detail of room information, make a booking (include one or many rooms on a different date). They can view their booking information and cancel it in special situations. Manager ability includes adding new room, update room information. View all bookings of customers and cancel or checkout booking.
+People can view the items, put products in the cart, but only authenticated users (registered accounts) can order and pay. Manager capabilities and client capabilities must be separate. Specifically, the customer, the authenticated user, can order and pay for the product, and at the same time can edit the order such as correct the quantity or delete the order in some special situations, and review the purchase history. your goods. Manager capabilities include adding products, updating product information, viewing customer order details, and canceling or confirming orders.
 
 ## Feature by role
 
@@ -21,17 +21,17 @@ Only authenticated user has the ability to make a booking or review. Manager abi
      - Change password
      - Update user information
 - ### Customer Role Action
-     - Add new booking to cart
-     - Booking or cancel in cart
-     - Cancel Booking
-     - Review booking
-     - Checking booking information
+     - Add new product to cart
+     - Checkout or cancel in cart
+     - Cancel order
+     - Review order
+     - Checking order information
 - ### Admin Role Action
-     - Create new room
-     - Update information for a room
-     - Checkout (2 options ) or cancel booking
-     - Manage all room
-     - Manage all booking
+     - Create new product
+     - Update information for a product
+     - Checkout (2 options ) or cancel order
+     - Manage all product
+     - Manage all order
 
 ## Technology
 
@@ -49,17 +49,17 @@ Only authenticated user has the ability to make a booking or review. Manager abi
 ## Team Member
 
 - Nguyễn Hoàng Lộc | Backend - Leader
-     - Gmail: heaty566@gmail.com
-     - Linkedin: https://www.linkedin.com/in/heaty566
-     - Github: https://github.com/Heaty566
+     - Gmail: 
+     - Linkedin: 
+     - Github: 
 - Đậu Lê Đức | Frontend
-     - Gmail: haicao2805@gmail.com
-     - Linkedin: https://www.linkedin.com/in/cao-chi-hai
-     - Github: https://github.com/haicao2805
+     - Gmail: 
+     - Linkedin: 
+     - Github: 
 - Thạch Chí Khang | Backend
-     - Gmail: tantruong2303@gmail.com
-     - Linkedin: https://linkedin.com/in/truongbinhtan
-     - Github: https://github.com/tantruong2303
+     - Gmail: 
+     - Linkedin: 
+     - Github: 
 
 ## Project Picture
 
@@ -79,11 +79,23 @@ Only authenticated user has the ability to make a booking or review. Manager abi
 
 ### Management Page
 
-![Management Page](data/images/manager.png)
+![Management Page]()
 
 ### Sign In Page
 
-![Sign in Page](FigureShop\document\signInPage.PNG)
+![Sign In Page](FigureShop\document\signInPage.PNG)
+
+### Register Page
+![Register Page](FigureShop\document\registerPage.PNG)
+
+### Product Page
+![Product Page](FigureShop\document\productPage.png)
+
+### Product Detail Page
+![Product Detail Page](FigureShop\document\productDetailPage.png)
+
+### Cart Page
+![Cart Page](FigureShop\document\cartPage.PNG)
 
 ## Bug Report
 
