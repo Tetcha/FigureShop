@@ -29,7 +29,7 @@
                     <%for (int i = 0; i < orders.size(); i++) {%>
                         <jsp:include page="./components/orderHistoryItem.jsp">
                             <jsp:param name="id" value="<%= orders.get(i).getId()%>" />
-                            <jsp:param name="totalPrice" value="<%= orders.get(i).getTotalPrice()%>" />
+                            <jsp:param name="totalPrice" value="<%=vndFormat.format(orders.get(i).getTotalPrice())%>" />
                             <jsp:param name="address" value="<%= orders.get(i).getAddress()%>" />
                             <jsp:param name="phone" value="<%= orders.get(i).getPhoneNumber()%>" />
                             <jsp:param name="status" value="<%= orders.get(i).getStatus()%>" />
