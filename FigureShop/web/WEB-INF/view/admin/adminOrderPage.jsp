@@ -20,11 +20,11 @@
                 <form method="get" action="<%= Router.ADMIN_ORDERS_CONTROLLER%>" class="flex flex-row gap-10 mb-5">
                     <div class="flex flex-col gap-3">
                         <label for="fromDate" class="capitalize font-semibold">from</label>
-                        <input name="fromDate" type="date" class="rounded-sm" />
+                        <input value="<%= fromDate%>" name="fromDate" type="date" class="rounded-sm" />
                     </div>
                     <div class="flex flex-col gap-3">
                         <label for="toDate" class="capitalize font-semibold">to</label>
-                        <input name="toDate" type="date" class="rounded-sm" />
+                        <input value="<%= toDate%>" name="toDate" type="date" class="rounded-sm" />
                     </div>
                     <input name="page" value="1" type="number" class="hidden" />
                     <div class="flex flex-col justify-end">
@@ -98,7 +98,7 @@
                                 <td
                                     class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
                                     >
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900"
+                                    <a href="<%= Router.ADMIN_ORDERS_CONTROLLER %>?fromDate=<%= fromDate%>&toDate=<%= toDate%>&page=<%= currentPage%>&currentShow=<%= orders.get(i).getId() %>" class="text-indigo-600 hover:text-indigo-900"
                                        >Edit</a
                                     >
                                 </td>
