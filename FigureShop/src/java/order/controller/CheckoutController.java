@@ -66,6 +66,7 @@ public class CheckoutController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            System.out.println("hehe");
             if (!processRequest(request, response)) {
                 // forward on 400
                 request.getRequestDispatcher(Router.CART_CONTROLLER).forward(request, response);
