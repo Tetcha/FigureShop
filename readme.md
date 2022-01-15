@@ -83,10 +83,10 @@ People can view the items, put products in the cart, but only authenticated user
 
 ### Sign In Page
 
-![Sign In Page](FigureShop\document\signInPage.PNG)
+![Sign In Page](FigureShop\document\signInPage.png)
 
 ### Register Page
-![Register Page](FigureShop\document\registerPage.PNG)
+![Register Page](FigureShop\document\registerPage.png)
 
 ### Product Page
 ![Product Page](FigureShop\document\productPage.png)
@@ -95,7 +95,7 @@ People can view the items, put products in the cart, but only authenticated user
 ![Product Detail Page](FigureShop\document\productDetailPage.png)
 
 ### Cart Page
-![Cart Page](FigureShop\document\cartPage.PNG)
+![Cart Page](FigureShop\document\cartPage.png)
 
 ## Bug Report
 
