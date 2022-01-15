@@ -10,6 +10,7 @@
     int currentPage = (Integer) request.getAttribute("page");
     int maxPage = (int) request.getAttribute("maxPage");
     ArrayList<OrderItemDto> currentShow = (ArrayList<OrderItemDto>) request.getAttribute("currentShow");
+    Order currentOrderShow = (Order) request.getAttribute("currentOrderShow");
     ArrayList<Order> orders = (ArrayList<Order>) request.getAttribute("orders");
 %>
 <div class="flex p-5 gap-5 h-screen overflow-hidden">
@@ -133,36 +134,36 @@
                                 role="list"
                                 class="divide-y divide-gray-200 px-4 sm:px-6 lg:px-8"
                                 >
-                                <% 
+                                <%
                                     float totalPrice = 0;
                                 %>
                                 <%for (int i = 0; i < currentShow.size(); i++) {%>
-                                <% 
+                                <%
                                     OrderItemDto item = currentShow.get(i);
                                     totalPrice += item.getPrice() * item.getQuantity();
                                 %>
-                                    <li class="py-8 flex text-sm sm:items-center">
-                                        <img
-                                            src="https://<%= item.getImage() %>"
-                                            alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
-                                            class="flex-none w-20 h-1w-20 rounded-lg border border-gray-200"
-                                            />
-                                        <div
-                                            class="ml-4 flex-auto grid gap-y-3 gap-x-5 grid-rows-1 grid-cols-1 items-start sm:ml-6 sm:flex sm:gap-0 sm:items-center"
-                                            >
-                                            <div class="flex-auto row-end-1 sm:pr-6">
-                                                <h3 class="font-medium text-gray-900">
-                                                    <a href="#"><%= item.getName()%></a>
-                                                    <span class="text-gray-500" >x<%= item.getQuantity() %></span>
-                                                </h3>
-                                            </div>
-                                            <p
-                                                class="row-end-2 row-span-2 font-medium text-gray-900 sm:ml-6 sm:order-1 sm:flex-none sm:w-1/3 sm:text-right"
-                                                >
-                                                <%= item.getPrice() %>đ
-                                            </p>
+                                <li class="py-8 flex text-sm sm:items-center">
+                                    <img
+                                        src="https://<%= item.getImage()%>"
+                                        alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
+                                        class="flex-none w-20 h-1w-20 rounded-lg border border-gray-200"
+                                        />
+                                    <div
+                                        class="ml-4 flex-auto grid gap-y-3 gap-x-5 grid-rows-1 grid-cols-1 items-start sm:ml-6 sm:flex sm:gap-0 sm:items-center"
+                                        >
+                                        <div class="flex-auto row-end-1 sm:pr-6">
+                                            <h3 class="font-medium text-gray-900">
+                                                <a href="#"><%= item.getName()%></a>
+                                                <span class="text-gray-500" >x<%= item.getQuantity()%></span>
+                                            </h3>
                                         </div>
-                                    </li>
+                                        <p
+                                            class="row-end-2 row-span-2 font-medium text-gray-900 sm:ml-6 sm:order-1 sm:flex-none sm:w-1/3 sm:text-right"
+                                            >
+                                            <%= item.getPrice()%>đ
+                                        </p>
+                                    </div>
+                                </li>
                                 <%}%>
 
                                 <!-- More products... -->
@@ -182,7 +183,7 @@
                                                 Order total
                                             </dt>
                                             <dd class="text-base font-medium text-gray-900">
-                                               <%= totalPrice%>đ
+                                                <%= totalPrice%>đ
                                             </dd>
                                         </div>
                                     </dl>
@@ -208,17 +209,16 @@
                             <!-- email field -->
                             <div class="">
                                 <label
-                                    for="email"
+                                    for="consigneeName"
                                     class="block text-sm font-medium text-gray-700"
                                     >Email</label
                                 >
                                 <div class="mt-1">
                                     <input
-                                        type="email"
-                                        name="email"
-                                        id="email"
-                                        value=""
-                                        disabled
+                                        type="text"
+                                        name="consigneeName"
+                                        id="consigneeName"
+                                        value="<%= currentOrderShow.getConsigneeName()%>"
                                         class="shadow-sm w-full focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border-gray-300 rounded-md"
                                         placeholder=""
                                         />
@@ -236,6 +236,7 @@
                                         type="text"
                                         name="address"
                                         id="address"
+                                        value="<%= currentOrderShow.getAddress()%>"
                                         class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                                         placeholder=""
                                         />
@@ -253,6 +254,7 @@
                                         type="text"
                                         name="phone"
                                         id="phone"
+                                        value="<%= currentOrderShow.getPhoneNumber()%>"
                                         class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                                         placeholder=""
                                         />
@@ -270,10 +272,39 @@
                                     name="location"
                                     class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                                     >
-                                    <option>Waiting</option>
-                                    <option selected>Confirm</option>
-                                    <option>Done</option>
-                                    <option>Cancel</option>
+
+                                    <c:choose>
+                                        <c:when test="<%= currentOrderShow.getStatus() == 0%>">
+                                            <option selected>Waiting</option>
+                                        </c:when> 
+                                        <c:otherwise>
+                                            <option>Waiting</option>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <c:choose>
+                                        <c:when test="<%= currentOrderShow.getStatus() == 1%>">
+                                            <option selected>Confirm</option>
+                                        </c:when> 
+                                        <c:otherwise>
+                                            <option>Confirm</option>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <c:choose>
+                                        <c:when test="<%= currentOrderShow.getStatus() == 2%>">
+                                            <option selected>Done</option>
+                                        </c:when> 
+                                        <c:otherwise>
+                                            <option>Done</option>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <c:choose>
+                                        <c:when test="<%= currentOrderShow.getStatus() == 3%>">
+                                            <option selected>Cancel</option>
+                                        </c:when> 
+                                        <c:otherwise>
+                                            <option>Cancel</option>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </select>
                             </div>
                         </div>
