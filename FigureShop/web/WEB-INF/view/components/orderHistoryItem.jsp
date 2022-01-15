@@ -13,7 +13,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
         </jsp:include>
       </div>
       <p class="mt-1 text-gray-500 text-sm truncate">
-        Total price : ${param.totalPrice}đ
+        Total price : ${param.totalPrice}
       </p>
       <p class="mt-1 text-gray-500 text-sm truncate">
         Address : ${param.address}
