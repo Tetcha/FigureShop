@@ -52,7 +52,7 @@ public class OrderDao {
                 String address = rs.getString("address");
                 String phoneNumber = rs.getString("phoneNumber");
                 String consigneeName = rs.getString("consigneeName");
-                Date createDate = rs.getDate("createDate");
+                Date createDate = rs.getDate("createdDate");
                 Float totalPrice = rs.getFloat("totalPrice");
                 order = new Order(id, userId, address, phoneNumber, consigneeName, status, createDate, totalPrice);
                 orders.add(order);
