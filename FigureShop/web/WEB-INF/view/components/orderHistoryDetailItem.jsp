@@ -21,7 +21,7 @@
                     
                     <span>x ${param.quantity}</span>
                 </p>
-                <p class="mt-1 font-medium text-gray-900">${param.price}đ</p>
+                <p class="mt-1 font-medium text-gray-900">${param.price}</p>
             </div>
         </div>
         
