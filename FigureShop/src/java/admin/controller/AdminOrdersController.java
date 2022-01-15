@@ -32,10 +32,24 @@ public class AdminOrdersController extends HttpServlet {
         String toDate = GetParam.getStringParam(request, "toDate", "to date", 7, 12, null);
         Integer page = GetParam.getIntParams(request, "page", "Page", 1, Integer.MAX_VALUE, 1);
 
+        if (fromDate == null) {
+            fromDate = "2000-1-1";
+        }
+
+        if (toDate == null) {
+            toDate = "2077-1-1";
+        }
+
         // get orders
         ArrayList<Order> orders = orderDao.getOrdersByDate(fromDate, toDate, page);
 
+        Integer maxPage = orders.size() / 20;
+        if (orders.size() % 20 != 0) {
+            maxPage++;
+        }
+
         request.setAttribute("orders", orders);
+        request.setAttribute("maxPage", maxPage);
         return true;
     }
 
