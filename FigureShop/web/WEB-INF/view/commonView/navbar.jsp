@@ -91,6 +91,16 @@
                             </a>
                         </div>
                     </c:if>
+                    <c:if test="<%= user.getIsAdmin() == 0%>">
+                        <div>
+                            <a
+                                href="<%=Router.ORDER_HISTORY_CONTROLLER %>"
+                                class="ml-0 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+                                >
+                                View order history
+                            </a>
+                        </div>
+                    </c:if>
                     <div>
                         <a
                             href="<%=Router.LOGOUT_CONTROLLER%>"

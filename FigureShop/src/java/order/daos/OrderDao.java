@@ -41,7 +41,7 @@ public class OrderDao {
         ArrayList<Order> orders = new ArrayList<Order>();
         try {
             conn = Connector.getConnection();
-            String sql = "SELECT * FROM figure_order WHERE id=? ORDER BY createdDate DESC";
+            String sql = "SELECT * FROM figure_order WHERE userId=? ORDER BY createdDate DESC";
             preStm = conn.prepareStatement(sql);
             preStm.setString(1, userId);
             rs = preStm.executeQuery();
@@ -52,7 +52,7 @@ public class OrderDao {
                 String address = rs.getString("address");
                 String phoneNumber = rs.getString("phoneNumber");
                 String consigneeName = rs.getString("consigneeName");
-                Date createDate = rs.getDate("createDate");
+                Date createDate = rs.getDate("createdDate");
                 order = new Order(id, userId, address, phoneNumber, consigneeName, status, createDate);
                 orders.add(order);
             }

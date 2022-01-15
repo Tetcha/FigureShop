@@ -1,3 +1,5 @@
+<%@page import="order.models.Order"%>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -8,7 +10,12 @@
         <jsp:include page="./commonView/init.jsp"></jsp:include>
         </head>
         <body>
-            <div class="flex flex-col w-screen h-screen">
+        <%
+            ArrayList<Order> orders = (ArrayList<Order>) request.getAttribute("orders");
+            System.out.println(orders);
+
+        %>
+        <div class="flex flex-col w-screen h-screen">
             <jsp:include page="./commonView/navbar.jsp"></jsp:include>
                 <div class="bg-white p-10 flex-1">
                     <h2 class="font-bold text-2xl mb-5">Order history</h2>
@@ -16,15 +23,15 @@
                         role="list"
                         class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
                         >
-
+                    <%for (int i = 0; i < orders.size(); i++) {%>
                     <jsp:include page="./components/orderHistoryItem.jsp">
-                        <jsp:param name="id" value="001" />
-                        <jsp:param name="totalPrice" value="30" />
-                        <jsp:param name="address" value="197 hoang huu nam" />
-                        <jsp:param name="phone" value="0869025867" />
-                        <jsp:param name="status" value="success" />
+                        <jsp:param name="id" value="<%= orders.get(i).getId()%>" />
+                        <jsp:param name="totalPrice" value="<%= orders.get(i).getId()%>" />
+                        <jsp:param name="address" value="<%= orders.get(i).getAddress()%>" />
+                        <jsp:param name="phone" value="<%= orders.get(i).getPhoneNumber()%>" />
+                        <jsp:param name="status" value="<%= orders.get(i).getStatus()%>" />
                     </jsp:include>
-
+                    <%}%>
                 </ul>
             </div>
         </div>

@@ -82,7 +82,6 @@ public class ProductFilterController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            System.out.println("check check");
             if (!processRequest(request, response)) {
                 // forward on 400
                 ArrayList<Product> products = new ArrayList<Product>();

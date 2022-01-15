@@ -32,7 +32,7 @@ public class OrderHistoryDetailController extends HttpServlet {
         HttpSession session = request.getSession();
         OrderDao orderDao = new OrderDao();
         OrderItemDao orderItemDao = new OrderItemDao();
-        //Get user
+        //Get current user
         User user = (User) session.getAttribute("user");
 
         //Get user's order
@@ -79,6 +79,7 @@ public class OrderHistoryDetailController extends HttpServlet {
                 request.getRequestDispatcher(Router.ERROR).forward(request, response);
                 return;
             }
+
             // forward on 200
             request.getRequestDispatcher(Router.ORDER_HISTORY_DETAIL_PAGE).forward(request, response);
         } catch (Exception e) {
