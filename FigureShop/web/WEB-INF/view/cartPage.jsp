@@ -127,7 +127,7 @@
                                     <input
                                         id="address"
                                         name="address"
-                                        placeholder="Your address"
+                                        placeholder="<%= userAddress%>"
                                         type="text"
                                         required
                                         value ="<%= userAddress%>"
@@ -146,7 +146,7 @@
                                     <input
                                         id="phone"
                                         name="phone"
-                                        placeholder="Your phone number"
+                                        placeholder="<%= userPhone%>"
                                         type="text"
                                         required
                                         value ="<%= userPhone%>"
@@ -165,7 +165,7 @@
                                     <input
                                         id="consigneeName"
                                         name="consigneeName"
-                                        placeholder="Receiver's name"
+                                        placeholder="<%= userName%>"
                                         type="text"
                                         required
                                         value="<%= userName%>"

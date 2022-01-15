@@ -25,7 +25,7 @@ public class LogoutController extends HttpServlet {
         try {
             // Remove session
             HttpSession session = request.getSession();
-            session.invalidate();
+            session.setAttribute("user", null);
         } finally {
             // forward on success
             response.sendRedirect(Router.HOME_CONTROLLER);
