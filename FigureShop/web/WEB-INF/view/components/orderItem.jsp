@@ -1,8 +1,8 @@
-<%@page import="constants.Router"%> <%@page import="category.models.Category"%>
-<%@page import="category.daos.CategoryDao"%> <%@ taglib prefix="c"
-                                                        uri="http://java.sun.com/jsp/jstl/core" %> <%@page contentType="text/html"
-                                                        pageEncoding="UTF-8"%>
-
+<%@page import="constants.Router"%> 
+<%@page import="category.models.Category"%>
+<%@page import="category.daos.CategoryDao"%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <li class="flex py-6 sm:py-10">
     <div class="flex-shrink-0">
         <img
