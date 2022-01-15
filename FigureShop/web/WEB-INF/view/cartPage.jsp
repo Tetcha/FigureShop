@@ -1,3 +1,4 @@
+<%@page import="constants.Router"%>
 <%@page import="user.models.User"%>
 <%@page import="category.models.Category"%>
 <%@page import="product.models.Product"%>
@@ -71,7 +72,7 @@
                                 <jsp:param name="category" value="<%= products.get(i).getCategoryId()%>" />
                                 <jsp:param name="quantity" value="<%= products.get(i).getQuantity()%>" />
                                 <jsp:param name="index" value="<%= i%>" />
-                                <jsp:param name="id" value="<%= products.get(i).getId() %>" />
+                                <jsp:param name="id" value="<%= products.get(i).getId()%>" />
                             </jsp:include>
                             <%}%>
                         </ul>
@@ -110,7 +111,7 @@
                                 </span>
                             </div>
                         </div>
-                        <form method="post" class="flex flex-col">
+                        <form method="post" action="<%= Router.CHECKOUT_CONTROLLER%>" class="flex flex-col">
                             <div class="mt-5">
                                 <label
                                     for="email"
@@ -122,6 +123,7 @@
                                     <input
                                         id="address"
                                         name="address"
+                                        placeholder="Your address"
                                         type="text"
                                         required
                                         value ="<%= userAddress%>"
@@ -140,6 +142,7 @@
                                     <input
                                         id="phone"
                                         name="phone"
+                                        placeholder="Your phone number"
                                         type="text"
                                         required
                                         value ="<%= userPhone%>"
@@ -158,6 +161,7 @@
                                     <input
                                         id="consigneeName"
                                         name="consigneeName"
+                                        placeholder="Receiver's name"
                                         type="text"
                                         required
                                         value="<%= userName%>"
@@ -165,8 +169,7 @@
                                         />
                                 </div>
                             </div>
-                        </form>
-                        <div class="mt-6">
+                             <div class="mt-6">
                             <button
                                 type="submit"
                                 class="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
@@ -174,9 +177,11 @@
                                 Checkout
                             </button>
                         </div>
+                        </form>
+                       
                     </section>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
     </body>
 </html>
