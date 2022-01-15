@@ -102,4 +102,32 @@ public class OrderDao {
         }
         return isTrue;
     }
+
+    // get orders by date
+    public ArrayList<Order> getOrdersByDate(String formDate, String toDate) throws Exception {
+        ArrayList<Order> orders = new ArrayList();
+        try {
+            conn = Connector.getConnection();
+            String sql = "SELECT * FROM figure_order WHERE createdDate BETWEEN ? AND ? ORDER BY createDate DESC";
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, formDate);
+            preStm.setString(2, toDate);
+            rs = preStm.executeQuery();
+            Order order = null;
+            while (rs.next()) {
+                String id = rs.getString("id");
+                Integer status = rs.getInt("status");
+                String address = rs.getString("address");
+                String phoneNumber = rs.getString("phoneNumber");
+                String consigneeName = rs.getString("consigneeName");
+                Date createDate = rs.getDate("createdDate");
+                String userId = rs.getString("userId");
+                order = new Order(id, userId, address, phoneNumber, consigneeName, status, createDate);
+                orders.add(order);
+            }
+        } finally {
+            this.closeConnection();
+        }
+        return orders;
+    }
 }
