@@ -30,8 +30,6 @@ public class Router {
     public static final String ORDER_HISTORY_DETAIL_PAGE = "WEB-INF/view/orderHistoryDetailPage.jsp";
     public static final String ORDER_HISTORY_DETAIL_CONTROLLER = "orderHistory";
     public static final String CHECKOUT_CONTROLLER = "checkout";
-    public static final String ADMIN_ORDERS_CONTROLLER = "viewOrders";
-    public static final String ADMIN_ORDERS_PAGE = "";
 
     // common
     public static final String ERROR = "/WEB-INF/view/commonView/errorPage.jsp";
@@ -52,6 +50,9 @@ public class Router {
     public static final String ADMIN_VIEW_PRODUCT_CONTROLLER = "AdminViewProduct";
 
     // admin
-    public static final String ADMIN_ORDER_CONTROLLER = "adminOrder";
-    public static final String ADMIN_ORDER_PAGE = "WEB-INF/view/admin/adminOrderPage.jsp";
+    public static final String ADMIN_ORDERS_CONTROLLER = "viewOrders";
+    public static final String ADMIN_ORDERS_PAGE = "WEB-INF/view/admin/adminOrderPageMap.jsp";
+
+    public static final String ADMIN_USER_CONTROLLER = "adminUser";
+    public static final String ADMIN_USER_PAGE = "WEB-INF/view/admin/adminUserPageMap.jsp";
 }

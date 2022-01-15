@@ -110,7 +110,7 @@ public class OrderDao {
         try {
             Integer skip = (page - 1) * LIMIT;
             conn = Connector.getConnection();
-            String sql = "SELECT * FROM figure_order WHERE createdDate BETWEEN ? AND ? ORDER BY createDate DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+            String sql = "SELECT * FROM figure_order WHERE createdDate BETWEEN ? AND ? ORDER BY createdDate DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
             preStm = conn.prepareStatement(sql);
             preStm.setString(1, formDate);
             preStm.setString(2, toDate);

@@ -26,7 +26,6 @@ public class AdminOrdersController extends HttpServlet {
             throws Exception {
         response.setContentType("text/html;charset=UTF-8");
         OrderDao orderDao = new OrderDao();
-
         // get param
         String fromDate = GetParam.getStringParam(request, "fromDate", "from date", 7, 12, null);
         String toDate = GetParam.getStringParam(request, "toDate", "to date", 7, 12, null);
@@ -58,6 +57,7 @@ public class AdminOrdersController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+
             if (!processRequest(request, response)) {
                 // forward on 404
                 Helper.setAttribute(request, StatusCode.NOT_FOUND.getValue(),

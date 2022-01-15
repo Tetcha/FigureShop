@@ -27,8 +27,11 @@ public class ProductFilterController extends HttpServlet {
     protected boolean processRequest(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         response.setContentType("text/html;charset=UTF-8");
+       
         ProductDao productDao = new ProductDao();
+
         CategoryDao categoryDao = new CategoryDao();
+
         // get params
         String name = GetParam.getStringParam(request, "name", "Name", 0, 255, "");
         String categoryId = GetParam.getStringParam(request, "categoryId", "Category", 0, 40, "");
@@ -40,7 +43,7 @@ public class ProductFilterController extends HttpServlet {
         request.setAttribute("categoryId", categoryId);
         request.setAttribute("minPrice", minPrice);
         request.setAttribute("maxPrice", maxPrice);
-
+     
         if (categoryId.equals("all")) {
             categoryId = "";
         }
@@ -48,13 +51,13 @@ public class ProductFilterController extends HttpServlet {
         if (minPrice == null || maxPrice == null || page == null) {
             return false;
         }
-
+   
         // check price
         if (minPrice > maxPrice) {
             request.setAttribute("priceError", Message.PRICE_ERROR_MESSAGE.getContent());
             return false;
         }
-
+   
         // get products
         ArrayList<Product> products = productDao.getProducts(name, categoryId, minPrice, maxPrice, page);
         int resultSize = productDao.filterAllProducts(name, categoryId, minPrice, maxPrice).size();
@@ -68,6 +71,7 @@ public class ProductFilterController extends HttpServlet {
             product.setCategoryId(newCategory.getName());
 
         }
+
         // send products
         request.setAttribute("products", products);
         request.setAttribute("maxPage", maxPage);
@@ -78,6 +82,7 @@ public class ProductFilterController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            System.out.println("check check");
             if (!processRequest(request, response)) {
                 // forward on 400
                 ArrayList<Product> products = new ArrayList<Product>();

@@ -66,7 +66,7 @@ public class CheckoutController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            if (!Helper.protectedRouter(request, response, false, Router.LOGIN_PAGE)) {
+            if (!Helper.protectedRouter(request, response, 0, Router.LOGIN_PAGE)) {
                 return;
             }
             if (!processRequest(request, response)) {
