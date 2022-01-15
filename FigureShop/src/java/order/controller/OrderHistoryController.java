@@ -31,7 +31,6 @@ public class OrderHistoryController extends HttpServlet {
 
         // get current userId
         User user = (User) session.getAttribute("user");
-
         // get user's orders
         ArrayList<Order> orders = orderDao.getOrdersByUserId(user.getId());
 
@@ -40,7 +39,6 @@ public class OrderHistoryController extends HttpServlet {
             request.setAttribute("emptyMessage", Message.EMPTY_MESSAGE);
             return;
         }
-
         // send to request
         request.setAttribute("orders", orders);
     }
@@ -49,6 +47,7 @@ public class OrderHistoryController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            System.out.println("this is from order history");
             processRequest(request, response);
             // forward on 200
             request.getRequestDispatcher(Router.ORDER_HISTORY_PAGE).forward(request, response);
