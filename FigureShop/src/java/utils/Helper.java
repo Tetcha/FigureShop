@@ -12,7 +12,7 @@ public class Helper {
     /**
      * Ensure that access only to authorized users
      */
-    public static boolean protectedRouter(HttpServletRequest request, HttpServletResponse response, boolean isAdmin, String page) throws Exception {
+    public static boolean protectedRouter(HttpServletRequest request, HttpServletResponse response, int isAdmin, String page) throws Exception {
         if (!isLogin(request) || !correctRole(request, isAdmin)) {
             request.setAttribute("errorMessage", "Action is not allow, please login first");
             request.getRequestDispatcher(page).forward(request, response);
@@ -26,11 +26,11 @@ public class Helper {
     /**
      * Check that user's role is valid or invalid
      */
-    public static boolean correctRole(HttpServletRequest request, boolean isAdmin) {
+    public static boolean correctRole(HttpServletRequest request, int isAdmin) {
         HttpSession session = request.getSession(false);
         User user = (User) session.getAttribute("user");
 
-        return user != null && user.isIsAdmin() == isAdmin;
+        return user != null && user.getIsAdmin() == isAdmin;
     }
 
     /**

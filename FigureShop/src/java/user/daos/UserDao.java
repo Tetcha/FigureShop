@@ -46,7 +46,7 @@ public class UserDao {
             preStm.setString(4, null);
             preStm.setString(5, null);
             preStm.setString(6, user.getPassword());
-            preStm.setBoolean(7, user.isIsAdmin());
+            preStm.setInt(7, user.getIsAdmin());
             // insert
             preStm.executeUpdate();
         } finally {
@@ -69,7 +69,7 @@ public class UserDao {
                 String address = rs.getString("address");
                 String phone = rs.getString("phone");
                 String password = rs.getString("password");
-                boolean isAdmin = rs.getBoolean("isAdmin");
+                int isAdmin = rs.getInt("isAdmin");
                 user = new User(id, fullName, email, password, address, phone, isAdmin);
             }
         } finally {
