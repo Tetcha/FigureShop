@@ -9,7 +9,6 @@
     //int currentPage = (int) request.getAttribute("page");
     // maxPage = (int) request.getAttribute("maxPage");
     ArrayList<Order> orders = (ArrayList<Order>) request.getAttribute("orders");
-    System.out.println(orders);
 %>
 <div class="flex p-5 gap-5 h-screen overflow-hidden">
     <div class="flex flex-col max-w-3xl">
@@ -71,30 +70,31 @@
                         </thead>
                         <tbody>
                             <!-- Odd row -->
-                            <tr class="bg-white">
-                                <td
-                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-                                    >
-                                    Jane Cooper
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    Regional Paradigm Technician
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    jane.cooper@example.com
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    Admin
-                                </td>
-                                <td
-                                    class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
-                                    >
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900"
-                                       >Edit</a
-                                    >
-                                </td>
-                            </tr>
-
+                            <%for (int i = 0; i < orders.size(); i++) {%>
+                                <tr class="bg-white">
+                                    <td
+                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+                                        >
+                                        <%= orders.get(i).getConsigneeName() %>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        <%= orders.get(i).getCreatedDate()%>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        <%= orders.get(i).getCreatedDate()%>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                       <%= orders.get(i).getStatus()%>
+                                    </td>
+                                    <td
+                                        class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
+                                        >
+                                        <a href="#" class="text-indigo-600 hover:text-indigo-900"
+                                           >Edit</a
+                                        >
+                                    </td>
+                                </tr>
+                            <%}%>
                             <!-- Even row -->
                             <tr class="bg-gray-50">
                                 <td
