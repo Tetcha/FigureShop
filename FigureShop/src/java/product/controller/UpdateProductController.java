@@ -1,12 +1,18 @@
 package product.controller;
 
+import constants.Message;
 import constants.Router;
+import constants.StatusCode;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import product.daos.ProductDao;
+import utils.GetParam;
+import product.models.Product;
+import utils.Helper;
 
 /**
  *
@@ -15,21 +21,136 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "UpdateProductController", urlPatterns = {"/" + Router.UPDATE_PRODUCT_CONTROLLER})
 public class UpdateProductController extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    /**
+     * Processes requests for both HTTP <code>POST</code> methods.
+     */
+    protected int postHandler(HttpServletRequest request, HttpServletResponse response) throws Exception {
         response.setContentType("text/html;charset=UTF-8");
+        ProductDao productDao = new ProductDao();
 
+        // get the current product
+        String productId = GetParam.getStringParam(request, "id", "Product's id", 0, 40, null);
+        if (productId == null) {
+            return 0;
+        }
+
+        Product product = productDao.getProductById(productId);
+        // check existed product
+        if (product == null) {
+            return 0;
+        }
+
+        // validate params
+        String name = GetParam.getStringParam(request, "name", "Product's name", 3, 255, null);
+        String imageUrl = GetParam.getFileParam(request, "image", "Product's image", 1080 * 1080);
+        Integer quantity = GetParam.getIntParams(request, "quantity", "Quantity", 0, Integer.MAX_VALUE, null);
+        Float price = GetParam.getFloatParams(request, "price", "Price", 0, Float.MAX_VALUE, null);
+        String description = GetParam.getStringParam(request, "description", "Description", 3, 255, null);
+        String categoryId = GetParam.getStringParam(request, "type", "Type", 0, 40, null);
+
+        // check duplicated name
+        if (name != null && !name.equals(product.getName())) {
+            request.setAttribute("nameError", Message.DULICATE_NAME_MESSAGE.getContent());
+            return 1;
+        }
+
+        // check null value for params
+        if (name == null) {
+            name = product.getName();
+        }
+        if (imageUrl == null) {
+            imageUrl = product.getImage();
+        }
+        if (quantity == null) {
+            quantity = product.getQuantity();
+        }
+        if (price == null) {
+            price = product.getPrice();
+        }
+        if (description == null) {
+            description = product.getDescription();
+        }
+        if (categoryId == null) {
+            categoryId = product.getCategoryId();
+        }
+
+        // update to database
+        productDao.updateProduct(productId, name, imageUrl, quantity, price, description, categoryId);
+        return 2;
+    }
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> methods.
+     */
+    protected boolean getHandler(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        response.setContentType("text/html;charset=UTF-8");
+        ProductDao productDao = new ProductDao();
+
+        // get the current product
+        String productId = GetParam.getStringParam(request, "id", "ProductId", 0, 40, null);
+        Product product = productDao.getProductById(productId);
+
+        // check existed product
+        if (product == null) {
+            return false;
+        }
+
+        request.setAttribute("product", product);
+
+        return true;
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            if (!getHandler(request, response)) {
+                // forward on 404
+                Helper.setAttribute(request, StatusCode.NOT_FOUND.getValue(),
+                        Message.NOT_FOUND_ERROR_TITLE.getContent(),
+                        Message.NOT_FOUND_ERROR_MESSAGE.getContent());
+                request.getRequestDispatcher(Router.ERROR).forward(request, response);
+                return;
+            }
+            // forward on 200
+            request.getRequestDispatcher(Router.UPDATE_PRODUCT_PAGE).forward(request, response);
+        } catch (Exception e) {
+            System.out.println(e);
+            // forward on 500
+            Helper.setAttribute(request, StatusCode.INTERNAL_SERVER_ERROR.getValue(),
+                    Message.INTERNAL_ERROR_TITLE.getContent(),
+                    Message.INTERNAL_ERROR_MESSAGE.getContent());
+            request.getRequestDispatcher(Router.ERROR).forward(request, response);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            int result = postHandler(request, response);
+            if (result == 0) {
+                //forward on 404
+                Helper.setAttribute(request, StatusCode.NOT_FOUND.getValue(),
+                        Message.NOT_FOUND_ERROR_TITLE.getContent(),
+                        Message.NOT_FOUND_ERROR_MESSAGE.getContent());
+                request.getRequestDispatcher(Router.ERROR).forward(request, response);
+                return;
+            }
+            if (result == 1) {
+                //forward on 400
+                this.doGet(request, response);
+                return;
+            }
+            // forward on 200
+            this.doGet(request, response);
+        } catch (Exception e) {
+            System.out.println(e);
+            // forward on 500
+            Helper.setAttribute(request, StatusCode.INTERNAL_SERVER_ERROR.getValue(),
+                    Message.INTERNAL_ERROR_TITLE.getContent(),
+                    Message.INTERNAL_ERROR_MESSAGE.getContent());
+            request.getRequestDispatcher(Router.ERROR).forward(request, response);
+        }
     }
 }

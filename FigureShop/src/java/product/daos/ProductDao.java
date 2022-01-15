@@ -94,7 +94,7 @@ public class ProductDao {
         return products;
     }
 
-// get product by category
+    // get product by category
     public Product getProductByCategory(String name) throws Exception {
         Product product = null;
         try {
@@ -159,6 +159,27 @@ public class ProductDao {
             preStm.setString(7, product.getCategoryId());
             //
             preStm.executeUpdate();
+        } finally {
+            this.closeConnection();
+        }
+    }
+
+    // update product information
+    public void updateProduct(String productId, String name, String image, Integer quantity, Float price, String description, String categoryId) throws Exception {
+        try {
+            conn = Connector.getConnection();
+            String sql = "UPDATE figure_product "
+                    + "SET name = ?, image = ?, quantity = ?, price = ?, description = ?, categoryId = ? WHERE id = ?;";
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, name);
+            preStm.setString(2, image);
+            preStm.setInt(3, quantity);
+            preStm.setFloat(4, price);
+            preStm.setString(5, description);
+            preStm.setString(7, categoryId);
+            preStm.setString(8, productId);
+            preStm.executeUpdate();
+
         } finally {
             this.closeConnection();
         }
