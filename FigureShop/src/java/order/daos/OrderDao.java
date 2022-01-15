@@ -52,8 +52,9 @@ public class OrderDao {
                 String address = rs.getString("address");
                 String phoneNumber = rs.getString("phoneNumber");
                 String consigneeName = rs.getString("consigneeName");
-                Date createDate = rs.getDate("createdDate");
-                order = new Order(id, userId, address, phoneNumber, consigneeName, status, createDate);
+                Date createDate = rs.getDate("createDate");
+                Float totalPrice = rs.getFloat("totalPrice");
+                order = new Order(id, userId, address, phoneNumber, consigneeName, status, createDate, totalPrice);
                 orders.add(order);
             }
         } finally {
@@ -63,7 +64,7 @@ public class OrderDao {
     }
 
     // add a new order
-    public boolean addNewOrder(ArrayList<Product> products, Integer status, String userId, String consigneeName, String address, String phoneNumber) throws Exception {
+    public boolean addNewOrder(ArrayList<Product> products, Integer status, String userId, String consigneeName, String address, String phoneNumber, Float totalPrice) throws Exception {
         String uuid = UUID.randomUUID().toString();
         boolean isTrue = true;
         try {
@@ -72,7 +73,7 @@ public class OrderDao {
             conn.setAutoCommit(false);
 
             // insert order to db
-            String sqlOrder = "INSERT INTO figure_order (id, status, userId, consigneeName, address, phoneNumber) VALUES (?, ?, ?, ?, ?, ?)";
+            String sqlOrder = "INSERT INTO figure_order (id, status, userId, consigneeName, address, phoneNumber, totalPrice) VALUES (?, ?, ?, ?, ?, ?, ?)";
             preStm1 = conn.prepareStatement(sqlOrder);
             preStm1.setString(1, uuid);
             preStm1.setInt(2, status);
@@ -80,6 +81,7 @@ public class OrderDao {
             preStm1.setString(4, consigneeName);
             preStm1.setString(5, address);
             preStm1.setString(6, phoneNumber);
+            preStm1.setFloat(7, totalPrice);
             preStm1.executeUpdate();
 
             // insert order items to db
@@ -126,7 +128,8 @@ public class OrderDao {
                 String consigneeName = rs.getString("consigneeName");
                 Date createDate = rs.getDate("createdDate");
                 String userId = rs.getString("userId");
-                order = new Order(id, userId, address, phoneNumber, consigneeName, status, createDate);
+                Float totalPrice = rs.getFloat("totalPrice");
+                order = new Order(id, userId, address, phoneNumber, consigneeName, status, createDate, totalPrice);
                 orders.add(order);
             }
         } finally {
@@ -152,7 +155,8 @@ public class OrderDao {
                 String consigneeName = rs.getString("consigneeName");
                 Date createDate = rs.getDate("createdDate");
                 String userId = rs.getString("userId");
-                order = new Order(id, userId, address, phoneNumber, consigneeName, status, createDate);
+                Float totalPrice = rs.getFloat("totalPrice");
+                order = new Order(id, userId, address, phoneNumber, consigneeName, status, createDate, totalPrice);
                 orders.add(order);
             }
         } finally {
