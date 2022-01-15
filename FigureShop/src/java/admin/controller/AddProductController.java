@@ -1,4 +1,4 @@
-package product.controller;
+package admin.controller;
 
 import constants.Message;
 import constants.Router;
