@@ -17,7 +17,7 @@ $(document).ready(function () {
     let fromValue = fromElement.val();
     let toValue = toElement.val();
 
-    if (isNaN(fromValue) || parseInt(fromValue) <= 0) {
+    if (isNaN(fromValue) || parseInt(fromValue) < 0) {
       fromText.append("From value should be a valid positive number");
       canMove = false;
     }
