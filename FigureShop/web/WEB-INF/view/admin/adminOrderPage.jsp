@@ -5,6 +5,16 @@ contentType="text/html" pageEncoding="UTF-8"%>
   <div class="flex flex-col max-w-3xl">
     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+        <form method="get" class="flex flex-row gap-10 mb-5">
+          <div class="flex flex-col gap-3">
+            <label for="fromDate" class="capitalize font-semibold">from</label>
+            <input name="fromDate" type="date" class="rounded-sm" />
+          </div>
+          <div class="flex flex-col gap-3">
+            <label for="toDate" class="capitalize font-semibold">to</label>
+            <input name="toDate" type="date" class="rounded-sm" />
+          </div>
+        </form>
         <div
           class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg"
         >
@@ -123,7 +133,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
                   <img
                     src="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-03.jpg"
                     alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
-                    class="flex-none w-24 h-24 rounded-lg border border-gray-200 sm:w-32 sm:h-32"
+                    class="flex-none w-20 h-1w-20 rounded-lg border border-gray-200"
                   />
                   <div
                     class="ml-4 flex-auto grid gap-y-3 gap-x-5 grid-rows-1 grid-cols-1 items-start sm:ml-6 sm:flex sm:gap-0 sm:items-center"

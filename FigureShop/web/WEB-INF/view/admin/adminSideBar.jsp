@@ -1,3 +1,4 @@
+<%@page import="constants.Router"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@page
 contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -10,10 +11,9 @@ contentType="text/html" pageEncoding="UTF-8"%>
       </div>
       <nav class="mt-5 flex-1 px-2 space-y-1">
         <a
-          href="#"
+            href="<%= Router.ADMIN_USER_CONTROLLER %>"
           class="text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md"
         >
-          <!-- Heroicon name: outline/users -->
           <svg
             class="text-gray-400 group-hover:text-gray-300 mr-3 flex-shrink-0 h-6 w-6"
             xmlns="http://www.w3.org/2000/svg"
@@ -33,10 +33,9 @@ contentType="text/html" pageEncoding="UTF-8"%>
         </a>
 
         <a
-          href="#"
+          href="<%= Router.ADMIN_ORDER_CONTROLLER %>"
           class="text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md"
         >
-          <!-- Heroicon name: outline/chart-bar -->
           <svg
             class="text-gray-400 group-hover:text-gray-300 mr-3 flex-shrink-0 h-6 w-6"
             xmlns="http://www.w3.org/2000/svg"
