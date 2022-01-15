@@ -38,7 +38,6 @@ public class Router {
 
     // jsp file mapping
     public static final String ADD_CATEGORY_PAGE = "WEB-INF/view/addCategoryPage.jsp";
-    public static final String ADMIN_ORDER_PAGE = "WEB-INF/view/adminOrderPage.jsp";
     public static final String ADMIN_ORDERITEM_PAGE = "WEB-INF/view/adminOrderItem.jsp";
     public static final String CATEGORY_SHOWCASE_PAGE = "WEB-INF/view/categoryShowcasePage.jsp";
     public static final String ADMIN_VIEW_PRODUCT_PAGE = "WEB-INF/view/adminViewProduct.jsp";
@@ -47,7 +46,10 @@ public class Router {
     public static final String ADD_CATEGORY_CONTROLLER = "addCategory";
     public static final String SHOW_PRODUCT_IN_CATEGORY_CONTROLLER = "categoryProducts";
     public static final String CANCEL_ORDER_CONTROLLER = "cancelOrder";
-    public static final String ADMIN_ORDER_CONTROLLER = "adminOrder";
     public static final String ORDER_STATUS_CONTROLLER = "orderStatus";
     public static final String ADMIN_VIEW_PRODUCT_CONTROLLER = "AdminViewProduct";
+
+    // admin
+    public static final String ADMIN_ORDER_CONTROLLER = "adminOrder";
+    public static final String ADMIN_ORDER_PAGE = "WEB-INF/view/admin/adminOrderPage.jsp";
 }
