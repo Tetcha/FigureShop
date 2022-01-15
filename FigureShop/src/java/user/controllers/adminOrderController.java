@@ -7,17 +7,12 @@ package user.controllers;
 
 import constants.Router;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Admin
- */
 @WebServlet(name = "adminOrderController", urlPatterns = {"/" + Router.ADMIN_ORDER_CONTROLLER})
 public class adminOrderController extends HttpServlet {
 
