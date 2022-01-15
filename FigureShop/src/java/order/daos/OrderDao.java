@@ -19,6 +19,7 @@ public class OrderDao {
     private Connection conn;
     private PreparedStatement preStm;
     private ResultSet rs;
+    private static final Integer LIMIT = 20;
 
     //close connection of database
     private void closeConnection() throws Exception {
@@ -104,14 +105,36 @@ public class OrderDao {
     }
 
     // get orders by date
-    public ArrayList<Order> getOrdersByDate(String formDate, String toDate) throws Exception {
+    public ArrayList<Order> getOrdersByDate(String formDate, String toDate, Integer page) throws Exception {
         ArrayList<Order> orders = new ArrayList();
         try {
+            Integer skip = (page - 1) * LIMIT;
             conn = Connector.getConnection();
-            String sql = "SELECT * FROM figure_order WHERE createdDate BETWEEN ? AND ? ORDER BY createDate DESC";
-            preStm = conn.prepareStatement(sql);
-            preStm.setString(1, formDate);
-            preStm.setString(2, toDate);
+            if (formDate != null && toDate != null) {
+                String sql = "SELECT * FROM figure_order WHERE createdDate BETWEEN ? AND ? ORDER BY createDate DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+                preStm = conn.prepareStatement(sql);
+                preStm.setString(1, formDate);
+                preStm.setString(2, toDate);
+                preStm.setInt(3, skip);
+                preStm.setInt(4, LIMIT);
+            } else if (formDate == null && toDate == null) {
+                String sql = "SELECT * FROM figure_order ORDER BY createDate DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+                preStm = conn.prepareStatement(sql);
+                preStm.setInt(1, skip);
+                preStm.setInt(2, LIMIT);
+            } else if (formDate == null && toDate != null) {
+                String sql = "SELECT * FROM figure_order WHERE createdDate <= ? ORDER BY createDate DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+                preStm = conn.prepareStatement(sql);
+                preStm.setString(1, toDate);
+                preStm.setInt(2, skip);
+                preStm.setInt(3, LIMIT);
+            } else if (formDate != null && toDate == null) {
+                String sql = "SELECT * FROM figure_order WHERE createdDate >= ? ORDER BY createDate DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+                preStm = conn.prepareStatement(sql);
+                preStm.setString(1, formDate);
+                preStm.setInt(2, skip);
+                preStm.setInt(3, LIMIT);
+            }
             rs = preStm.executeQuery();
             Order order = null;
             while (rs.next()) {

@@ -30,13 +30,10 @@ public class AdminOrdersController extends HttpServlet {
         // get param
         String fromDate = GetParam.getStringParam(request, "fromDate", "from date", 7, 12, null);
         String toDate = GetParam.getStringParam(request, "toDate", "to date", 7, 12, null);
-
-        if (fromDate == null || toDate == null) {
-            return false;
-        }
+        Integer page = GetParam.getIntParams(request, "page", "Page", 1, Integer.MAX_VALUE, 1);
 
         // get orders
-        ArrayList<Order> orders = orderDao.getOrdersByDate(fromDate, toDate);
+        ArrayList<Order> orders = orderDao.getOrdersByDate(fromDate, toDate, page);
 
         request.setAttribute("orders", orders);
         return true;
