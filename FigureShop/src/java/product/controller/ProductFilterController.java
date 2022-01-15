@@ -57,7 +57,7 @@ public class ProductFilterController extends HttpServlet {
 
         // get products
         ArrayList<Product> products = productDao.getProducts(name, categoryId, minPrice, maxPrice, page);
-        int resultSize = productDao.getProducts(name, categoryId, minPrice, maxPrice, page).size();
+        int resultSize = productDao.filterAllProducts(name, categoryId, minPrice, maxPrice).size();
         int maxPage = resultSize / 20;
         if (resultSize % 20 > 0) {
             maxPage = maxPage + 1;
