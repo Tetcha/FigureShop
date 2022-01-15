@@ -40,6 +40,7 @@
             }
             Locale vi = new Locale("vi", "VN");
             NumberFormat vndFormat = NumberFormat.getCurrencyInstance(vi);
+            request.setCharacterEncoding("UTF-8");
         %>
         <jsp:include page="./commonView/navbar.jsp"></jsp:include>
             <div class="bg-white">
