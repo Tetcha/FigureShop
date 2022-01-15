@@ -1,7 +1,8 @@
 <%@page import="product.models.Product"%> <%@page import="java.util.ArrayList"%>
 <%@page import="user.models.User"%> <%@ taglib prefix="c"
 uri="http://java.sun.com/jsp/jstl/core" %> <%@page contentType="text/html"
-pageEncoding="UTF-8"%> <%@page import="constants.Router"%> <% User user = (User)
+pageEncoding="UTF-8"%> <%@page import="constants.Router"%> 
+<% User user = (User)
 session.getAttribute("user"); ArrayList<Product>
   products = (ArrayList<Product
     >) session.getAttribute("products"); if (products == null) { products = new
