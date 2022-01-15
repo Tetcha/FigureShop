@@ -25,7 +25,7 @@
                 <div class="mt-1 flex text-sm">
                     <p class="text-gray-500">${param.category}</p>
                 </div>
-                <p class="mt-1 text-sm font-medium text-gray-900">${param.price}đ</p>
+                <p class="mt-1 text-sm font-medium text-gray-900">${param.price}</p>
                 <div class="flex mt-5">
                     <div
                         class="flex font-bold items-center justify-center w-7 h-7 text-white bg-indigo-600 rounded-sm"

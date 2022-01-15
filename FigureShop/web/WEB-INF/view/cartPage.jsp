@@ -1,9 +1,11 @@
 <%@page import="constants.Router"%>
+<%@page import="java.util.Locale"%>
 <%@page import="user.models.User"%>
 <%@page import="category.models.Category"%>
 <%@page import="product.models.Product"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="category.daos.CategoryDao"%>
+<%@page import="java.text.NumberFormat"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -36,7 +38,9 @@
                 }
 
             }
-
+            Locale vi = new Locale("vi", "VN");
+            NumberFormat vndFormat = NumberFormat.getCurrencyInstance(vi);
+            request.setCharacterEncoding("UTF-8");
         %>
         <jsp:include page="./commonView/navbar.jsp"></jsp:include>
             <div class="bg-white">
@@ -68,7 +72,7 @@
                                 value="<%=  imageHead + products.get(i).getImage()%>"
                                     />
                                 <jsp:param name="name" value="<%= products.get(i).getName()%>" />
-                                <jsp:param name="price" value="<%= products.get(i).getPrice()%>" />
+                                <jsp:param name="price" value="<%=vndFormat.format(products.get(i).getPrice())%>" />
                                 <jsp:param name="category" value="<%= products.get(i).getCategoryId()%>" />
                                 <jsp:param name="quantity" value="<%= products.get(i).getQuantity()%>" />
                                 <jsp:param name="index" value="<%= i%>" />
@@ -93,12 +97,12 @@
                             <% total = total + (float) products.get(i).getPrice();%>
                             <div class="flex items-start justify-between">
                                 <dt class="text-sm text-gray-600"><%= products.get(i).getName()%></dt>
-                                <dd class="text-sm font-medium text-gray-900"><%= products.get(i).getPrice()%>đ</dd>
+                                <dd class="text-sm font-medium text-gray-900"><%=vndFormat.format(products.get(i).getPrice())%></dd>
                             </div>
                             <%}%>
                             <div class="flex items-start justify-between">
                                 <dt class="text-sm text-gray-600 font-semibold">Total</dt>
-                                <dd class="text-sm font-medium text-gray-900"><%= total%>đ</dd>
+                                <dd class="text-sm font-medium text-gray-900"><%=vndFormat.format(total)%></dd>
                             </div>
                         </dl>
                         <div class="relative mt-5">
