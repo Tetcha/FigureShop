@@ -1,8 +1,8 @@
-<%@page import="constants.Router"%> <%@page import="category.models.Category"%>
-<%@page import="category.daos.CategoryDao"%> <%@ taglib prefix="c"
-                                                        uri="http://java.sun.com/jsp/jstl/core" %> <%@page contentType="text/html"
-                                                        pageEncoding="UTF-8"%>
-
+<%@page import="constants.Router"%> 
+<%@page import="category.models.Category"%>
+<%@page import="category.daos.CategoryDao"%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <li class="flex py-6 sm:py-10">
     <div class="flex-shrink-0">
         <img
@@ -25,7 +25,7 @@
                 <div class="mt-1 flex text-sm">
                     <p class="text-gray-500">${param.category}</p>
                 </div>
-                <p class="mt-1 text-sm font-medium text-gray-900">${param.price}đ</p>
+                <p class="mt-1 text-sm font-medium text-gray-900">${param.price}</p>
                 <div class="flex mt-5">
                     <div
                         class="flex font-bold items-center justify-center w-7 h-7 text-white bg-indigo-600 rounded-sm"

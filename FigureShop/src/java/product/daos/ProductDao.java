@@ -94,14 +94,21 @@ public class ProductDao {
         return products;
     }
 
-    //get all product
-    public ArrayList<Product> getAllProduct() throws Exception {
+    // get product with filter
+    public ArrayList<Product> filterAllProducts(String name, String categoryId, Float minPrice, Float maxPrice) throws Exception {
         ArrayList<Product> products = new ArrayList<Product>();
         try {
             Product product = null;
+            name = "%" + name + "%";
+            categoryId = "%" + categoryId + "%";
+
             conn = Connector.getConnection();
-            String sql = "SELECT * FROM figure_product";
+            String sql = "SELECT * FROM figure_product WHERE name LIKE ? AND categoryId LIKE ? AND price BETWEEN ? AND ? ORDER BY price ASC";
             preStm = conn.prepareStatement(sql);
+            preStm.setString(1, name);
+            preStm.setString(2, categoryId);
+            preStm.setFloat(3, minPrice);
+            preStm.setFloat(4, maxPrice);
             rs = preStm.executeQuery();
             while (rs.next()) {
                 String id = rs.getString("id");
@@ -118,6 +125,30 @@ public class ProductDao {
             this.closeConnection();
         }
         return products;
+    }
+
+    // get product by category
+    public Product getProductByCategory(String name) throws Exception {
+        Product product = null;
+        try {
+            conn = Connector.getConnection();
+            String sql = "SELECT * FROM figure_product WHERE name = ?";
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, name);
+            rs = preStm.executeQuery();
+            if (rs.next()) {
+                String id = rs.getString("id");
+                String categoryId = rs.getString("categoryId");
+                String image = rs.getString("image");
+                Integer quantity = rs.getInt("quantity");
+                Float price = rs.getFloat("price");
+                String description = rs.getString("description");
+                product = new Product(id, name, image, quantity, price, description, categoryId);
+            }
+        } finally {
+            this.closeConnection();
+        }
+        return product;
     }
 
     // get product by name
@@ -161,6 +192,27 @@ public class ProductDao {
             preStm.setString(7, product.getCategoryId());
             //
             preStm.executeUpdate();
+        } finally {
+            this.closeConnection();
+        }
+    }
+
+    // update product information
+    public void updateProduct(String productId, String name, String image, Integer quantity, Float price, String description, String categoryId) throws Exception {
+        try {
+            conn = Connector.getConnection();
+            String sql = "UPDATE figure_product "
+                    + "SET name = ?, image = ?, quantity = ?, price = ?, description = ?, categoryId = ? WHERE id = ?;";
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, name);
+            preStm.setString(2, image);
+            preStm.setInt(3, quantity);
+            preStm.setFloat(4, price);
+            preStm.setString(5, description);
+            preStm.setString(7, categoryId);
+            preStm.setString(8, productId);
+            preStm.executeUpdate();
+
         } finally {
             this.closeConnection();
         }

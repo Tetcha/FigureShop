@@ -1,4 +1,4 @@
-package product.controller;
+package admin.controller;
 
 import constants.Message;
 import constants.Router;
@@ -10,49 +10,35 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import product.daos.ProductDao;
+import order.daos.OrderDao;
 import utils.GetParam;
-import product.models.Product;
+import order.models.Order;
 import utils.Helper;
 
 /**
  *
  * @author locnh
  */
-@WebServlet(name = "CartRemoveProductController", urlPatterns = {"/" + Router.CART_REMOVE_PRODUCT_CONTROLLER})
-public class CartRemoveProductController extends HttpServlet {
+@WebServlet(name = "ViewOrderController", urlPatterns = {"/" + Router.ADMIN_ORDERS_CONTROLLER})
+public class AdminOrdersController extends HttpServlet {
 
     protected boolean processRequest(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        ProductDao productDao = new ProductDao();
+        OrderDao orderDao = new OrderDao();
 
-        // get productId
-        String productId = GetParam.getStringParam(request, "productId", "Product", 0, 40, null);
+        // get param
+        String fromDate = GetParam.getStringParam(request, "fromDate", "from date", 7, 12, null);
+        String toDate = GetParam.getStringParam(request, "toDate", "to date", 7, 12, null);
 
-        // find product by given id
-        Product product = productDao.getProductById(productId);
-
-        // get the products from cart
-        ArrayList<Product> products = (ArrayList<Product>) session.getAttribute("products");
-
-        // check existed product
-        if (product == null || products.isEmpty()) {
+        if (fromDate == null || toDate == null) {
             return false;
         }
 
-        // remove product from cart
-        for (Product pro : products) {
-            if (pro.getId().equals(productId)) {
-                products.remove(pro);
-                break;
-            }
-        }
+        // get orders
+        ArrayList<Order> orders = orderDao.getOrdersByDate(fromDate, toDate);
 
-        // set products to session
-        session.setAttribute("products", products);
+        request.setAttribute("orders", orders);
         return true;
     }
 
@@ -69,7 +55,7 @@ public class CartRemoveProductController extends HttpServlet {
                 return;
             }
             // forward on 200
-            response.sendRedirect(Router.CART_CONTROLLER);
+            request.getRequestDispatcher(Router.ADMIN_ORDERS_PAGE).forward(request, response);
         } catch (Exception e) {
             System.out.println(e);
             // forward on 500

@@ -35,7 +35,6 @@ CategoryDao(); ArrayList<Category>
             <div class="mt-1 relative rounded-md shadow-sm">
               <input
                 type="text"
-                min="0"
                 name="from"
                 id="fromFilter"
                 class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-2 pr-2 sm:text-sm border-gray-300 rounded-md"
@@ -61,7 +60,6 @@ CategoryDao(); ArrayList<Category>
                 type="text"
                 name="to"
                 id="toFilter"
-                min="0"
                 class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-2 pr-2 sm:text-sm border-gray-300 rounded-md"
                 placeholder="0.00"
                 aria-describedby="price-currency"
@@ -85,6 +83,7 @@ CategoryDao(); ArrayList<Category>
             <select
               id="categoryFilter"
               name="category"
+              value="2674a848-4309-42dd-ad63-385ad0162e39"
               class="mt-1 block w-52 pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
             >
               <option value="all">All</option>

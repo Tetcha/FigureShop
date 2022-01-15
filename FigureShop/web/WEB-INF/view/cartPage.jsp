@@ -1,8 +1,11 @@
+<%@page import="constants.Router"%>
+<%@page import="java.util.Locale"%>
 <%@page import="user.models.User"%>
 <%@page import="category.models.Category"%>
 <%@page import="product.models.Product"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="category.daos.CategoryDao"%>
+<%@page import="java.text.NumberFormat"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -35,7 +38,9 @@
                 }
 
             }
-
+            Locale vi = new Locale("vi", "VN");
+            NumberFormat vndFormat = NumberFormat.getCurrencyInstance(vi);
+            request.setCharacterEncoding("UTF-8");
         %>
         <jsp:include page="./commonView/navbar.jsp"></jsp:include>
             <div class="bg-white">
@@ -67,11 +72,11 @@
                                 value="<%=  imageHead + products.get(i).getImage()%>"
                                     />
                                 <jsp:param name="name" value="<%= products.get(i).getName()%>" />
-                                <jsp:param name="price" value="<%= products.get(i).getPrice()%>" />
+                                <jsp:param name="price" value="<%=vndFormat.format(products.get(i).getPrice())%>" />
                                 <jsp:param name="category" value="<%= products.get(i).getCategoryId()%>" />
                                 <jsp:param name="quantity" value="<%= products.get(i).getQuantity()%>" />
                                 <jsp:param name="index" value="<%= i%>" />
-                                <jsp:param name="id" value="<%= products.get(i).getId() %>" />
+                                <jsp:param name="id" value="<%= products.get(i).getId()%>" />
                             </jsp:include>
                             <%}%>
                         </ul>
@@ -92,12 +97,12 @@
                             <% total = total + (float) products.get(i).getPrice();%>
                             <div class="flex items-start justify-between">
                                 <dt class="text-sm text-gray-600"><%= products.get(i).getName()%></dt>
-                                <dd class="text-sm font-medium text-gray-900"><%= products.get(i).getPrice()%>đ</dd>
+                                <dd class="text-sm font-medium text-gray-900"><%=vndFormat.format(products.get(i).getPrice())%></dd>
                             </div>
                             <%}%>
                             <div class="flex items-start justify-between">
                                 <dt class="text-sm text-gray-600 font-semibold">Total</dt>
-                                <dd class="text-sm font-medium text-gray-900"><%= total%>đ</dd>
+                                <dd class="text-sm font-medium text-gray-900"><%=vndFormat.format(total)%></dd>
                             </div>
                         </dl>
                         <div class="relative mt-5">
@@ -110,7 +115,7 @@
                                 </span>
                             </div>
                         </div>
-                        <form method="post" class="flex flex-col">
+                        <form method="post" action="<%= Router.CHECKOUT_CONTROLLER%>" class="flex flex-col">
                             <div class="mt-5">
                                 <label
                                     for="email"
@@ -122,6 +127,7 @@
                                     <input
                                         id="address"
                                         name="address"
+                                        placeholder="Your address"
                                         type="text"
                                         required
                                         value ="<%= userAddress%>"
@@ -140,6 +146,7 @@
                                     <input
                                         id="phone"
                                         name="phone"
+                                        placeholder="Your phone number"
                                         type="text"
                                         required
                                         value ="<%= userPhone%>"
@@ -158,6 +165,7 @@
                                     <input
                                         id="consigneeName"
                                         name="consigneeName"
+                                        placeholder="Receiver's name"
                                         type="text"
                                         required
                                         value="<%= userName%>"
@@ -165,8 +173,7 @@
                                         />
                                 </div>
                             </div>
-                        </form>
-                        <div class="mt-6">
+                             <div class="mt-6">
                             <button
                                 type="submit"
                                 class="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
@@ -174,9 +181,11 @@
                                 Checkout
                             </button>
                         </div>
+                        </form>
+                       
                     </section>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
     </body>
 </html>
