@@ -47,7 +47,6 @@ public class OrderHistoryController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            System.out.println("this is from order history");
             processRequest(request, response);
             // forward on 200
             request.getRequestDispatcher(Router.ORDER_HISTORY_PAGE).forward(request, response);

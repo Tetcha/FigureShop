@@ -28,13 +28,14 @@ public class CheckoutController extends HttpServlet {
     protected boolean processRequest(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         OrderDao orderDao = new OrderDao();
         HttpSession session = request.getSession();
 
         // check params
         String consigneeName = GetParam.getStringParam(request, "consigneeName", "Consignee name", 5, 255, null);
         String address = GetParam.getStringParam(request, "address", "Address", 5, 255, null);
-        String phone = GetParam.getPhoneParams(request, "phoneNumber", "Phone number");
+        String phone = GetParam.getPhoneParams(request, "phone", "Phone number");
 
         if (consigneeName == null || address == null || phone == null) {
             return false;

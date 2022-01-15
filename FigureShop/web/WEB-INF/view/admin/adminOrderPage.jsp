@@ -70,46 +70,27 @@
                         </thead>
                         <tbody>
                             <!-- Odd row -->
+                            <%
+                                String bgWhite = "bg-white";
+                                String bgGray = "bg-gray-200";
+                            %>
                             <%for (int i = 0; i < orders.size(); i++) {%>
-                                <tr class="bg-white">
-                                    <td
-                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-                                        >
-                                        <%= orders.get(i).getConsigneeName() %>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        <%= orders.get(i).getCreatedDate()%>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        <%= orders.get(i).getCreatedDate()%>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                       <%= orders.get(i).getStatus()%>
-                                    </td>
-                                    <td
-                                        class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
-                                        >
-                                        <a href="#" class="text-indigo-600 hover:text-indigo-900"
-                                           >Edit</a
-                                        >
-                                    </td>
-                                </tr>
-                            <%}%>
-                            <!-- Even row -->
-                            <tr class="bg-gray-50">
+                            <tr class="<%= i % 2 == 0 ? bgWhite : bgGray%>">
                                 <td
                                     class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
                                     >
-                                    Cody Fisher
+                                    <%= orders.get(i).getConsigneeName()%>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    Product Directives Officer
+                                    <%= orders.get(i).getCreatedDate()%>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    cody.fisher@example.com
+                                    <%= orders.get(i).getTotalPrice()%>đ
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    Owner
+                                    <jsp:include page="../components/status.jsp">
+                                        <jsp:param name="status" value="<%= orders.get(i).getStatus()%>"/>
+                                    </jsp:include>
                                 </td>
                                 <td
                                     class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
@@ -119,6 +100,8 @@
                                     >
                                 </td>
                             </tr>
+                            <%}%>
+
                         </tbody>
                     </table>
                 </div>
