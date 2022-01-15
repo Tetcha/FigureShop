@@ -94,30 +94,28 @@ public class ProductDao {
         return products;
     }
 
-    //get all product
-    public ArrayList<Product> getAllProduct() throws Exception {
-        ArrayList<Product> products = new ArrayList<Product>();
+// get product by category
+    public Product getProductByCategory(String name) throws Exception {
+        Product product = null;
         try {
-            Product product = null;
             conn = Connector.getConnection();
-            String sql = "SELECT * FROM figure_product";
+            String sql = "SELECT * FROM figure_product WHERE name = ?";
             preStm = conn.prepareStatement(sql);
+            preStm.setString(1, name);
             rs = preStm.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 String id = rs.getString("id");
-                String pName = rs.getString("name");
+                String categoryId = rs.getString("categoryId");
                 String image = rs.getString("image");
                 Integer quantity = rs.getInt("quantity");
                 Float price = rs.getFloat("price");
                 String description = rs.getString("description");
-                String category = rs.getString("categoryId");
-                product = new Product(id, pName, image, quantity, price, description, category);
-                products.add(product);
+                product = new Product(id, name, image, quantity, price, description, categoryId);
             }
         } finally {
             this.closeConnection();
         }
-        return products;
+        return product;
     }
 
     // get product by name
