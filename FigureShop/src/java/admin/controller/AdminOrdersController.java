@@ -41,9 +41,10 @@ public class AdminOrdersController extends HttpServlet {
 
         // get orders
         ArrayList<Order> orders = orderDao.getOrdersByDate(fromDate, toDate, page);
+        ArrayList<Order> allOrders = orderDao.getOrders();
 
-        Integer maxPage = orders.size() / 20;
-        if (orders.size() % 20 != 0) {
+        Integer maxPage = allOrders.size() / 20;
+        if (allOrders.size() % 20 != 0) {
             maxPage++;
         }
 
