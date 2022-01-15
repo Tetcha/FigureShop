@@ -19,6 +19,7 @@ public class OrderDao {
     private Connection conn;
     private PreparedStatement preStm;
     private ResultSet rs;
+    private static final Integer LIMIT = 20;
 
     //close connection of database
     private void closeConnection() throws Exception {
@@ -40,7 +41,7 @@ public class OrderDao {
         ArrayList<Order> orders = new ArrayList<Order>();
         try {
             conn = Connector.getConnection();
-            String sql = "SELECT * FROM figure_order WHERE id=? ORDER BY createDate DESC";
+            String sql = "SELECT * FROM figure_order WHERE userId=? ORDER BY createdDate DESC";
             preStm = conn.prepareStatement(sql);
             preStm.setString(1, userId);
             rs = preStm.executeQuery();
@@ -51,8 +52,9 @@ public class OrderDao {
                 String address = rs.getString("address");
                 String phoneNumber = rs.getString("phoneNumber");
                 String consigneeName = rs.getString("consigneeName");
-                Date createDate = rs.getDate("createDate");
-                order = new Order(id, userId, address, phoneNumber, consigneeName, status, createDate);
+                Date createDate = rs.getDate("createdDate");
+                Float totalPrice = rs.getFloat("totalPrice");
+                order = new Order(id, userId, address, phoneNumber, consigneeName, status, createDate, totalPrice);
                 orders.add(order);
             }
         } finally {
@@ -62,7 +64,7 @@ public class OrderDao {
     }
 
     // add a new order
-    public boolean addNewOrder(ArrayList<Product> products, Integer status, String userId, String consigneeName, String address, String phoneNumber) throws Exception {
+    public boolean addNewOrder(ArrayList<Product> products, Integer status, String userId, String consigneeName, String address, String phoneNumber, Float totalPrice) throws Exception {
         String uuid = UUID.randomUUID().toString();
         boolean isTrue = true;
         try {
@@ -71,7 +73,7 @@ public class OrderDao {
             conn.setAutoCommit(false);
 
             // insert order to db
-            String sqlOrder = "INSERT INTO figure_order (id, status, userId, consigneeName, address, phoneNumber) VALUES (?, ?, ?, ?, ?, ?)";
+            String sqlOrder = "INSERT INTO figure_order (id, status, userId, consigneeName, address, phoneNumber, totalPrice) VALUES (?, ?, ?, ?, ?, ?, ?)";
             preStm1 = conn.prepareStatement(sqlOrder);
             preStm1.setString(1, uuid);
             preStm1.setInt(2, status);
@@ -79,6 +81,7 @@ public class OrderDao {
             preStm1.setString(4, consigneeName);
             preStm1.setString(5, address);
             preStm1.setString(6, phoneNumber);
+            preStm1.setFloat(7, totalPrice);
             preStm1.executeUpdate();
 
             // insert order items to db
@@ -104,14 +107,17 @@ public class OrderDao {
     }
 
     // get orders by date
-    public ArrayList<Order> getOrdersByDate(String formDate, String toDate) throws Exception {
+    public ArrayList<Order> getOrdersByDate(String formDate, String toDate, Integer page) throws Exception {
         ArrayList<Order> orders = new ArrayList();
         try {
+            Integer skip = (page - 1) * LIMIT;
             conn = Connector.getConnection();
-            String sql = "SELECT * FROM figure_order WHERE createdDate BETWEEN ? AND ? ORDER BY createDate DESC";
+            String sql = "SELECT * FROM figure_order WHERE createdDate BETWEEN ? AND ? ORDER BY createdDate DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
             preStm = conn.prepareStatement(sql);
             preStm.setString(1, formDate);
             preStm.setString(2, toDate);
+            preStm.setInt(3, skip);
+            preStm.setInt(4, LIMIT);
             rs = preStm.executeQuery();
             Order order = null;
             while (rs.next()) {
@@ -122,7 +128,35 @@ public class OrderDao {
                 String consigneeName = rs.getString("consigneeName");
                 Date createDate = rs.getDate("createdDate");
                 String userId = rs.getString("userId");
-                order = new Order(id, userId, address, phoneNumber, consigneeName, status, createDate);
+                Float totalPrice = rs.getFloat("totalPrice");
+                order = new Order(id, userId, address, phoneNumber, consigneeName, status, createDate, totalPrice);
+                orders.add(order);
+            }
+        } finally {
+            this.closeConnection();
+        }
+        return orders;
+    }
+
+    // get all order
+    public ArrayList<Order> getOrders() throws Exception {
+        ArrayList<Order> orders = new ArrayList();
+        try {
+            conn = Connector.getConnection();
+            String sql = "SELECT * FROM figure_order";
+            preStm = conn.prepareStatement(sql);
+            rs = preStm.executeQuery();
+            Order order = null;
+            while (rs.next()) {
+                String id = rs.getString("id");
+                Integer status = rs.getInt("status");
+                String address = rs.getString("address");
+                String phoneNumber = rs.getString("phoneNumber");
+                String consigneeName = rs.getString("consigneeName");
+                Date createDate = rs.getDate("createdDate");
+                String userId = rs.getString("userId");
+                Float totalPrice = rs.getFloat("totalPrice");
+                order = new Order(id, userId, address, phoneNumber, consigneeName, status, createDate, totalPrice);
                 orders.add(order);
             }
         } finally {

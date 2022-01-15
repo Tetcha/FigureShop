@@ -55,7 +55,7 @@ public class RegisterController extends HttpServlet {
         }
 
         // save to db
-        User user = new User(fullName, email, password, false);
+        User user = new User(fullName, email, password, 0);
         userDao.addNewUser(user);
         request.setAttribute("successMessage", Message.REGISTER_SUCCESS_MESSAGE.getContent());
         return true;

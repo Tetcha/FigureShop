@@ -26,19 +26,30 @@ public class AdminOrdersController extends HttpServlet {
             throws Exception {
         response.setContentType("text/html;charset=UTF-8");
         OrderDao orderDao = new OrderDao();
-
         // get param
         String fromDate = GetParam.getStringParam(request, "fromDate", "from date", 7, 12, null);
         String toDate = GetParam.getStringParam(request, "toDate", "to date", 7, 12, null);
+        Integer page = GetParam.getIntParams(request, "page", "Page", 1, Integer.MAX_VALUE, 1);
 
-        if (fromDate == null || toDate == null) {
-            return false;
+        if (fromDate == null) {
+            fromDate = "2000-1-1";
+        }
+
+        if (toDate == null) {
+            toDate = "2077-1-1";
         }
 
         // get orders
-        ArrayList<Order> orders = orderDao.getOrdersByDate(fromDate, toDate);
+        ArrayList<Order> orders = orderDao.getOrdersByDate(fromDate, toDate, page);
+        ArrayList<Order> allOrders = orderDao.getOrders();
+
+        Integer maxPage = allOrders.size() / 20;
+        if (allOrders.size() % 20 != 0) {
+            maxPage++;
+        }
 
         request.setAttribute("orders", orders);
+        request.setAttribute("maxPage", maxPage);
         return true;
     }
 
@@ -46,6 +57,7 @@ public class AdminOrdersController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+
             if (!processRequest(request, response)) {
                 // forward on 404
                 Helper.setAttribute(request, StatusCode.NOT_FOUND.getValue(),

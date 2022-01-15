@@ -50,9 +50,13 @@ public class CheckoutController extends HttpServlet {
 
         // get current userId
         User user = (User) session.getAttribute("user");
+        Float totalPrice = 0f;
+        for (Product product : products) {
+            totalPrice += product.getPrice() * product.getQuantity();
+        }
 
         // save to db
-        if (!orderDao.addNewOrder(products, OrderStatus.WAITING.ordinal(), user.getId(), consigneeName, address, phone)) {
+        if (!orderDao.addNewOrder(products, OrderStatus.WAITING.ordinal(), user.getId(), consigneeName, address, phone, totalPrice)) {
             throw new Exception();
         }
 
@@ -66,7 +70,9 @@ public class CheckoutController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            System.out.println("hehe");
+            if (!Helper.protectedRouter(request, response, 0, Router.LOGIN_PAGE)) {
+                return;
+            }
             if (!processRequest(request, response)) {
                 // forward on 400
                 request.getRequestDispatcher(Router.CART_CONTROLLER).forward(request, response);
