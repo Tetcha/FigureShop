@@ -37,11 +37,11 @@ public class AdminOrdersController extends HttpServlet {
         String currentOrderId = GetParam.getStringParam(request, "currentShow", "current show", 0, 40, null);
 
         if (fromDate == null) {
-            fromDate = "2000-1-1";
+            fromDate = "2000-01-01";
         }
 
         if (toDate == null) {
-            toDate = "2077-1-1";
+            toDate = "2077-01-01";
         }
 
         // get orders
@@ -68,6 +68,9 @@ public class AdminOrdersController extends HttpServlet {
         request.setAttribute("maxPage", maxPage);
         request.setAttribute("currentShow", currentShow);
         request.setAttribute("currentOrderShow", currentOrderShow);
+        request.setAttribute("fromDate", fromDate);
+        request.setAttribute("toDate", toDate);
+        request.setAttribute("page", page);
         return true;
     }
 
