@@ -60,7 +60,6 @@ public class CartRemoveProductController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            System.out.println("removing...");
             if (!processRequest(request, response)) {
                 // forward on 404
                 Helper.setAttribute(request, StatusCode.NOT_FOUND.getValue(),

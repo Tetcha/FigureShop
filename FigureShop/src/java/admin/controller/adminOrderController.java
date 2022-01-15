@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package user.controllers;
+package admin.controller;
 
 import constants.Router;
 import java.io.IOException;
