@@ -27,7 +27,7 @@ public class ProductFilterController extends HttpServlet {
     protected boolean processRequest(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         response.setContentType("text/html;charset=UTF-8");
-        System.out.println("check0");
+       
         ProductDao productDao = new ProductDao();
 
         CategoryDao categoryDao = new CategoryDao();
@@ -43,7 +43,7 @@ public class ProductFilterController extends HttpServlet {
         request.setAttribute("categoryId", categoryId);
         request.setAttribute("minPrice", minPrice);
         request.setAttribute("maxPrice", maxPrice);
-        System.out.println("check1");
+     
         if (categoryId.equals("all")) {
             categoryId = "";
         }
@@ -51,13 +51,13 @@ public class ProductFilterController extends HttpServlet {
         if (minPrice == null || maxPrice == null || page == null) {
             return false;
         }
-        System.out.println("check2");
+   
         // check price
         if (minPrice > maxPrice) {
             request.setAttribute("priceError", Message.PRICE_ERROR_MESSAGE.getContent());
             return false;
         }
-        System.out.println("check3");
+   
         // get products
         ArrayList<Product> products = productDao.getProducts(name, categoryId, minPrice, maxPrice, page);
         int resultSize = productDao.filterAllProducts(name, categoryId, minPrice, maxPrice).size();
@@ -71,7 +71,7 @@ public class ProductFilterController extends HttpServlet {
             product.setCategoryId(newCategory.getName());
 
         }
-        System.out.println("check4");
+
         // send products
         request.setAttribute("products", products);
         request.setAttribute("maxPage", maxPage);

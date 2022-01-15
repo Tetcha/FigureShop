@@ -33,7 +33,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
         </a>
 
         <a
-          href="<%= Router.ADMIN_ORDER_CONTROLLER %>"
+          href="<%= Router.ADMIN_ORDERS_CONTROLLER %>"
           class="text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md"
         >
           <svg
