@@ -1,5 +1,7 @@
+<%@page import="java.util.Locale"%>
 <%@page import="order.models.Order"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="java.text.NumberFormat"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12,8 +14,9 @@
         <body>
         <%
             ArrayList<Order> orders = (ArrayList<Order>) request.getAttribute("orders");
-            System.out.println(orders);
-
+            Locale vi = new Locale("vi", "VN");
+            NumberFormat vndFormat = NumberFormat.getCurrencyInstance(vi);
+            request.setCharacterEncoding("UTF-8");
         %>
         <div class="flex flex-col w-screen h-screen">
             <jsp:include page="./commonView/navbar.jsp"></jsp:include>
@@ -26,7 +29,7 @@
                     <%for (int i = 0; i < orders.size(); i++) {%>
                     <jsp:include page="./components/orderHistoryItem.jsp">
                         <jsp:param name="id" value="<%= orders.get(i).getId()%>" />
-                        <jsp:param name="totalPrice" value="<%= orders.get(i).getId()%>" />
+                        <jsp:param name="totalPrice" value="<%= vndFormat.format(orders.get(i).getTotalPrice())%>" />
                         <jsp:param name="address" value="<%= orders.get(i).getAddress()%>" />
                         <jsp:param name="phone" value="<%= orders.get(i).getPhoneNumber()%>" />
                         <jsp:param name="status" value="<%= orders.get(i).getStatus()%>" />

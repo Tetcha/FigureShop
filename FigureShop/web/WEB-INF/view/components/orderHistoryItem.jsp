@@ -1,3 +1,4 @@
+<%@page import="constants.Router"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@page
     contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -18,7 +19,7 @@
                   >
                 </div>
                 <p class="mt-1 text-gray-500 text-sm truncate">
-                    Total price : $${param.totalPrice}
+                    Total price : ${param.totalPrice}
                 </p>
                 <p class="mt-1 text-gray-500 text-sm truncate">
                     Address : ${param.address}
@@ -32,7 +33,7 @@
               <div class="-mt-px flex divide-x divide-gray-200">
                 <div class="w-0 flex-1 flex">
                   <a
-                    href="mailto:janecooper@example.com"
+                      href="<%=Router.ORDER_HISTORY_DETAIL_CONTROLLER%>?orderId=${param.id}"
                     class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
                   >
                     <!-- Heroicon name: solid/mail -->
