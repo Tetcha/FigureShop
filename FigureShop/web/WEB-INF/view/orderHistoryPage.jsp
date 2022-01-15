@@ -1,5 +1,7 @@
+<%@page import="java.util.Locale"%>
 <%@page import="order.models.Order"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="java.text.NumberFormat"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12,8 +14,9 @@
         <body>
         <%
             ArrayList<Order> orders = (ArrayList<Order>) request.getAttribute("orders");
-            System.out.println(orders.get(0).getPhoneNumber());
-
+            Locale vi = new Locale("vi", "VN");
+            NumberFormat vndFormat = NumberFormat.getCurrencyInstance(vi);
+            request.setCharacterEncoding("UTF-8");
         %>
         <div class="flex flex-col w-screen h-screen">
             <jsp:include page="./commonView/navbar.jsp"/>
