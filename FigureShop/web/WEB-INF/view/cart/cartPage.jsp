@@ -13,7 +13,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Your cart</title>
-        <jsp:include page="./commonView/init.jsp"></jsp:include>
+        <jsp:include page="../common/init.jsp"></jsp:include>
         </head>
         <body>
         <%
@@ -42,7 +42,7 @@
             NumberFormat vndFormat = NumberFormat.getCurrencyInstance(vi);
             request.setCharacterEncoding("UTF-8");
         %>
-        <jsp:include page="./commonView/navbar.jsp"></jsp:include>
+        <jsp:include page="../common/navbar.jsp"></jsp:include>
             <div class="bg-white">
                 <div
                     class="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
@@ -66,7 +66,7 @@
                                 >
 
                             <%for (int i = 0; i < products.size(); i++) {%>
-                            <jsp:include page="./components/orderItem.jsp">
+                            <jsp:include page="../components/orderItem.jsp">
                                 <jsp:param
                                     name="avatar"
                                 value="<%=  imageHead + products.get(i).getImage()%>"

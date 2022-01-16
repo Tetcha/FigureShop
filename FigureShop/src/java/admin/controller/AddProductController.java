@@ -5,6 +5,7 @@ import constants.Router;
 import constants.StatusCode;
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,8 @@ import utils.Helper;
  *
  * @author locnh
  */
-@WebServlet(name = "AddProductController", urlPatterns = {"/" + Router.ADD_PRODUCT_CONTROLLER})
+@WebServlet(name = "AddProductController", urlPatterns = {"/" + Router.ADMIN_ADD_PRODUCT_CONTROLLER})
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 1024, maxFileSize = 1024 * 1024 * 1024, maxRequestSize = 1024 * 1024 * 1024)
 public class AddProductController extends HttpServlet {
 
     protected boolean processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -61,7 +63,7 @@ public class AddProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher(Router.ADD_PRODUCT_PAGE).forward(request, response);
+        request.getRequestDispatcher(Router.ADMIN_ADD_PRODUCT_PAGE).forward(request, response);
     }
 
     @Override
@@ -70,11 +72,11 @@ public class AddProductController extends HttpServlet {
         try {
             if (!processRequest(request, response)) {
                 // forward on 400
-                request.getRequestDispatcher(Router.ADD_PRODUCT_PAGE).forward(request, response);
+                request.getRequestDispatcher(Router.ADMIN_ADD_PRODUCT_PAGE).forward(request, response);
                 return;
             }
             // forward on 200
-            request.getRequestDispatcher(Router.ADD_PRODUCT_PAGE).forward(request, response);
+            request.getRequestDispatcher(Router.ADMIN_ADD_PRODUCT_PAGE).forward(request, response);
         } catch (Exception e) {
             System.out.println(e);
             // forward on 500

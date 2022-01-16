@@ -1,9 +1,11 @@
+<%@page import="java.util.Locale"%>
 <%@page import="orderitem.dtos.OrderItemDto"%>
 <%@page import="order.models.Order"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="constants.Router"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.text.NumberFormat"%>
 <%
     String fromDate = (String) request.getAttribute("fromDate");
     String toDate = (String) request.getAttribute("toDate");
@@ -12,6 +14,10 @@
     ArrayList<OrderItemDto> currentShow = (ArrayList<OrderItemDto>) request.getAttribute("currentShow");
     Order currentOrderShow = (Order) request.getAttribute("currentOrderShow");
     ArrayList<Order> orders = (ArrayList<Order>) request.getAttribute("orders");
+    // handle on login
+   
+    session.setAttribute("prevUrl", request.getQueryString());
+    
 %>
 <div class="flex p-5 gap-5 h-screen overflow-hidden">
     <div class="flex flex-col max-w-3xl">
@@ -62,7 +68,7 @@
                                 </th>
                                 <th
                                     scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center"
                                     >
                                     Status
                                 </th>
@@ -76,6 +82,8 @@
                             <%
                                 String bgWhite = "bg-white";
                                 String bgGray = "bg-gray-200";
+                                Locale vi = new Locale("vi", "VN");
+                                NumberFormat vndFormat = NumberFormat.getCurrencyInstance(vi);
                             %>
                             <%for (int i = 0; i < orders.size(); i++) {%>
                             <tr class="<%= i % 2 == 0 ? bgWhite : bgGray%>">
@@ -87,18 +95,18 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     <%= orders.get(i).getCreatedDate()%>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    <%= orders.get(i).getTotalPrice()%>đ
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right">
+                                    <%=vndFormat.format(orders.get(i).getTotalPrice())%>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    <jsp:include page="../components/status.jsp">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                                    <jsp:include page="../../components/status.jsp">
                                         <jsp:param name="status" value="<%= orders.get(i).getStatus()%>"/>
                                     </jsp:include>
                                 </td>
                                 <td
                                     class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
                                     >
-                                    <a href="<%= Router.ADMIN_ORDERS_CONTROLLER %>?fromDate=<%= fromDate%>&toDate=<%= toDate%>&page=<%= currentPage%>&currentShow=<%= orders.get(i).getId() %>" class="text-indigo-600 hover:text-indigo-900"
+                                    <a href="<%= Router.ADMIN_ORDERS_CONTROLLER%>?fromDate=<%= fromDate%>&toDate=<%= toDate%>&page=<%= currentPage%>&currentShow=<%= orders.get(i).getId()%>" class="text-indigo-600 hover:text-indigo-900"
                                        >Edit</a
                                     >
                                 </td>
@@ -107,18 +115,22 @@
 
                         </tbody>
                     </table>
+
+                </div>
+                <jsp:include page="./orderPagination.jsp"></jsp:include>   
                 </div>
             </div>
         </div>
-    </div>
-    <!-- summary -->
-    <div class="flex-1 overflow-auto">
-        <div class="overflow-y-auto" role="dialog" aria-modal="true">
-            <div class="flex min-h-screen text-center sm:block" style="font-size: 0">
-                <div
-                    class="flex text-base text-left transform transition w-full sm:inline-block max-w-3xl sm:align-middle"
-                    >
-                    <form
+        <!-- summary -->
+        <div class="flex-1 overflow-auto">
+            <div class="overflow-y-auto" role="dialog" aria-modal="true">
+                <div class="flex min-h-screen text-center sm:block" style="font-size: 0">
+                    <div
+                        class="flex text-base text-left transform transition w-full sm:inline-block max-w-3xl sm:align-middle"
+                        >
+                        <form
+                            action="<%= Router.ADMIN_UPDATE_ORDER_STATUS_CONTROLLER%>"
+                        method="GET"
                         class="w-full relative flex flex-col bg-white overflow-hidden sm:pb-6 sm:rounded-lg pt-5"
                         >
                         <div class="flex items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -160,7 +172,7 @@
                                         <p
                                             class="row-end-2 row-span-2 font-medium text-gray-900 sm:ml-6 sm:order-1 sm:flex-none sm:w-1/3 sm:text-right"
                                             >
-                                            <%= item.getPrice()%>đ
+                                            <%=vndFormat.format(item.getPrice())%>
                                         </p>
                                     </div>
                                 </li>
@@ -183,7 +195,7 @@
                                                 Order total
                                             </dt>
                                             <dd class="text-base font-medium text-gray-900">
-                                                <%= totalPrice%>đ
+                                                <%= vndFormat.format(totalPrice) %>
                                             </dd>
                                         </div>
                                     </dl>
@@ -260,49 +272,55 @@
                                         />
                                 </div>
                             </div>
+                            <input
+                                type="text"
+                                name="id"
+                                value="<%= currentOrderShow.getId()%>"
+                                class="hidden"
+                                />
                             <!-- status field -->
                             <div class="">
                                 <label
-                                    for="location"
+                                    for="status"
                                     class="block text-sm font-medium text-gray-700"
                                     >Status</label
                                 >
                                 <select
-                                    id="location"
-                                    name="location"
+                                    id="status"
+                                    name="status"
                                     class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                                     >
 
                                     <c:choose>
                                         <c:when test="<%= currentOrderShow.getStatus() == 0%>">
-                                            <option selected>Waiting</option>
+                                            <option  selected>Waiting</option>
                                         </c:when> 
                                         <c:otherwise>
-                                            <option>Waiting</option>
+                                            <option >Waiting</option>
                                         </c:otherwise>
                                     </c:choose>
                                     <c:choose>
                                         <c:when test="<%= currentOrderShow.getStatus() == 1%>">
-                                            <option selected>Confirm</option>
+                                            <option  selected>Confirm</option>
                                         </c:when> 
                                         <c:otherwise>
-                                            <option>Confirm</option>
+                                            <option >Confirm</option>
                                         </c:otherwise>
                                     </c:choose>
                                     <c:choose>
                                         <c:when test="<%= currentOrderShow.getStatus() == 2%>">
-                                            <option selected>Done</option>
+                                            <option  selected>Done</option>
                                         </c:when> 
                                         <c:otherwise>
-                                            <option>Done</option>
+                                            <option >Done</option>
                                         </c:otherwise>
                                     </c:choose>
                                     <c:choose>
                                         <c:when test="<%= currentOrderShow.getStatus() == 3%>">
-                                            <option selected>Cancel</option>
+                                            <option  selected>Cancel</option>
                                         </c:when> 
                                         <c:otherwise>
-                                            <option>Cancel</option>
+                                            <option >Cancel</option>
                                         </c:otherwise>
                                     </c:choose>
                                 </select>

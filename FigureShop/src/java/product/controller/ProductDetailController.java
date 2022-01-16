@@ -14,7 +14,6 @@ import product.daos.ProductDao;
 import utils.GetParam;
 import utils.Helper;
 import product.models.Product;
-import category.models.Category;
 import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 import category.models.Category;

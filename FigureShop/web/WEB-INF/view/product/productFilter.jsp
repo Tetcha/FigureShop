@@ -12,13 +12,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Your cart</title>
-        <jsp:include page="./commonView/init.jsp"></jsp:include>
+        <jsp:include page="../common/init.jsp"></jsp:include>
         </head>
 
         <body>
-        <jsp:include page="./commonView/navbar.jsp"></jsp:include>
+        <jsp:include page="../common/navbar.jsp"></jsp:include>
             <div class="mt-5">
-            <jsp:include page="./welcomeFilter.jsp"></jsp:include>
+            <jsp:include page="../common/filter.jsp"></jsp:include>
             </div>
     <% ArrayList<Product> products = (ArrayList<Product>) request.getAttribute("products");
         Locale vi = new Locale("vi", "VN");
@@ -68,7 +68,7 @@
                 <%}%>
             </div>
             <div class="w-full flex justify-end mt-6">
-                <jsp:include page="./components/pagination.jsp"></jsp:include>
+                <jsp:include page="./pagination.jsp"></jsp:include>
             </div>
         </div>
     </div>
