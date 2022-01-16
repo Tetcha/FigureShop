@@ -19,7 +19,7 @@ import utils.Helper;
  *
  * @author locnh
  */
-@WebServlet(name = "UpdateProductController", urlPatterns = {"/" + Router.UPDATE_PRODUCT_CONTROLLER})
+@WebServlet(name = "UpdateProductController", urlPatterns = {"/" + Router.ADMIN_UPDATE_PRODUCT_CONTROLLER})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 1024, maxFileSize = 1024 * 1024 * 1024, maxRequestSize = 1024 * 1024 * 1024)
 public class UpdateProductController extends HttpServlet {
 
@@ -115,7 +115,7 @@ public class UpdateProductController extends HttpServlet {
                 return;
             }
             // forward on 200
-            request.getRequestDispatcher(Router.UPDATE_PRODUCT_PAGE).forward(request, response);
+            request.getRequestDispatcher(Router.ADMIN_UPDATE_PRODUCT_PAGE).forward(request, response);
         } catch (Exception e) {
             System.out.println(e);
             // forward on 500
