@@ -1,9 +1,11 @@
+<%@page import="java.util.Locale"%>
 <%@page import="orderitem.dtos.OrderItemDto"%>
 <%@page import="order.models.Order"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="constants.Router"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.text.NumberFormat"%>
 <%
     String fromDate = (String) request.getAttribute("fromDate");
     String toDate = (String) request.getAttribute("toDate");
@@ -66,7 +68,7 @@
                                 </th>
                                 <th
                                     scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center"
                                     >
                                     Status
                                 </th>
@@ -80,6 +82,8 @@
                             <%
                                 String bgWhite = "bg-white";
                                 String bgGray = "bg-gray-200";
+                                Locale vi = new Locale("vi", "VN");
+                                NumberFormat vndFormat = NumberFormat.getCurrencyInstance(vi);
                             %>
                             <%for (int i = 0; i < orders.size(); i++) {%>
                             <tr class="<%= i % 2 == 0 ? bgWhite : bgGray%>">
@@ -91,10 +95,10 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     <%= orders.get(i).getCreatedDate()%>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    <%= orders.get(i).getTotalPrice()%>đ
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right">
+                                    <%=vndFormat.format(orders.get(i).getTotalPrice())%>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
                                     <jsp:include page="../../components/status.jsp">
                                         <jsp:param name="status" value="<%= orders.get(i).getStatus()%>"/>
                                     </jsp:include>
@@ -168,7 +172,7 @@
                                         <p
                                             class="row-end-2 row-span-2 font-medium text-gray-900 sm:ml-6 sm:order-1 sm:flex-none sm:w-1/3 sm:text-right"
                                             >
-                                            <%= item.getPrice()%>đ
+                                            <%=vndFormat.format(item.getPrice())%>
                                         </p>
                                     </div>
                                 </li>
@@ -191,7 +195,7 @@
                                                 Order total
                                             </dt>
                                             <dd class="text-base font-medium text-gray-900">
-                                                <%= totalPrice%>đ
+                                                <%= vndFormat.format(totalPrice) %>
                                             </dd>
                                         </div>
                                     </dl>

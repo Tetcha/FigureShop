@@ -5,6 +5,7 @@ import constants.Router;
 import constants.StatusCode;
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import utils.Helper;
  * @author locnh
  */
 @WebServlet(name = "AddProductController", urlPatterns = {"/" + Router.ADMIN_ADD_PRODUCT_CONTROLLER})
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 1024, maxFileSize = 1024 * 1024 * 1024, maxRequestSize = 1024 * 1024 * 1024)
 public class AddProductController extends HttpServlet {
 
     protected boolean processRequest(HttpServletRequest request, HttpServletResponse response)

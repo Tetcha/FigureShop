@@ -5,6 +5,7 @@ import constants.Router;
 import constants.StatusCode;
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,8 @@ import utils.Helper;
  *
  * @author locnh
  */
-@WebServlet(name = "UpdateProductController", urlPatterns = {"/" + Router.UPDATE_PRODUCT_CONTROLLER})
+@WebServlet(name = "UpdateProductController", urlPatterns = {"/" + Router.ADMIN_UPDATE_PRODUCT_CONTROLLER})
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 1024, maxFileSize = 1024 * 1024 * 1024, maxRequestSize = 1024 * 1024 * 1024)
 public class UpdateProductController extends HttpServlet {
 
     /**

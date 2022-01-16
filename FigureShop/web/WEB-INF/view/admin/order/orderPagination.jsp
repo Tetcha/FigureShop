@@ -4,9 +4,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     int pageNumber = GetParam.getIntParams(request, "page", "Page", 1, Integer.MAX_VALUE, 1);
-    System.out.println("pageNumber " + pageNumber);
     int maxPage = (int) request.getAttribute("maxPage");
-    System.out.println("maxPage " + maxPage);
     String fromDate = (String)request.getAttribute("fromDate");
     String toDate = (String)request.getAttribute("toDate");
     
