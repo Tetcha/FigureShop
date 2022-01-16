@@ -49,17 +49,17 @@ People can view the items, put products in the cart, but only authenticated user
 ## Team Member
 
 - Nguyễn Hoàng Lộc | Backend - Leader
-     - Gmail: 
-     - Linkedin: 
-     - Github: 
+     - Gmail: hoanglocst900@gmail.com
+     - Linkedin: https://www.linkedin.com/in/locnguyenhoang/
+     - Github: https://github.com/niskyB
 - Đậu Lê Đức | Frontend
-     - Gmail: 
-     - Linkedin: 
-     - Github: 
+     - Gmail: dauleduc2@gmail.com
+     - Linkedin: https://www.linkedin.com/in/ducdauu/
+     - Github: https://github.com/dauleduc2
 - Thạch Chí Khang | Backend
-     - Gmail: 
-     - Linkedin: 
-     - Github: 
+     - Gmail: chikhang4566@gmail.com
+     - Linkedin: https://www.linkedin.com/in/thachchikhang/
+     - Github: https://github.com/Banan-a
 
 ## Project Picture
 
