@@ -13,7 +13,9 @@
 
       <jsp:include page="./welcomeBanner.jsp"></jsp:include>
 
-      <jsp:include page="../common/filter.jsp"></jsp:include>
+      <jsp:include page="../common/filter.jsp">
+        <jsp:param name="type" value="0" />
+      </jsp:include>
 
       <jsp:include page="./welcomeCategory.jsp"></jsp:include>
     </div>

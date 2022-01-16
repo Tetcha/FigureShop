@@ -148,7 +148,7 @@ import="java.text.NumberFormat"%> <%@page import="product.models.Product"%>
             class="overflow-hidden rounded-lg aspect-w-1 aspect-h-1 shadow-xl"
           >
             <img
-              src="https://${requestScope.product.getImage()}"
+              src="<%= product.getImage().startsWith("product.hstatic.net") ? "https://" + product.getImage() : product.getImage()%>"
               alt="Model wearing light green backpack with black canvas straps and front zipper pouch."
               class="object-cover object-center w-full h-full"
             />
