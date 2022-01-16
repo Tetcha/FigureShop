@@ -25,6 +25,8 @@
         <% ArrayList<Product> products = (ArrayList<Product>) request.getAttribute("products");
             Locale vi = new Locale("vi", "VN");
             NumberFormat vndFormat = NumberFormat.getCurrencyInstance(vi);
+            String pattern = "product.hstatic.net";
+            String imageHead = "https://";
         %>
 
         <div class="bg-white">
@@ -43,7 +45,7 @@
                             class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
                             <a
                                 href="<%=Router.PRODUCT_DETAIL_CONTROLLER%>?id=<%=products.get(i).getId()%>">
-                                <img src="<%= products.get(i).getImage().startsWith("product.hstatic.net") ? "https://" + products.get(i).getImage() : products.get(i).getImage()%>"
+                                <img src="<%= products.get(i).getImage().startsWith(pattern) ? imageHead + products.get(i).getImage() : products.get(i).getImage()%>"
                                      alt="Front of men&#039;s Basic Tee in black."
                                      class="w-full h-full object-center object-cover lg:w-full lg:h-full">
                             </a>

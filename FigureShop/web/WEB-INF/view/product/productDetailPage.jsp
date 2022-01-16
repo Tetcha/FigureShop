@@ -11,8 +11,12 @@ import="java.text.NumberFormat"%> <%@page import="product.models.Product"%>
   </head>
   <body>
     <jsp:include page="../common/navbar.jsp"></jsp:include>
-    <% Locale vi = new Locale("vi", "VN"); NumberFormat vndFormat =
-    NumberFormat.getCurrencyInstance(vi); %>
+    <% 
+        Locale vi = new Locale("vi", "VN"); 
+        NumberFormat vndFormat = NumberFormat.getCurrencyInstance(vi); 
+        String pattern = "product.hstatic.net";
+        String imageHead = "https://";
+    %>
     <div class="bg-white">
       <div
         class="max-w-2xl px-4 py-16 mx-auto sm:py-24 sm:px-6 flex flex-col-reverse lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:gap-x-8"
@@ -148,7 +152,7 @@ import="java.text.NumberFormat"%> <%@page import="product.models.Product"%>
             class="overflow-hidden rounded-lg aspect-w-1 aspect-h-1 shadow-xl"
           >
             <img
-              src="<%= product.getImage().startsWith("product.hstatic.net") ? "https://" + product.getImage() : product.getImage()%>"
+              src="<%= product.getImage().startsWith(pattern) ? imageHead + product.getImage() : product.getImage()%>"
               alt="Model wearing light green backpack with black canvas straps and front zipper pouch."
               class="object-cover object-center w-full h-full"
             />
