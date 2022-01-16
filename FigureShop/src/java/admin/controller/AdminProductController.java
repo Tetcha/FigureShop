@@ -52,7 +52,10 @@ public class AdminProductController extends HttpServlet {
         // get products
         ArrayList<Product> products = productDao.getProducts(name, categoryId, minPrice, maxPrice, page);
         for (int i = 0; i < products.size(); i++) {
-            products.get(i).setName(products.get(i).getName().substring(0, 20));
+            if (products.get(i).getName().length() > 30) {
+                products.get(i).setName(products.get(i).getName().substring(0, 26) + "...");
+            }
+
         }
         int resultSize = productDao.filterAllProducts(name, categoryId, minPrice, maxPrice).size();
         int maxPage = resultSize / 20;

@@ -8,6 +8,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.text.NumberFormat"%>
 <%
+    String imageHead = "https://";
+    String pattern = "product.hstatic.net";
     String fromDate = (String) request.getAttribute("fromDate");
     String toDate = (String) request.getAttribute("toDate");
     String email = (String) request.getAttribute("email");
@@ -18,7 +20,7 @@
     OrderWithEmailDto currentOrderShow = (OrderWithEmailDto) request.getAttribute("currentOrderShow");
     ArrayList<Order> orders = (ArrayList<Order>) request.getAttribute("orders");
     // handle on login
-    
+
     session.setAttribute("prevUrl", request.getQueryString());
 
 %>
@@ -129,7 +131,7 @@
             </div>
         </div>
         <!-- summary -->
-    <c:if test="<%= currentOrderShow != null %>">
+    <c:if test="<%= currentOrderShow != null%>">
         <div class="flex-1 overflow-auto">
             <div class="overflow-y-auto" role="dialog" aria-modal="true">
                 <div class="flex min-h-screen text-center sm:block" style="font-size: 0">
@@ -164,7 +166,7 @@
                                     %>
                                     <li class="py-8 flex text-sm sm:items-center">
                                         <img
-                                            src="https://<%= item.getImage()%>"
+                                            src="<%= currentShow.get(i).getImage().startsWith(pattern) ? imageHead + currentShow.get(i).getImage() : currentShow.get(i).getImage()%>"
                                             alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
                                             class="flex-none w-20 h-1w-20 rounded-lg border border-gray-200"
                                             />
