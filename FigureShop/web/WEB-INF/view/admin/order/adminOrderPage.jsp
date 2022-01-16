@@ -98,7 +98,7 @@
                                 <td
                                     class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
                                     >
-                                    <a href="<%= Router.ADMIN_ORDERS_CONTROLLER %>?fromDate=<%= fromDate%>&toDate=<%= toDate%>&page=<%= currentPage%>&currentShow=<%= orders.get(i).getId() %>" class="text-indigo-600 hover:text-indigo-900"
+                                    <a href="<%= Router.ADMIN_ORDERS_CONTROLLER%>?fromDate=<%= fromDate%>&toDate=<%= toDate%>&page=<%= currentPage%>&currentShow=<%= orders.get(i).getId()%>" class="text-indigo-600 hover:text-indigo-900"
                                        >Edit</a
                                     >
                                 </td>
@@ -119,6 +119,8 @@
                     class="flex text-base text-left transform transition w-full sm:inline-block max-w-3xl sm:align-middle"
                     >
                     <form
+                        action="<%= Router.ADMIN_UPDATE_ORDER_STATUS_CONTROLLER%>"
+                        method="GET"
                         class="w-full relative flex flex-col bg-white overflow-hidden sm:pb-6 sm:rounded-lg pt-5"
                         >
                         <div class="flex items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -260,49 +262,55 @@
                                         />
                                 </div>
                             </div>
+                            <input
+                                type="text"
+                                name="id"
+                                value="<%= currentOrderShow.getId()%>"
+                                class="hidden"
+                                />
                             <!-- status field -->
                             <div class="">
                                 <label
-                                    for="location"
+                                    for="status"
                                     class="block text-sm font-medium text-gray-700"
                                     >Status</label
                                 >
                                 <select
-                                    id="location"
-                                    name="location"
+                                    id="status"
+                                    name="status"
                                     class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                                     >
 
                                     <c:choose>
                                         <c:when test="<%= currentOrderShow.getStatus() == 0%>">
-                                            <option selected>Waiting</option>
+                                            <option  selected>Waiting</option>
                                         </c:when> 
                                         <c:otherwise>
-                                            <option>Waiting</option>
+                                            <option >Waiting</option>
                                         </c:otherwise>
                                     </c:choose>
                                     <c:choose>
                                         <c:when test="<%= currentOrderShow.getStatus() == 1%>">
-                                            <option selected>Confirm</option>
+                                            <option  selected>Confirm</option>
                                         </c:when> 
                                         <c:otherwise>
-                                            <option>Confirm</option>
+                                            <option >Confirm</option>
                                         </c:otherwise>
                                     </c:choose>
                                     <c:choose>
                                         <c:when test="<%= currentOrderShow.getStatus() == 2%>">
-                                            <option selected>Done</option>
+                                            <option  selected>Done</option>
                                         </c:when> 
                                         <c:otherwise>
-                                            <option>Done</option>
+                                            <option >Done</option>
                                         </c:otherwise>
                                     </c:choose>
                                     <c:choose>
                                         <c:when test="<%= currentOrderShow.getStatus() == 3%>">
-                                            <option selected>Cancel</option>
+                                            <option  selected>Cancel</option>
                                         </c:when> 
                                         <c:otherwise>
-                                            <option>Cancel</option>
+                                            <option >Cancel</option>
                                         </c:otherwise>
                                     </c:choose>
                                 </select>

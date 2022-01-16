@@ -51,6 +51,7 @@ public class Router {
 
     // admin
     public static final String ADMIN_ORDERS_CONTROLLER = "viewOrders";
+    public static final String ADMIN_UPDATE_ORDER_STATUS_CONTROLLER = "updateStatus";
     public static final String ADMIN_ORDERS_PAGE = "WEB-INF/view/admin/order/adminOrderPageMap.jsp";
 
     public static final String ADMIN_USER_CONTROLLER = "adminUser";
