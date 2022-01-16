@@ -107,19 +107,21 @@
 
                         </tbody>
                     </table>
+
+                </div>
+                <jsp:include page="./orderPagination.jsp"></jsp:include>   
                 </div>
             </div>
         </div>
-    </div>
-    <!-- summary -->
-    <div class="flex-1 overflow-auto">
-        <div class="overflow-y-auto" role="dialog" aria-modal="true">
-            <div class="flex min-h-screen text-center sm:block" style="font-size: 0">
-                <div
-                    class="flex text-base text-left transform transition w-full sm:inline-block max-w-3xl sm:align-middle"
-                    >
-                    <form
-                        action="<%= Router.ADMIN_UPDATE_ORDER_STATUS_CONTROLLER%>"
+        <!-- summary -->
+        <div class="flex-1 overflow-auto">
+            <div class="overflow-y-auto" role="dialog" aria-modal="true">
+                <div class="flex min-h-screen text-center sm:block" style="font-size: 0">
+                    <div
+                        class="flex text-base text-left transform transition w-full sm:inline-block max-w-3xl sm:align-middle"
+                        >
+                        <form
+                            action="<%= Router.ADMIN_UPDATE_ORDER_STATUS_CONTROLLER%>"
                         method="GET"
                         class="w-full relative flex flex-col bg-white overflow-hidden sm:pb-6 sm:rounded-lg pt-5"
                         >

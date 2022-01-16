@@ -68,7 +68,7 @@
                 <%}%>
             </div>
             <div class="w-full flex justify-end mt-6">
-                <jsp:include page="../components/pagination.jsp"></jsp:include>
+                <jsp:include page="./pagination.jsp"></jsp:include>
             </div>
         </div>
     </div>
