@@ -57,7 +57,6 @@ $(document).ready(function () {
     }
     if (!toValue) toValue = "99999999";
     if (!fromValue) fromValue = "0";
-    console.log(canMove);
     if (canMove)
       window.location.href = `${baseUrl}/filter?name=${nameValue}&from=${fromValue}&to=${toValue}&categoryId=${selectedVal}&page=${1}`;
   });

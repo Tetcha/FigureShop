@@ -16,9 +16,9 @@
     OrderWithEmailDto currentOrderShow = (OrderWithEmailDto) request.getAttribute("currentOrderShow");
     ArrayList<Order> orders = (ArrayList<Order>) request.getAttribute("orders");
     // handle on login
-   
+
     session.setAttribute("prevUrl", request.getQueryString());
-    
+
 %>
 <div class="flex p-5 gap-5 h-screen overflow-hidden">
     <div class="flex flex-col max-w-3xl">
@@ -32,6 +32,10 @@
                     <div class="flex flex-col gap-3">
                         <label for="toDate" class="capitalize font-semibold">to</label>
                         <input value="<%= toDate%>" name="toDate" type="date" class="rounded-sm" />
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <label for="User email" class="capitalize font-semibold">User email</label>
+                        <input type="email" name="email" id="email" class="shadow-sm py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-base border-gray-300 rounded-md" >
                     </div>
                     <input name="page" value="1" type="number" class="hidden" />
                     <div class="flex flex-col justify-end">
@@ -196,7 +200,7 @@
                                                 Order total
                                             </dt>
                                             <dd class="text-base font-medium text-gray-900">
-                                                <%= vndFormat.format(totalPrice) %>
+                                                <%= vndFormat.format(totalPrice)%>
                                             </dd>
                                         </div>
                                     </dl>

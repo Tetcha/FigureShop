@@ -18,7 +18,9 @@
         <body>
         <jsp:include page="../common/navbar.jsp"></jsp:include>
             <div class="mt-5">
-            <jsp:include page="../common/filter.jsp"></jsp:include>
+            <jsp:include page="../common/filter.jsp">
+                <jsp:param name="type" value="0" />
+            </jsp:include>
             </div>
     <% ArrayList<Product> products = (ArrayList<Product>) request.getAttribute("products");
         Locale vi = new Locale("vi", "VN");
