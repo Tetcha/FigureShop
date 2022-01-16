@@ -48,7 +48,7 @@
                         </div>
                         <div class="flex justify-between pt-6 sm:block sm:pt-0">
                             <dt class="font-medium text-gray-900">Receiver's number</dt>
-                            <dd class="sm:mt-1"><%= currentOrder.getConsigneeName()%></dd>
+                            <dd class="sm:mt-1"><%= currentOrder.getPhoneNumber()%></dd>
                         </div>
                         <div class="flex justify-between pt-6 sm:block sm:pt-0">
                             <dt class="font-medium text-gray-900">Address</dt>
