@@ -130,7 +130,7 @@
                         class="flex text-base text-left transform transition w-full sm:inline-block max-w-3xl sm:align-middle"
                         >
                         <form
-                            action="<%= Router.ADMIN_UPDATE_ORDER_STATUS_CONTROLLER%>"
+                            action="<%= Router.ADMIN_UPDATE_ORDER_CONTROLLER%>"
                         method="GET"
                         class="w-full relative flex flex-col bg-white overflow-hidden sm:pb-6 sm:rounded-lg pt-5"
                         >

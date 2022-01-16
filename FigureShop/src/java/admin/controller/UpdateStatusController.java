@@ -14,7 +14,7 @@ import order.daos.OrderDao;
 import utils.GetParam;
 import utils.Helper;
 
-@WebServlet(name = "UpdateStatusController", urlPatterns = {"/" + Router.ADMIN_UPDATE_ORDER_STATUS_CONTROLLER})
+@WebServlet(name = "UpdateStatusController", urlPatterns = {"/" + Router.ADMIN_UPDATE_ORDER_CONTROLLER})
 public class UpdateStatusController extends HttpServlet {
 
     protected int processRequest(HttpServletRequest request, HttpServletResponse response)
