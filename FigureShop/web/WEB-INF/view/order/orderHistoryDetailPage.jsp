@@ -10,7 +10,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>History detail</title>
-        <jsp:include page="./commonView/init.jsp"></jsp:include>
+        <jsp:include page="../common/init.jsp"></jsp:include>
         </head>
         <body>
         <%
@@ -21,7 +21,7 @@
             request.setCharacterEncoding("UTF-8");
         %>
         <div class="bg-white">
-            <jsp:include page="./commonView/navbar.jsp"></jsp:include>
+            <jsp:include page="../common/navbar.jsp"></jsp:include>
                 <div
                     class="max-w-3xl mx-auto px-4 py-16 sm:px-6 sm:pt-24 sm:pb-32 lg:px-8"
                     >
@@ -71,7 +71,7 @@
                                 >
                                 Order #<%= currentOrder.getId()%>
                             </h2>
-                            <jsp:include page="./components/status.jsp">
+                            <jsp:include page="../components/status.jsp">
                                 <jsp:param name="status" value="<%= currentOrder.getStatus() %>" />
                             </jsp:include>
                             </div>
@@ -84,7 +84,7 @@
                             <%
                                 String startUrl = "https://";
                             %>
-                            <jsp:include page="./components/orderHistoryDetailItem.jsp">
+                            <jsp:include page="../components/orderHistoryDetailItem.jsp">
                                 <jsp:param name="name" value="<%= orderItems.get(i).getName()%>" />
                                 <jsp:param name="category" value="<%= orderItems.get(i).getName()%>" />
                                 <jsp:param name="price" value="<%= vndFormat.format(orderItems.get(i).getPrice()) %>" />

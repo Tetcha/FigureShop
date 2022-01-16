@@ -14,7 +14,7 @@
         <welcome-file>/WEB-INF/view/loginPage.jsp</welcome-file>
     </welcome-file-list>
     <error-page>
-        <location>/WEB-INF/view/commonView/errorPage.jsp</location>
+        <location>/WEB-INF/view/common/errorPage.jsp</location>
     </error-page>
     <jsp-config>
         <jsp-property-group>
