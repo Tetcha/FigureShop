@@ -12,10 +12,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import product.daos.ProductDao;
 import utils.GetParam;
 import product.models.Product;
 import utils.Helper;
+import user.models.User;
 
 /**
  *
@@ -27,9 +29,7 @@ public class ProductFilterController extends HttpServlet {
     protected boolean processRequest(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         response.setContentType("text/html;charset=UTF-8");
-       
         ProductDao productDao = new ProductDao();
-
         CategoryDao categoryDao = new CategoryDao();
 
         // get params
@@ -43,7 +43,7 @@ public class ProductFilterController extends HttpServlet {
         request.setAttribute("categoryId", categoryId);
         request.setAttribute("minPrice", minPrice);
         request.setAttribute("maxPrice", maxPrice);
-     
+
         if (categoryId.equals("all")) {
             categoryId = "";
         }
@@ -51,13 +51,13 @@ public class ProductFilterController extends HttpServlet {
         if (minPrice == null || maxPrice == null || page == null) {
             return false;
         }
-   
+
         // check price
         if (minPrice > maxPrice) {
             request.setAttribute("priceError", Message.PRICE_ERROR_MESSAGE.getContent());
             return false;
         }
-   
+
         // get products
         ArrayList<Product> products = productDao.getProducts(name, categoryId, minPrice, maxPrice, page);
         int resultSize = productDao.filterAllProducts(name, categoryId, minPrice, maxPrice).size();
@@ -82,16 +82,26 @@ public class ProductFilterController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            HttpSession session = request.getSession();
+            User user = (User) session.getAttribute("user");
             if (!processRequest(request, response)) {
                 // forward on 400
                 ArrayList<Product> products = new ArrayList<Product>();
                 request.setAttribute("products", products);
                 request.setAttribute("maxPage", 1);
-                request.getRequestDispatcher(Router.PRODUCT_FILTER_PAGE).forward(request, response);
+                if (user.getIsAdmin() == 0) {
+                    request.getRequestDispatcher(Router.PRODUCT_FILTER_PAGE).forward(request, response);
+                } else {
+                    request.getRequestDispatcher(Router.ADMIN_PRODUCT_FILTER_PAGE).forward(request, response);
+                }
                 return;
             }
             // forward on 200
-            request.getRequestDispatcher(Router.PRODUCT_FILTER_PAGE).forward(request, response);
+            if (user.getIsAdmin() == 0) {
+                request.getRequestDispatcher(Router.PRODUCT_FILTER_PAGE).forward(request, response);
+            } else {
+                request.getRequestDispatcher(Router.ADMIN_PRODUCT_FILTER_PAGE).forward(request, response);
+            }
         } catch (Exception e) {
             System.out.println(e);
             // forward on 500

@@ -55,4 +55,5 @@ public class Router {
     public static final String ADMIN_USER_PAGE = "WEB-INF/view/admin/user/adminUserPageMap.jsp";
     public static final String ADMIN_UPDATE_PRODUCT_CONTROLLER = "updateProduct";
     public static final String ADMIN_UPDATE_PRODUCT_PAGE = "WEB-INF/view/updateProductPage.jsp";
+    public static final String ADMIN_PRODUCT_FILTER_PAGE = "";
 }
