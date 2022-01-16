@@ -38,7 +38,7 @@
                         class="bg-gray-100 mt-5 rounded-lg py-6 px-4 sm:px-6 sm:flex sm:items-center sm:justify-between sm:space-x-6 lg:space-x-8"
                         >
                         <dl
-                            class="flex divide-gray-200 space-y-6 text-sm text-gray-600 flex-auto sm:divide-y-0 sm:space-y-0 sm:grid sm:grid-cols-4 sm:gap-x-6 w-full lg:flex-none lg:gap-x-8"
+                            class="flex flex-wrap gap-4 divide-gray-200 space-y-6 text-sm text-gray-600 flex-auto sm:divide-y-0 sm:space-y-2 sm:grid sm:grid-cols-3 w-full  "
                             >
                             <div class="flex justify-between sm:block">
                                 <dt class="font-medium text-gray-900">Date</dt>
@@ -47,8 +47,12 @@
                             </dd>
                         </div>
                         <div class="flex justify-between pt-6 sm:block sm:pt-0">
-                            <dt class="font-medium text-gray-900">Receiver's number</dt>
+                            <dt class="font-medium text-gray-900">Receiver's name</dt>
                             <dd class="sm:mt-1"><%= currentOrder.getConsigneeName()%></dd>
+                        </div>
+                        <div class="flex justify-between pt-6 sm:block sm:pt-0">
+                            <dt class="font-medium text-gray-900">Phone number</dt>
+                            <dd class="sm:mt-1"><%= currentOrder.getPhoneNumber() %></dd>
                         </div>
                         <div class="flex justify-between pt-6 sm:block sm:pt-0">
                             <dt class="font-medium text-gray-900">Address</dt>

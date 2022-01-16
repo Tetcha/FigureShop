@@ -12,6 +12,10 @@
     ArrayList<OrderItemDto> currentShow = (ArrayList<OrderItemDto>) request.getAttribute("currentShow");
     Order currentOrderShow = (Order) request.getAttribute("currentOrderShow");
     ArrayList<Order> orders = (ArrayList<Order>) request.getAttribute("orders");
+    // handle on login
+   
+    session.setAttribute("prevUrl", request.getQueryString());
+    
 %>
 <div class="flex p-5 gap-5 h-screen overflow-hidden">
     <div class="flex flex-col max-w-3xl">
