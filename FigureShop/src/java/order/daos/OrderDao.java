@@ -168,7 +168,6 @@ public class OrderDao {
     // update order status
     public boolean updateOrderStatus(String id, int status, String address, String phoneNumber, String consigneeName) throws Exception {
         try {
-            System.out.println("hehe");
             conn = Connector.getConnection();
             String sql = "UPDATE figure_order SET status = ?, address = ?, phoneNumber = ?, consigneeName = ? WHERE id = ?";
             preStm = conn.prepareStatement(sql);
