@@ -63,14 +63,4 @@ public class Helper {
         request.setAttribute("errorTitle", errorTitle);
         request.setAttribute("errorDescription", errorDescription);
     }
-
-//    // set attribute user
-//    public static void sendUserResponse(HttpServletRequest request) throws Exception {
-//        HttpSession session = request.getSession();
-//        String userId = (String) session.getAttribute("userId");
-//        UserDAO userDao = new UserDAO();
-//
-//        User user = userDao.getUserById(userId);
-//        request.setAttribute("user", user);
-//    }
 }

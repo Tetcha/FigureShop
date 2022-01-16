@@ -89,17 +89,17 @@ public class ProductFilterController extends HttpServlet {
                 ArrayList<Product> products = new ArrayList<Product>();
                 request.setAttribute("products", products);
                 request.setAttribute("maxPage", 1);
-                if (user.getIsAdmin() == 0) {
+                if (user != null && user.getIsAdmin() == 0) {
                     request.getRequestDispatcher(Router.PRODUCT_FILTER_PAGE).forward(request, response);
-                } else {
+                } else if (user != null && user.getIsAdmin() == 1) {
                     request.getRequestDispatcher(Router.ADMIN_PRODUCT_FILTER_PAGE).forward(request, response);
                 }
                 return;
             }
             // forward on 200
-            if (user.getIsAdmin() == 0) {
+            if (user != null && user.getIsAdmin() == 0) {
                 request.getRequestDispatcher(Router.PRODUCT_FILTER_PAGE).forward(request, response);
-            } else {
+            } else if (user != null && user.getIsAdmin() == 1) {
                 request.getRequestDispatcher(Router.ADMIN_PRODUCT_FILTER_PAGE).forward(request, response);
             }
         } catch (Exception e) {

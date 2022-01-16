@@ -164,7 +164,7 @@ public class GetParam {
             return null;
         }
         //upload dir where save the image in server
-        String uploadDir = "asset/images";
+        String uploadDir = "asset/productImages";
         //get absolute path to project
         String appPath = request.getServletContext().getRealPath("");
         appPath = appPath.replace('\\', '/');
