@@ -68,7 +68,7 @@ public class AdminOrdersController extends HttpServlet {
 
         ArrayList<Order> allOrders = orderDao.getOrders();
 
-        if (currentOrderId == null) {
+        if (currentOrderId == null && orders.size() > 0) {
             currentOrderId = orders.get(0).getId();
         }
         ArrayList<OrderItemDto> currentShow = orderItemDao.getOrderItemDtoByOrderId(currentOrderId);
@@ -95,6 +95,7 @@ public class AdminOrdersController extends HttpServlet {
         request.setAttribute("fromDate", fromDate);
         request.setAttribute("toDate", toDate);
         request.setAttribute("page", page);
+        request.setAttribute("email", email);
         return true;
     }
 

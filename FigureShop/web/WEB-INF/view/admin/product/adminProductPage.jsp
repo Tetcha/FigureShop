@@ -5,7 +5,8 @@
 
 <%
     ArrayList<Product> products = (ArrayList<Product>) request.getAttribute("products");
-
+    String imageHead = "https://";
+    String pattern = "product.hstatic.net";
 %>
 
 <div class="bg-white flex-1 h-screen">
@@ -59,7 +60,7 @@
                                             <div class="flex-shrink-0 h-10 w-10">
                                                 <img
                                                     class="h-10 w-10 rounded-full"
-                                                    src="https://<%= products.get(i).getImage() %>"
+                                                    src="<%= products.get(i).getImage().startsWith(pattern) ? imageHead + products.get(i).getImage() : products.get(i).getImage()%>"
                                                     alt=""
                                                     />
                                             </div>
@@ -71,27 +72,27 @@
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <diRegional Paradigm Technicianv class="text-sm text-gray-900">
-                                             <%= products.get(i).getQuantity() %>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                         <%= products.get(i).getPrice()%>đ
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        <%= products.get(i).getCategoryId()%>
-                                    </td>
-                                    <td
-                                        class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
-                                        >
-                                        <a href="#" class="text-indigo-600 hover:text-indigo-900"
-                                           >Edit</a
-                                        >
-                                    </td>
+                            <diRegional Paradigm Technicianv class="text-sm text-gray-900">
+                                <%= products.get(i).getQuantity()%>
+                                </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <%= products.get(i).getPrice()%>đ
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <%= products.get(i).getCategoryId()%>
+                                </td>
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
+                                    >
+                                    <a href="#" class="text-indigo-600 hover:text-indigo-900"
+                                       >Edit</a
+                                    >
+                                </td>
                                 </tr>
                                 <%}%>
                                 <!-- More people... -->
-                            </tbody>
+                                </tbody>
                         </table>
                     </div>
                 </div>
