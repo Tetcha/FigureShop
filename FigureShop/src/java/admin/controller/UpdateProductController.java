@@ -20,7 +20,7 @@ import utils.Helper;
  * @author locnh
  */
 @WebServlet(name = "UpdateProductController", urlPatterns = {"/" + Router.ADMIN_UPDATE_PRODUCT_CONTROLLER})
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 1024, maxFileSize = 1024 * 1024 * 1024, maxRequestSize = 1024 * 1024 * 1024)
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 50, maxFileSize = 1024 * 1024 * 50, maxRequestSize = 1024 * 1024 * 50)
 public class UpdateProductController extends HttpServlet {
 
     /**
