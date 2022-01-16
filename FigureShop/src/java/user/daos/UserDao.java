@@ -3,6 +3,7 @@ package user.daos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.UUID;
 import user.models.User;
 import utils.Connector;
@@ -76,6 +77,25 @@ public class UserDao {
             this.closeConnection();
         }
         return user;
+    }
+
+    // get a userId by email
+    public ArrayList<String> getUserIdByEmail(String email) throws Exception {
+        ArrayList<String> ids = new ArrayList<>();
+        try {
+            conn = Connector.getConnection();
+            String sql = "SELECT * FROM figure_user WHERE email LIKE ?";
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, email);
+            rs = preStm.executeQuery();
+            while (rs.next()) {
+                String id = rs.getString("id");
+                ids.add(id);
+            }
+        } finally {
+            this.closeConnection();
+        }
+        return ids;
     }
 
     // get a user by id

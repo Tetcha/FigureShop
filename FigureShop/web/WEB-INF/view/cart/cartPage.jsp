@@ -180,6 +180,10 @@
                                 >
                                 Checkout
                             </button>
+                            <br></br>
+                            <p class="text-sm text-left text-red-600">
+                                ${requestScope.emptyMessage}
+                            </p>
                         </div>
                         </form>
                        
