@@ -39,6 +39,7 @@ public class AdminOrdersController extends HttpServlet {
         String toDate = GetParam.getStringParam(request, "toDate", "to date", 7, 12, null);
         Integer page = GetParam.getIntParams(request, "page", "Page", 1, Integer.MAX_VALUE, 1);
         String currentOrderId = GetParam.getStringParam(request, "currentShow", "current show", 0, 40, null);
+        String email = GetParam.getEmailParams(request, "email", "User's email");
 
         if (fromDate == null) {
             fromDate = "2000-01-01";
@@ -48,8 +49,23 @@ public class AdminOrdersController extends HttpServlet {
             toDate = "2077-01-01";
         }
 
+        if (email == null) {
+            email = "%%";
+        } else {
+            email = "%" + email + "%";
+        }
+
+        ArrayList<String> ids = userDao.getUserIdByEmail(email);
+
         // get orders
-        ArrayList<Order> orders = orderDao.getOrdersByDate(fromDate, toDate, page);
+        ArrayList<Order> orders = new ArrayList<>();
+        for (String id : ids) {
+            ArrayList<Order> order = orderDao.getOrdersForAdmin(fromDate, toDate, page, id);
+            for (Order element : order) {
+                orders.add(element);
+            }
+        }
+
         ArrayList<Order> allOrders = orderDao.getOrders();
 
         if (currentOrderId == null) {
