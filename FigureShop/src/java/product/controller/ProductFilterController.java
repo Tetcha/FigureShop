@@ -90,7 +90,7 @@ public class ProductFilterController extends HttpServlet {
                 request.setAttribute("products", products);
                 request.setAttribute("maxPage", 1);
                 if (user != null && user.getIsAdmin() == 1) {
-                    request.getRequestDispatcher(Router.ADMIN_PRODUCT_FILTER_PAGE).forward(request, response);
+                    request.getRequestDispatcher(Router.ADMIN_PRODUCT_PAGE).forward(request, response);
                     return;
                 }
                 request.getRequestDispatcher(Router.PRODUCT_FILTER_PAGE).forward(request, response);
@@ -98,7 +98,7 @@ public class ProductFilterController extends HttpServlet {
             }
             // forward on 200
             if (user != null && user.getIsAdmin() == 1) {
-                request.getRequestDispatcher(Router.ADMIN_PRODUCT_FILTER_PAGE).forward(request, response);
+                request.getRequestDispatcher(Router.ADMIN_PRODUCT_PAGE).forward(request, response);
                 return;
             }
             request.getRequestDispatcher(Router.PRODUCT_FILTER_PAGE).forward(request, response);
