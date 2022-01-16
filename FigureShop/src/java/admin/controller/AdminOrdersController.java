@@ -11,11 +11,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import order.daos.OrderDao;
+import order.dtos.OrderWithEmailDto;
 import utils.GetParam;
 import order.models.Order;
 import orderitem.daos.OrderItemDao;
 import orderitem.dtos.OrderItemDto;
+import user.daos.UserDao;
 import utils.Helper;
+import user.models.User;
 
 /**
  *
@@ -29,6 +32,7 @@ public class AdminOrdersController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         OrderDao orderDao = new OrderDao();
         OrderItemDao orderItemDao = new OrderItemDao();
+        UserDao userDao = new UserDao();
 
         // get param
         String fromDate = GetParam.getStringParam(request, "fromDate", "from date", 7, 12, null);
@@ -52,10 +56,14 @@ public class AdminOrdersController extends HttpServlet {
             currentOrderId = orders.get(0).getId();
         }
         ArrayList<OrderItemDto> currentShow = orderItemDao.getOrderItemDtoByOrderId(currentOrderId);
-        Order currentOrderShow = null;
+        OrderWithEmailDto currentOrderShow = null;
         for (Order order : orders) {
             if (order.getId().equals(currentOrderId)) {
-                currentOrderShow = order;
+                currentOrderShow = new OrderWithEmailDto(order.getId(),
+                        order.getUserId(), order.getAddress(), order.getPhoneNumber(),
+                        order.getConsigneeName(), order.getStatus(), order.getCreatedDate(), order.getTotalPrice());
+                User user = userDao.getUserById(order.getUserId());
+                currentOrderShow.setEmail(user.getEmail());
             }
         }
 

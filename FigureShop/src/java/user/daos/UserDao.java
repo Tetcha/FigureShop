@@ -54,7 +54,7 @@ public class UserDao {
         }
     }
 
-    // get a user by id
+    // get a user by email
     public User getUserByEmail(String email) throws Exception {
         User user = null;
         try {
@@ -65,6 +65,30 @@ public class UserDao {
             rs = preStm.executeQuery();
             if (rs.next()) {
                 String id = rs.getString("id");
+                String fullName = rs.getString("fullName");
+                String address = rs.getString("address");
+                String phone = rs.getString("phone");
+                String password = rs.getString("password");
+                int isAdmin = rs.getInt("isAdmin");
+                user = new User(id, fullName, email, password, address, phone, isAdmin);
+            }
+        } finally {
+            this.closeConnection();
+        }
+        return user;
+    }
+
+    // get a user by id
+    public User getUserById(String id) throws Exception {
+        User user = null;
+        try {
+            conn = Connector.getConnection();
+            String sql = "SELECT * FROM figure_user WHERE id = ?";
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, id);
+            rs = preStm.executeQuery();
+            if (rs.next()) {
+                String email = rs.getString("email");
                 String fullName = rs.getString("fullName");
                 String address = rs.getString("address");
                 String phone = rs.getString("phone");

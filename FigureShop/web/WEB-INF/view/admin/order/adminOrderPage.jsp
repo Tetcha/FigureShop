@@ -1,3 +1,4 @@
+<%@page import="order.dtos.OrderWithEmailDto"%>
 <%@page import="java.util.Locale"%>
 <%@page import="orderitem.dtos.OrderItemDto"%>
 <%@page import="order.models.Order"%>
@@ -12,7 +13,7 @@
     int currentPage = (Integer) request.getAttribute("page");
     int maxPage = (int) request.getAttribute("maxPage");
     ArrayList<OrderItemDto> currentShow = (ArrayList<OrderItemDto>) request.getAttribute("currentShow");
-    Order currentOrderShow = (Order) request.getAttribute("currentOrderShow");
+    OrderWithEmailDto currentOrderShow = (OrderWithEmailDto) request.getAttribute("currentOrderShow");
     ArrayList<Order> orders = (ArrayList<Order>) request.getAttribute("orders");
     // handle on login
    
@@ -224,6 +225,18 @@
                                     for="consigneeName"
                                     class="block text-sm font-medium text-gray-700"
                                     >Email</label
+                                >
+                                <div class="mt-1">
+                                    <div class=" w-full focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border-gray-300 rounded-md">
+                                        <%=currentOrderShow.getEmail()%>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="">
+                                <label
+                                    for="consigneeName"
+                                    class="block text-sm font-medium text-gray-700"
+                                    >Receiver's name</label
                                 >
                                 <div class="mt-1">
                                     <input
