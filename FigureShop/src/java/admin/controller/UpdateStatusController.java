@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import order.daos.OrderDao;
 import utils.GetParam;
 import utils.Helper;
@@ -20,7 +21,6 @@ public class UpdateStatusController extends HttpServlet {
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         OrderDao orderDao = new OrderDao();
-
         String status = GetParam.getStringParam(request, "status", "status", 3, 255, null);
         int statusValue = -1;
         switch (status) {
@@ -39,9 +39,22 @@ public class UpdateStatusController extends HttpServlet {
             default:
         }
         String address = GetParam.getStringParam(request, "address", "address", 3, 255, null);
+
+        if (address == null) {
+            address = "";
+        }
         String id = GetParam.getStringParam(request, "id", "user id", 3, 255, null);
         String consigneeName = GetParam.getStringParam(request, "consigneeName", "Consignee name", 3, 255, null);
+
+        if (consigneeName == null) {
+            consigneeName = "";
+        }
+
         String phone = GetParam.getStringParam(request, "phone", "phone number", 3, 255, null);
+
+        if (phone == null) {
+            consigneeName = "";
+        }
 
         orderDao.updateOrderStatus(id, statusValue, address, phone, consigneeName);
         return 1;
@@ -52,7 +65,10 @@ public class UpdateStatusController extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-            request.getRequestDispatcher(Router.ADMIN_ORDERS_CONTROLLER).forward(request, response);
+            //get prev query string
+            HttpSession session = request.getSession();
+            String prevUrl = (String) session.getAttribute("prevUrl");
+            response.sendRedirect(Router.ADMIN_ORDERS_CONTROLLER + "?" + prevUrl);
         } catch (Exception ex) {
             System.out.println(ex);
             // forward on 500
