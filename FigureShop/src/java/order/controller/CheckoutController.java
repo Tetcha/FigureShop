@@ -76,7 +76,7 @@ public class CheckoutController extends HttpServlet {
             }
             if (!processRequest(request, response)) {
                 // forward on 400
-                request.getRequestDispatcher(Router.CART_CONTROLLER).forward(request, response);
+                response.sendRedirect(Router.CART_CONTROLLER);
                 return;
             }
             // forward on 200
