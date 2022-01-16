@@ -40,20 +40,20 @@ $(document).ready(function () {
 
   $("#filterSearchButton").click(function (e) {
     e.preventDefault();
-    const canMove = true;
+    let canMove = true;
     let fromValue = fromElement.val();
     let toValue = toElement.val();
     const nameValue = nameElement.val();
     if (isNaN(fromValue) || parseInt(fromValue) < 0) {
-      fromText.append("From value should be a valid positive number");
+      fromText.text("From value should be a valid positive number");
       canMove = false;
     }
     if (isNaN(toValue) || parseInt(toValue) <= 0) {
-      toText.append("To value should be a valid positive number");
+      toText.text("To value should be a valid positive number");
       canMove = false;
     }
     if (parseInt(fromValue) > parseInt(toValue)) {
-      toText.append("To value should be higher than from value");
+      toText.text("To value should be higher than from value");
     }
     if (!toValue) toValue = "99999999";
     if (!fromValue) fromValue = "0";
