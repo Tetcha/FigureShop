@@ -6,12 +6,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>BFF Shop</title>
-        <jsp:include page="./commonView/init.jsp"></jsp:include>
+        <jsp:include page="../common/init.jsp"></jsp:include>
     </head>
 </head>
 <body>
     <div class="flex flex-col w-screen h-screen">
-        <jsp:include page="./commonView/navbar.jsp"></jsp:include>
+        <jsp:include page="../common/navbar.jsp"></jsp:include>
     <div
         class="relative flex-1 flex flex-col justify-center  bg-white lg:py-12 lg:bg-gradient-to-b lg:from-gray-50 lg:to-gray-100 sm:px-6 lg:px-8"
         >

@@ -1,7 +1,5 @@
-<%@page import="constants.Router"%>
-<%@page import="java.util.Locale"%>
-<%@page import="java.text.NumberFormat"%>
-<%@page import="product.models.Product"%>
+<%@page import="constants.Router"%> <%@page import="java.util.Locale"%> <%@page
+import="java.text.NumberFormat"%> <%@page import="product.models.Product"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,23 +7,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Product in detail</title>
-    <jsp:include page="./commonView/init.jsp"></jsp:include>
+    <jsp:include page="../common/init.jsp"></jsp:include>
   </head>
   <body>
-    <jsp:include page="./commonView/navbar.jsp"></jsp:include>
-    <%
-        Locale vi = new Locale("vi", "VN");
-        NumberFormat vndFormat = NumberFormat.getCurrencyInstance(vi);
-    %>
+    <jsp:include page="../common/navbar.jsp"></jsp:include>
+    <% Locale vi = new Locale("vi", "VN"); NumberFormat vndFormat =
+    NumberFormat.getCurrencyInstance(vi); %>
     <div class="bg-white">
       <div
         class="max-w-2xl px-4 py-16 mx-auto sm:py-24 sm:px-6 flex flex-col-reverse lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:gap-x-8"
       >
         <!-- Product details -->
-        <form class="w-full flex flex-col" action="<%=Router.PRODUCT_DETAIL_CONTROLLER%>" method="POST">
+        <form
+          class="w-full flex flex-col"
+          action="<%=Router.PRODUCT_DETAIL_CONTROLLER%>"
+          method="POST"
+        >
           <div class="lg:max-w-lg lg:self-start">
             <div class="mt-4">
-              <h1 class="text-3x1 font-extrabold tracking-tight text-gray-900 sm:text-3xl">
+              <h1
+                class="text-3x1 font-extrabold tracking-tight text-gray-900 sm:text-3xl"
+              >
                 ${requestScope.product.getName()}
               </h1>
             </div>
@@ -33,8 +35,9 @@
             <section aria-labelledby="information-heading" class="mt-4">
               <div class="flex items-center">
                 <p class="text-lg font-semibold text-gray-900 sm:text-2xl">
-                    <%Product product = (Product)request.getAttribute("product");%>
-                    <%=vndFormat.format(product.getPrice())%>
+                  <%Product product =
+                  (Product)request.getAttribute("product");%>
+                  <%=vndFormat.format(product.getPrice())%>
                 </p>
               </div>
 
@@ -57,13 +60,13 @@
                     class="flex w-4/5 px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none sm:w-16 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
                 </div>
-                   <input
-                    name="id"
-                    type="text"
-                    value="${requestScope.product.getId()}"
-                    class="hidden"
-                  />
-                  
+                <input
+                  name="id"
+                  type="text"
+                  value="${requestScope.product.getId()}"
+                  class="hidden"
+                />
+
                 <div class="flex items-center mt-4">
                   <c:choose>
                     <c:when test="${requestScope.product.getQuantity() > 0}">
@@ -97,7 +100,9 @@
               </div>
             </section>
           </div>
-          <div class="mt-16 lg:max-w-lg lg:col-start-1 lg:row-start-2 lg:self-start">
+          <div
+            class="mt-16 lg:max-w-lg lg:col-start-1 lg:row-start-2 lg:self-start"
+          >
             <section aria-labelledby="options-heading">
               <h2 id="options-heading" class="sr-only">Product options</h2>
 
@@ -139,9 +144,11 @@
         </form>
         <!-- Product image -->
         <div class="mt-10 lg:mt-0 lg:col-start-2 lg:row-span-2 lg:self-center">
-          <div class="overflow-hidden rounded-lg aspect-w-1 aspect-h-1 shadow-xl">
+          <div
+            class="overflow-hidden rounded-lg aspect-w-1 aspect-h-1 shadow-xl"
+          >
             <img
-                src="https://${requestScope.product.getImage()}"
+              src="https://${requestScope.product.getImage()}"
               alt="Model wearing light green backpack with black canvas straps and front zipper pouch."
               class="object-cover object-center w-full h-full"
             />

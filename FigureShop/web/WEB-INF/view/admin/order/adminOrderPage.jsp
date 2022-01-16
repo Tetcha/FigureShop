@@ -91,7 +91,7 @@
                                     <%= orders.get(i).getTotalPrice()%>đ
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    <jsp:include page="../components/status.jsp">
+                                    <jsp:include page="../../components/status.jsp">
                                         <jsp:param name="status" value="<%= orders.get(i).getStatus()%>"/>
                                     </jsp:include>
                                 </td>
