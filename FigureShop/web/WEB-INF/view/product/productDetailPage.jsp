@@ -68,8 +68,9 @@ import="java.text.NumberFormat"%> <%@page import="product.models.Product"%>
                 />
 
                 <div class="flex items-center mt-4">
-                  <c:choose>
-                    <c:when test="${requestScope.product.getQuantity() > 0}">
+                    <%
+                        if(product.getQuantity() > 0) {
+                    %>
                       <!-- Heroicon name: solid/check -->
                       <div class="flex items-center">
                         <svg
@@ -89,13 +90,12 @@ import="java.text.NumberFormat"%> <%@page import="product.models.Product"%>
                           In stock and ready to ship
                         </p>
                       </div>
-                    </c:when>
-                    <c:when test="${requestScope.product.getQuantity() <= 0}">
+                    <%}%>
+                    <% if(product.getQuantity() <= 0) { %>
                       <p class="ml-2 text-sm text-gray-500">
                         This product is out stock
                       </p>
-                    </c:when>
-                  </c:choose>
+                    <% } %>     
                 </div>
               </div>
             </section>
