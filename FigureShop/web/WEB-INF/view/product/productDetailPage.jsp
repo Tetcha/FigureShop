@@ -1,5 +1,7 @@
-<%@page import="constants.Router"%> <%@page import="java.util.Locale"%> <%@page
-import="java.text.NumberFormat"%> <%@page import="product.models.Product"%>
+<%@page import="constants.Router"%> 
+<%@page import="java.util.Locale"%> 
+<%@page import="java.text.NumberFormat"%> 
+<%@page import="product.models.Product"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>

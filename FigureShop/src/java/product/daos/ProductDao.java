@@ -17,7 +17,7 @@ public class ProductDao {
     private Connection conn;
     private PreparedStatement preStm;
     private ResultSet rs;
-    private static final Integer LIMIT = 20;
+    private static final Integer LIMIT = 9;
 
     //close connection of database
     private void closeConnection() throws Exception {

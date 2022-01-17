@@ -1,12 +1,16 @@
+<%@page import="java.util.Locale"%>
 <%@page import="product.models.Product"%>
 <%@page import="java.util.ArrayList"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@page import="java.text.NumberFormat"%> 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
     ArrayList<Product> products = (ArrayList<Product>) request.getAttribute("products");
     String imageHead = "https://";
     String pattern = "product.hstatic.net";
+    Locale vi = new Locale("vi", "VN"); 
+    NumberFormat vndFormat = NumberFormat.getCurrencyInstance(vi);
 %>
 
 <div class="bg-white flex-1 h-screen">
@@ -77,7 +81,7 @@
                                 </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <%= products.get(i).getPrice()%>đ
+                                    <%=vndFormat.format(products.get(i).getPrice())%>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     <%= products.get(i).getCategoryId()%>
