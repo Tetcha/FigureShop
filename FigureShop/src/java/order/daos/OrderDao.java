@@ -7,8 +7,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 import order.models.Order;
+import orderitem.daos.OrderItemDao;
+import product.daos.ProductDao;
 import utils.Connector;
 import product.models.Product;
+import orderitem.models.OrderItem;
 
 /**
  *
@@ -165,6 +168,31 @@ public class OrderDao {
         return orders;
     }
 
+    // get order by orderId
+    public Order getOrderByOrderId(String orderId) throws Exception {
+        Order order = null;
+        try {
+            conn = Connector.getConnection();
+            String sql = "SELECT * FROM figure_order WHERE id=?";
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, orderId);
+            rs = preStm.executeQuery();
+            if (rs.next()) {
+                String userId = rs.getString("userId");
+                Integer status = rs.getInt("status");
+                String address = rs.getString("address");
+                String phoneNumber = rs.getString("phoneNumber");
+                String consigneeName = rs.getString("consigneeName");
+                Date createdDate = rs.getDate("createdDate");
+                Float totalPrice = rs.getFloat("totalPrice");
+                order = new Order(orderId, userId, address, phoneNumber, consigneeName, status, createdDate, totalPrice);
+            }
+        } finally {
+            this.closeConnection();
+        }
+        return order;
+    }
+
     // update order status
     public boolean updateOrderStatus(String id, int status, String address, String phoneNumber, String consigneeName) throws Exception {
         try {
@@ -180,5 +208,48 @@ public class OrderDao {
         } finally {
             this.closeConnection();
         }
+    }
+
+    // update order status
+    public boolean updateOrderStatus(Order order, Integer nStatus) throws Exception {
+        boolean isTrue = true;
+        try {
+            conn = Connector.getConnection();
+            conn.setAutoCommit(false);
+            String sql = "UPDATE figure_order SET status = ?, address = ?, phoneNumber = ?, consigneeName = ? WHERE id = ?";
+            preStm = conn.prepareStatement(sql);
+            preStm.setInt(1, nStatus);
+            preStm.setString(2, order.getAddress());
+            preStm.setString(3, order.getPhoneNumber());
+            preStm.setString(4, order.getConsigneeName());
+            preStm.setString(5, order.getId());
+            preStm.executeUpdate();
+
+            // check status
+            if ((order.getStatus() == 0 || order.getStatus() == 3) && (nStatus != 3 && nStatus != 0)) {
+                OrderItemDao orderItemDao = new OrderItemDao();
+                ProductDao productDao = new ProductDao();
+                ArrayList<OrderItem> orderItems = orderItemDao.getOrderItemByOrderId(order.getId());
+                for (OrderItem orderItem : orderItems) {
+                    Product product = productDao.getProductById(orderItem.getProductId());
+                    productDao.updateProductQuantity(product.getQuantity() - orderItem.getQuantity(), orderItem.getProductId());
+                }
+            } else if ((order.getStatus() != 0 && order.getStatus() != 3) && (nStatus == 3 || nStatus == 0)) {
+                OrderItemDao orderItemDao = new OrderItemDao();
+                ProductDao productDao = new ProductDao();
+                ArrayList<OrderItem> orderItems = orderItemDao.getOrderItemByOrderId(order.getId());
+                for (OrderItem orderItem : orderItems) {
+                    Product product = productDao.getProductById(orderItem.getProductId());
+                    productDao.updateProductQuantity(product.getQuantity() + orderItem.getQuantity(), orderItem.getProductId());
+                }
+            }
+            conn.commit();
+        } catch (Exception e) {
+            isTrue = false;
+            conn.rollback();
+        } finally {
+            this.closeConnection();
+        }
+        return isTrue;
     }
 }

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import orderitem.dtos.OrderItemDto;
 import utils.Connector;
+import orderitem.models.OrderItem;
 
 /**
  *
@@ -56,5 +57,29 @@ public class OrderItemDao {
         }
 
         return orderItemDtos;
+    }
+
+    //get order item by orderId
+    public ArrayList<OrderItem> getOrderItemByOrderId(String orderId) throws Exception {
+        ArrayList<OrderItem> orderItems = new ArrayList<OrderItem>();
+
+        try {
+            conn = Connector.getConnection();
+            String sql = "SELECT * FROM figure_order_item WHERE orderId=?";
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, orderId);
+            rs = preStm.executeQuery();
+            OrderItem orderItem = null;
+            while (rs.next()) {
+                String productId = rs.getString("productId");
+                Integer quantity = rs.getInt("quantity");
+                Float price = rs.getFloat("price");
+                orderItem = new OrderItem(orderId, productId, quantity, price);
+                orderItems.add(orderItem);
+            }
+        } finally {
+            this.closeConnection();
+        }
+        return orderItems;
     }
 }
