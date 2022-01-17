@@ -2,9 +2,9 @@
 
 [![SinninSC Logo](FigureShop\document\logo.png)]("")
 
-## [Live Demo](https://booking.vinhnhan.com/PRJ301_SE08D_BookingHotel) - [Live Document](https://heaty566.github.io/cv/PRJ301_SE08D_BookingHotel_REPORT.pdf)
+## [Live Demo]() - [Live Document]()
 
-# Booking Hotel - Servlet + JSP + Tailwind
+# Shopping Online - Servlet + JSP + Tailwind
 
 ## Case Study
 
@@ -12,19 +12,16 @@ A longtime shop specializing in figures is called Tetcha. This store has a full 
 
 Some rules that this web application needs to follow:
 
-People can view the items, put products in the cart, but only authenticated users (registered accounts) can order and pay. Manager capabilities and client capabilities must be separate. Specifically, the customer, the authenticated user, can order and pay for the product, and at the same time can edit the order such as correct the quantity or delete the order in some special situations, and review the purchase history. your goods. Manager capabilities include adding products, updating product information, viewing customer order details, and canceling or confirming orders.
+People can view the items, put products or edit the quantity of product in the cart, but only authenticated users (registered accounts) can order and pay. Manager capabilities and client capabilities must be separate. Specifically, the customer, who is the authenticated user, can order and pay for the product, also can review the purchase history. your goods. Manager capabilities include adding products, updating product information, viewing customer order details, and canceling or confirming orders.
 
 ## Feature by role
 
 - ### Both Role Action
      - Login, register new account and logout
      - Change password
-     - Update user information
 - ### Customer Role Action
      - Add new product to cart
      - Checkout or cancel in cart
-     - Cancel order
-     - Review order
      - Checking order information
 - ### Admin Role Action
      - Create new product
@@ -88,6 +85,14 @@ People can view the items, put products in the cart, but only authenticated user
 ### Register Page
 ![Register Page](FigureShop\document\registerPage.png)
 
+### Navbar
+
+#### Non-Authenticated User
+![Non-Authenticated User](FigureShop\document\navbar_nonAuthenticatedUser.PNG)
+
+#### Authenticated User
+![Authenticated User](FigureShop\document\navbar_authenticatedUser.PNG)
+
 ### Product Page
 ![Product Page](FigureShop\document\productPage.png)
 
@@ -96,6 +101,12 @@ People can view the items, put products in the cart, but only authenticated user
 
 ### Cart Page
 ![Cart Page](FigureShop\document\cartPage.png)
+
+### Order History Page
+![Order History Page](FigureShop\document\orderHistoryPage.png)
+
+### Order Detail Page
+![Order Detail Page](FigureShop\document\orderDetailPage.png)
 
 ## Bug Report
 
