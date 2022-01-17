@@ -7,6 +7,7 @@
 <%
     CategoryDao categoryDao = new CategoryDao();
     ArrayList<Category> categoryList = categoryDao.getAllCategory();
+    request.setCharacterEncoding("UTF-8");
 %>
 <div class="p-10">
     <form action="<%=Router.ADMIN_ADD_PRODUCT_CONTROLLER%>" enctype="multipart/form-data" method="POST" class="space-y-8 divide-y divide-gray-200">

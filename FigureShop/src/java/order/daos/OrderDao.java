@@ -194,23 +194,6 @@ public class OrderDao {
     }
 
     // update order status
-    public boolean updateOrderStatus(String id, int status, String address, String phoneNumber, String consigneeName) throws Exception {
-        try {
-            conn = Connector.getConnection();
-            String sql = "UPDATE figure_order SET status = ?, address = ?, phoneNumber = ?, consigneeName = ? WHERE id = ?";
-            preStm = conn.prepareStatement(sql);
-            preStm.setInt(1, status);
-            preStm.setString(2, address);
-            preStm.setString(3, phoneNumber);
-            preStm.setString(4, consigneeName);
-            preStm.setString(5, id);
-            return preStm.executeUpdate() > 0;
-        } finally {
-            this.closeConnection();
-        }
-    }
-
-    // update order status
     public boolean updateOrderStatus(Order order, Integer nStatus) throws Exception {
         boolean isTrue = true;
         try {

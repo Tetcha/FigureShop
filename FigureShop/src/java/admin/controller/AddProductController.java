@@ -26,6 +26,7 @@ public class AddProductController extends HttpServlet {
     protected boolean processRequest(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         ProductDao productDao = new ProductDao();
         boolean isTrue = true;
 
