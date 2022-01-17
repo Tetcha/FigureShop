@@ -1,3 +1,4 @@
+<%@page import="constants.Router"%>
 <%@page import="java.util.Locale"%>
 <%@page import="product.models.Product"%>
 <%@page import="java.util.ArrayList"%>
@@ -89,8 +90,8 @@
                                 <td
                                     class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
                                     >
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900"
-                                       >Edit</a
+                                    <a href="<%= Router.ADMIN_UPDATE_PRODUCT_CONTROLLER %>?id=<%= products.get(i).getId() %>" class="text-indigo-600 hover:text-indigo-900"
+                                       >Update</a
                                     >
                                 </td>
                                 </tr>
