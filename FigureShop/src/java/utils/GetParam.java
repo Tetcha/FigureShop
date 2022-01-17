@@ -139,7 +139,7 @@ public class GetParam {
      * Get phone from request parameter and validate it
      */
     public static String getPhoneParams(HttpServletRequest request, String field, String label) {
-        String value = getStringParam(request, field, label, 6, 20, "");
+        String value = getStringParam(request, field, label, 6, 20, null);
 
         if (value == null) {
             return null;
