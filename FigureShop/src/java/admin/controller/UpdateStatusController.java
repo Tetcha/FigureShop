@@ -67,7 +67,7 @@ public class UpdateStatusController extends HttpServlet {
         Order order = orderDao.getOrderByOrderId(id);
 
         // check quantity
-        if (order.getStatus() == 0 && statusValue != 3) {
+        if ((order.getStatus() == 0 || order.getStatus() == 3) && (statusValue != 3 && statusValue != 0)) {
             OrderItemDao orderItemDao = new OrderItemDao();
             ProductDao productDao = new ProductDao();
             ArrayList<OrderItem> orderItems = orderItemDao.getOrderItemByOrderId(order.getId());
@@ -80,7 +80,11 @@ public class UpdateStatusController extends HttpServlet {
             }
         }
 
-        orderDao.updateOrderStatus(id, statusValue, address, phone, consigneeName);
+        order.setAddress(address);
+        order.setConsigneeName(consigneeName);
+        order.setPhoneNumber(phone);
+
+        orderDao.updateOrderStatus(order, statusValue);
         return 1;
     }
 

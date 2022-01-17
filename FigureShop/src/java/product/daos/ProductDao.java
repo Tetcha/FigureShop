@@ -216,4 +216,18 @@ public class ProductDao {
             this.closeConnection();
         }
     }
+
+    // update product quantity
+    public void updateProductQuantity(Integer quantity, String productId) throws Exception {
+        try {
+            conn = Connector.getConnection();
+            String sql = "UPDATE figure_product SET quantity = ? WHERE id = ?";
+            preStm = conn.prepareStatement(sql);
+            preStm.setInt(1, quantity);
+            preStm.setString(2, productId);
+            preStm.executeUpdate();
+        } finally {
+            this.closeConnection();
+        }
+    }
 }
