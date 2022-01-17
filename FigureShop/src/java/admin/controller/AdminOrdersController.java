@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import order.daos.OrderDao;
 import order.dtos.OrderWithEmailDto;
 import utils.GetParam;
@@ -33,6 +34,7 @@ public class AdminOrdersController extends HttpServlet {
         OrderDao orderDao = new OrderDao();
         OrderItemDao orderItemDao = new OrderItemDao();
         UserDao userDao = new UserDao();
+        HttpSession session = request.getSession();
 
         // get param
         String fromDate = GetParam.getStringParam(request, "fromDate", "from date", 7, 12, null);
@@ -88,6 +90,9 @@ public class AdminOrdersController extends HttpServlet {
             maxPage++;
         }
 
+        String quantityMessage = (String) session.getAttribute("quantityError");
+        session.setAttribute("quantityError", null);
+
         request.setAttribute("orders", orders);
         request.setAttribute("maxPage", maxPage);
         request.setAttribute("currentShow", currentShow);
@@ -96,6 +101,7 @@ public class AdminOrdersController extends HttpServlet {
         request.setAttribute("toDate", toDate);
         request.setAttribute("page", page);
         request.setAttribute("email", email);
+        request.setAttribute("quantityError", quantityMessage);
         return true;
     }
 

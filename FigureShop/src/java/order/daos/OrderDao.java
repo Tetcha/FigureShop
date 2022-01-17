@@ -165,6 +165,31 @@ public class OrderDao {
         return orders;
     }
 
+    // get order by orderId
+    public Order getOrderByOrderId(String orderId) throws Exception {
+        Order order = null;
+        try {
+            conn = Connector.getConnection();
+            String sql = "SELECT * FROM figure_order WHERE id=?";
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, orderId);
+            rs = preStm.executeQuery();
+            if (rs.next()) {
+                String userId = rs.getString("userId");
+                Integer status = rs.getInt("status");
+                String address = rs.getString("address");
+                String phoneNumber = rs.getString("phoneNumber");
+                String consigneeName = rs.getString("consigneeName");
+                Date createdDate = rs.getDate("createdDate");
+                Float totalPrice = rs.getFloat("totalPrice");
+                order = new Order(orderId, userId, address, phoneNumber, consigneeName, status, createdDate, totalPrice);
+            }
+        } finally {
+            this.closeConnection();
+        }
+        return order;
+    }
+
     // update order status
     public boolean updateOrderStatus(String id, int status, String address, String phoneNumber, String consigneeName) throws Exception {
         try {

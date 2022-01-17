@@ -347,7 +347,11 @@
                                         </c:choose>
                                     </select>
                                 </div>
+                                <p class="text-sm text-left text-red-600">
+                                    ${requestScope.quantityError}
+                                </p>
                             </div>
+
                             <div class="mt-8 flex justify-end px-4 sm:px-6 lg:px-8">
                                 <button
                                     type="submit"
@@ -356,6 +360,7 @@
                                     Update payment
                                 </button>
                             </div>
+
                         </form>
                     </div>
                 </div>
