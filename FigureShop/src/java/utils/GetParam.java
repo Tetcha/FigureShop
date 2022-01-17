@@ -150,7 +150,7 @@ public class GetParam {
             request.setAttribute(field + "Error", label + errorMessage);
             return null;
         }
-        return value;
+        return value.replace(" ", "");
     }
 
     public static String getFileParam(HttpServletRequest request, String field, String label, long maxSize) throws IOException, ServletException {

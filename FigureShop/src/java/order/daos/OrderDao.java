@@ -22,7 +22,6 @@ public class OrderDao {
     private Connection conn;
     private PreparedStatement preStm;
     private ResultSet rs;
-    private static final Integer LIMIT = 20;
 
     //close connection of database
     private void closeConnection() throws Exception {
@@ -110,10 +109,10 @@ public class OrderDao {
     }
 
     // get orders by date
-    public ArrayList<Order> getOrdersForAdmin(String formDate, String toDate, Integer page, String userId) throws Exception {
+    public ArrayList<Order> getOrdersForAdmin(String formDate, String toDate, Integer page, String userId, int limit) throws Exception {
         ArrayList<Order> orders = new ArrayList();
         try {
-            Integer skip = (page - 1) * LIMIT;
+            Integer skip = (page - 1) * limit;
             conn = Connector.getConnection();
             String sql = "SELECT * FROM figure_order WHERE userId = ? AND createdDate BETWEEN ? AND ? ORDER BY createdDate DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
             preStm = conn.prepareStatement(sql);
@@ -121,7 +120,7 @@ public class OrderDao {
             preStm.setString(2, formDate);
             preStm.setString(3, toDate);
             preStm.setInt(4, skip);
-            preStm.setInt(5, LIMIT);
+            preStm.setInt(5, limit);
             rs = preStm.executeQuery();
             Order order = null;
             while (rs.next()) {
