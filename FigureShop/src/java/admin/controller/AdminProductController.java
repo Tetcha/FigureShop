@@ -28,7 +28,7 @@ public class AdminProductController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         ProductDao productDao = new ProductDao();
         CategoryDao categoryDao = new CategoryDao();
-
+        final int LIMIT = 9;
         // get params
         String name = GetParam.getStringParam(request, "name", "Name", 0, 255, "");
         String categoryId = GetParam.getStringParam(request, "categoryId", "Category", 0, 40, "");
@@ -50,7 +50,7 @@ public class AdminProductController extends HttpServlet {
         }
 
         // get products
-        ArrayList<Product> products = productDao.getProducts(name, categoryId, minPrice, maxPrice, page);
+        ArrayList<Product> products = productDao.getProducts(name, categoryId, minPrice, maxPrice, page, LIMIT);
         for (int i = 0; i < products.size(); i++) {
             if (products.get(i).getName().length() > 30) {
                 products.get(i).setName(products.get(i).getName().substring(0, 26) + "...");
@@ -58,9 +58,9 @@ public class AdminProductController extends HttpServlet {
 
         }
         int resultSize = productDao.filterAllProducts(name, categoryId, minPrice, maxPrice).size();
-        int maxPage = resultSize / 20;
+        int maxPage = resultSize / LIMIT;
 
-        if (resultSize % 20 > 0) {
+        if (resultSize % LIMIT > 0) {
             maxPage = maxPage + 1;
         }
 
