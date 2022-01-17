@@ -39,6 +39,9 @@
                                 id="name"
                                 class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
                                 />
+                            <p class="text-sm text-left text-red-600">
+                                ${requestScope.nameError}
+                            </p>
                         </div>
                     </div>
                     <div
@@ -58,6 +61,9 @@
                                 id="quantity"
                                 class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
                                 />
+                            <p class="text-sm text-left text-red-600">
+                                ${requestScope.quantityError}
+                            </p>
                         </div>
                     </div>
                     <div
@@ -77,6 +83,9 @@
                                 id="price"
                                 class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
                                 />
+                            <p class="text-sm text-left text-red-600">
+                                ${requestScope.priceError}
+                            </p>
                         </div>
                     </div>
                     <div
@@ -95,8 +104,8 @@
                                 rows="3"
                                 class="max-w-lg shadow-sm block w-full focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border border-gray-300 rounded-md"
                                 ></textarea>
-                            <p class="mt-2 text-sm text-gray-500">
-                                Write a few sentences about product.
+                            <p class="text-sm text-left text-red-600">
+                                ${requestScope.descriptionError}
                             </p>
                         </div>
                     </div>
@@ -117,10 +126,12 @@
                                 class="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
                                 >
                                 <%for (int i = 0; i < categoryList.size(); i++) {%>
-                                    <option value="<%= categoryList.get(i).getId()%>"><%= categoryList.get(i).getName()%></option>
+                                <option value="<%= categoryList.get(i).getId()%>"><%= categoryList.get(i).getName()%></option>
                                 <%}%>
                             </select>
-
+                            <p class="text-sm text-left text-red-600">
+                                ${requestScope.categoryError}
+                            </p>
                         </div>
                     </div>
                     <div
@@ -167,6 +178,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <p class="text-sm text-left text-red-600">
+                                ${requestScope.imageError}
+                            </p>
                         </div>
                     </div>
                 </div>

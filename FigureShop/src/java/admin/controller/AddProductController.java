@@ -30,7 +30,7 @@ public class AddProductController extends HttpServlet {
         boolean isTrue = true;
 
         //validate param
-        String name = GetParam.getStringParam(request, "name", "Product's Name", 5, 255, null);
+        String name = GetParam.getStringParam(request, "name", "Product's name", 5, 255, null);
         String image = GetParam.getFileParam(request, "image", "Product's image", 1080 * 1080);
         Integer quantity = GetParam.getIntParams(request, "quantity", "Quantity", 0, Integer.MAX_VALUE, null);
         Float price = GetParam.getFloatParams(request, "price", "Price", 0, Float.MAX_VALUE, null);
