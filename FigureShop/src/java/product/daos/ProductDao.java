@@ -208,9 +208,13 @@ public class ProductDao {
             preStm.setInt(3, quantity);
             preStm.setFloat(4, price);
             preStm.setString(5, description);
-            preStm.setString(7, categoryId);
-            preStm.setString(8, productId);
+            preStm.setString(6, categoryId);
+            preStm.setString(7, productId);
+
+            System.out.println("post5");
             preStm.executeUpdate();
+
+            System.out.println("post6");
 
         } finally {
             this.closeConnection();

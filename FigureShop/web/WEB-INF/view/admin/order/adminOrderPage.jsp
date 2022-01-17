@@ -7,7 +7,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.text.NumberFormat"%>
-<%
+<%  
+    
     String imageHead = "https://";
     String pattern = "product.hstatic.net";
     String fromDate = (String) request.getAttribute("fromDate");
@@ -167,7 +168,6 @@
                                     <li class="py-8 flex text-sm sm:items-center">
                                         <img
                                             src="<%= currentShow.get(i).getImage().startsWith(pattern) ? imageHead + currentShow.get(i).getImage() : currentShow.get(i).getImage()%>"
-                                            alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
                                             class="flex-none w-20 h-1w-20 rounded-lg border border-gray-200"
                                             />
                                         <div
