@@ -9,7 +9,7 @@
     ArrayList<Product> products = (ArrayList<Product>) request.getAttribute("products");
     String imageHead = "https://";
     String pattern = "product.hstatic.net";
-    Locale vi = new Locale("vi", "VN"); 
+    Locale vi = new Locale("vi", "VN");
     NumberFormat vndFormat = NumberFormat.getCurrencyInstance(vi);
 %>
 
@@ -102,5 +102,7 @@
                 </div>
             </div>
         </div>
+
+        <jsp:include page="../product/adminProductPagination.jsp"></jsp:include>
     </div>
 </div>
