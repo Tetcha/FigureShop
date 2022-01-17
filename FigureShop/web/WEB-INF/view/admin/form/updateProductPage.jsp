@@ -1,3 +1,4 @@
+<%@page import="constants.Router"%>
 <%@page import="product.models.Product"%>
 <%@page import="category.daos.CategoryDao"%>
 <%@page import="category.models.Category"%>
@@ -12,7 +13,7 @@
     String pattern = "product.hstatic.net";
 %>
 <div class="p-10">
-    <form class="space-y-8 divide-y divide-gray-200">
+    <form method="post" enctype="multipart/form-data" action="<%= Router.ADMIN_UPDATE_PRODUCT_CONTROLLER%>" class="space-y-8 divide-y divide-gray-200">
         <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
             <div>
                 <div>
@@ -65,6 +66,12 @@
                                 />
                         </div>
                     </div>
+                    <input
+                        type="text"
+                        name="id"
+                        value="<%= product.getId()%>"
+                        class="hidden"
+                        />
                     <div
                         class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5"
                         >
@@ -117,9 +124,8 @@
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
                             <select
-                                id="country"
-                                name="country"
-                                autocomplete="country-name"
+                                id="type"
+                                name="type"
                                 class="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
                                 >
                                 <%for (int i = 0; i < categoryList.size(); i++) {%>
