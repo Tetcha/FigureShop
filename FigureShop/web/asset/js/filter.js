@@ -27,10 +27,9 @@ $(document).ready(function () {
       }
     });
     //set default value for each field
-    nameElement.val(paramValue.name);
+    nameElement.val(decodeURI(paramValue.name));
     fromElement.val(paramValue.from);
     toElement.val(paramValue.to);
-    console.log($(`#categoryFilter option[value='${paramValue.categoryId}']`));
     $(`#categoryFilter option[value='${paramValue.categoryId}']`).attr(
       "selected",
       "selected"

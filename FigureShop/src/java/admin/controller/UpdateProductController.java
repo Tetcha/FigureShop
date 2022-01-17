@@ -29,19 +29,16 @@ public class UpdateProductController extends HttpServlet {
     protected int postHandler(HttpServletRequest request, HttpServletResponse response) throws Exception {
         response.setContentType("text/html;charset=UTF-8");
         ProductDao productDao = new ProductDao();
-
         // get the current product
         String productId = GetParam.getStringParam(request, "id", "Product's id", 0, 40, null);
         if (productId == null) {
             return 0;
         }
-
         Product product = productDao.getProductById(productId);
         // check existed product
         if (product == null) {
             return 0;
         }
-
         // validate params
         String name = GetParam.getStringParam(request, "name", "Product's name", 3, 255, null);
         String imageUrl = GetParam.getFileParam(request, "image", "Product's image", 1080 * 1080);
@@ -50,12 +47,7 @@ public class UpdateProductController extends HttpServlet {
         String description = GetParam.getStringParam(request, "description", "Description", 3, 255, null);
         String categoryId = GetParam.getStringParam(request, "type", "Type", 0, 40, null);
 
-        // check duplicated name
-        if (name != null && !name.equals(product.getName())) {
-            request.setAttribute("nameError", Message.DULICATE_NAME_MESSAGE.getContent());
-            return 1;
-        }
-
+        System.out.println("post4");
         // check null value for params
         if (name == null) {
             name = product.getName();
@@ -72,14 +64,13 @@ public class UpdateProductController extends HttpServlet {
         if (categoryId == null) {
             categoryId = product.getCategoryId();
         }
+        if (imageUrl == null) {
+            imageUrl = product.getImage();
+        }
 
         // update to database
         productDao.updateProduct(productId, name, imageUrl, quantity, price, description, categoryId);
 
-        if (imageUrl == null) {
-            imageUrl = product.getImage();
-            return 2;
-        }
         return 2;
     }
 
@@ -129,6 +120,7 @@ public class UpdateProductController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+
             int result = postHandler(request, response);
             if (result == 0) {
                 //forward on 404
