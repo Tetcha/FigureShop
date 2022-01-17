@@ -17,7 +17,6 @@ public class ProductDao {
     private Connection conn;
     private PreparedStatement preStm;
     private ResultSet rs;
-    private static final Integer LIMIT = 20;
 
     //close connection of database
     private void closeConnection() throws Exception {
@@ -59,13 +58,13 @@ public class ProductDao {
     }
 
     // get product with filter
-    public ArrayList<Product> getProducts(String name, String categoryId, Float minPrice, Float maxPrice, Integer page) throws Exception {
+    public ArrayList<Product> getProducts(String name, String categoryId, Float minPrice, Float maxPrice, Integer page, int limit) throws Exception {
         ArrayList<Product> products = new ArrayList<Product>();
         try {
             Product product = null;
             name = "%" + name + "%";
             categoryId = "%" + categoryId + "%";
-            Integer offset = (page - 1) * LIMIT;
+            Integer offset = (page - 1) * limit;
 
             conn = Connector.getConnection();
             String sql = "SELECT * FROM figure_product WHERE name LIKE ? AND categoryId LIKE ? AND price BETWEEN ? AND ? ORDER BY price ASC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
@@ -75,7 +74,7 @@ public class ProductDao {
             preStm.setFloat(3, minPrice);
             preStm.setFloat(4, maxPrice);
             preStm.setInt(5, offset);
-            preStm.setInt(6, LIMIT);
+            preStm.setInt(6, limit);
             rs = preStm.executeQuery();
             while (rs.next()) {
                 String id = rs.getString("id");

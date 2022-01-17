@@ -18,6 +18,7 @@
         <body>
         <%
             String imageHead = "https://";
+            String pattern = "product.hstatic.net";
             ArrayList<Product> products = (ArrayList<Product>) request.getAttribute("products");
             if (products == null) {
                 products = new ArrayList<Product>();
@@ -69,7 +70,7 @@
                             <jsp:include page="../components/orderItem.jsp">
                                 <jsp:param
                                     name="avatar"
-                                value="<%=  imageHead + products.get(i).getImage()%>"
+                                    value="<%= products.get(i).getImage().startsWith(pattern) ? imageHead + products.get(i).getImage() : products.get(i).getImage()%>"
                                     />
                                 <jsp:param name="name" value="<%= products.get(i).getName()%>" />
                                 <jsp:param name="price" value="<%=vndFormat.format(products.get(i).getPrice())%>" />
@@ -180,6 +181,10 @@
                                 >
                                 Checkout
                             </button>
+                            <br></br>
+                            <p class="text-sm text-left text-red-600">
+                                ${requestScope.emptyMessage}
+                            </p>
                         </div>
                         </form>
                        

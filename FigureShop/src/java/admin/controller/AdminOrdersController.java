@@ -10,12 +10,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import order.daos.OrderDao;
+import order.dtos.OrderWithEmailDto;
 import utils.GetParam;
 import order.models.Order;
 import orderitem.daos.OrderItemDao;
 import orderitem.dtos.OrderItemDto;
+import user.daos.UserDao;
 import utils.Helper;
+import user.models.User;
 
 /**
  *
@@ -29,12 +33,15 @@ public class AdminOrdersController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         OrderDao orderDao = new OrderDao();
         OrderItemDao orderItemDao = new OrderItemDao();
+        UserDao userDao = new UserDao();
+        HttpSession session = request.getSession();
 
         // get param
         String fromDate = GetParam.getStringParam(request, "fromDate", "from date", 7, 12, null);
         String toDate = GetParam.getStringParam(request, "toDate", "to date", 7, 12, null);
         Integer page = GetParam.getIntParams(request, "page", "Page", 1, Integer.MAX_VALUE, 1);
         String currentOrderId = GetParam.getStringParam(request, "currentShow", "current show", 0, 40, null);
+        String email = GetParam.getEmailParams(request, "email", "User's email");
 
         if (fromDate == null) {
             fromDate = "2000-01-01";
@@ -44,18 +51,37 @@ public class AdminOrdersController extends HttpServlet {
             toDate = "2077-01-01";
         }
 
+        if (email == null) {
+            email = "%%";
+        } else {
+            email = "%" + email + "%";
+        }
+
+        ArrayList<String> ids = userDao.getUserIdByEmail(email);
+
         // get orders
-        ArrayList<Order> orders = orderDao.getOrdersByDate(fromDate, toDate, page);
+        ArrayList<Order> orders = new ArrayList<>();
+        for (String id : ids) {
+            ArrayList<Order> order = orderDao.getOrdersForAdmin(fromDate, toDate, page, id);
+            for (Order element : order) {
+                orders.add(element);
+            }
+        }
+
         ArrayList<Order> allOrders = orderDao.getOrders();
 
-        if (currentOrderId == null) {
+        if (currentOrderId == null && orders.size() > 0) {
             currentOrderId = orders.get(0).getId();
         }
         ArrayList<OrderItemDto> currentShow = orderItemDao.getOrderItemDtoByOrderId(currentOrderId);
-        Order currentOrderShow = null;
+        OrderWithEmailDto currentOrderShow = null;
         for (Order order : orders) {
             if (order.getId().equals(currentOrderId)) {
-                currentOrderShow = order;
+                currentOrderShow = new OrderWithEmailDto(order.getId(),
+                        order.getUserId(), order.getAddress(), order.getPhoneNumber(),
+                        order.getConsigneeName(), order.getStatus(), order.getCreatedDate(), order.getTotalPrice());
+                User user = userDao.getUserById(order.getUserId());
+                currentOrderShow.setEmail(user.getEmail());
             }
         }
 
@@ -64,6 +90,9 @@ public class AdminOrdersController extends HttpServlet {
             maxPage++;
         }
 
+        String quantityMessage = (String) session.getAttribute("quantityError");
+        session.setAttribute("quantityError", null);
+
         request.setAttribute("orders", orders);
         request.setAttribute("maxPage", maxPage);
         request.setAttribute("currentShow", currentShow);
@@ -71,6 +100,8 @@ public class AdminOrdersController extends HttpServlet {
         request.setAttribute("fromDate", fromDate);
         request.setAttribute("toDate", toDate);
         request.setAttribute("page", page);
+        request.setAttribute("email", email);
+        request.setAttribute("quantityError", quantityMessage);
         return true;
     }
 

@@ -17,6 +17,7 @@ public enum Message {
     PRICE_ERROR_MESSAGE("Min price cannot greater than max price"),
     EMPTY_CART_MESSAGE("There is no product in your cart yet"),
     DULICATE_NAME_MESSAGE("This product's name is already existed"),
+    NOT_ENOUGH_QUANTITY_MESSAGE("Products do not have enough quantity"),
     //order
     EMPTY_MESSAGE("There is no order yet"),
     //common

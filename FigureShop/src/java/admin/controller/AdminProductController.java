@@ -1,37 +1,34 @@
-package product.controller;
+package admin.controller;
 
 import category.daos.CategoryDao;
 import category.models.Category;
-import constants.Message;
 import constants.Router;
-import constants.StatusCode;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import product.daos.ProductDao;
-import utils.GetParam;
 import product.models.Product;
-import utils.Helper;
-import user.models.User;
+import utils.GetParam;
 
 /**
  *
- * @author locnh
+ * @author Admin
  */
-@WebServlet(name = "ProductFilterController", urlPatterns = {"/" + Router.PRODUCT_FILTER_CONTROLLER})
-public class ProductFilterController extends HttpServlet {
+@WebServlet(name = "AdminProductController", urlPatterns = {"/" + Router.ADMIN_PRODUCT_CONTROLLER})
+public class AdminProductController extends HttpServlet {
 
     protected boolean processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws Exception {
+            throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         ProductDao productDao = new ProductDao();
         CategoryDao categoryDao = new CategoryDao();
-        final int LIMIT = 20;
+        final int LIMIT = 9;
         // get params
         String name = GetParam.getStringParam(request, "name", "Name", 0, 255, "");
         String categoryId = GetParam.getStringParam(request, "categoryId", "Category", 0, 40, "");
@@ -52,19 +49,21 @@ public class ProductFilterController extends HttpServlet {
             return false;
         }
 
-        // check price
-        if (minPrice > maxPrice) {
-            request.setAttribute("priceError", Message.PRICE_ERROR_MESSAGE.getContent());
-            return false;
-        }
-
         // get products
         ArrayList<Product> products = productDao.getProducts(name, categoryId, minPrice, maxPrice, page, LIMIT);
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getName().length() > 30) {
+                products.get(i).setName(products.get(i).getName().substring(0, 26) + "...");
+            }
+
+        }
         int resultSize = productDao.filterAllProducts(name, categoryId, minPrice, maxPrice).size();
         int maxPage = resultSize / LIMIT;
+
         if (resultSize % LIMIT > 0) {
             maxPage = maxPage + 1;
         }
+
         for (int i = 0; i < products.size(); i++) {
             Product product = products.get(i);
             Category newCategory = categoryDao.getCategoryByID(product.getCategoryId());
@@ -82,35 +81,26 @@ public class ProductFilterController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            HttpSession session = request.getSession();
-            User user = (User) session.getAttribute("user");
-            if (!processRequest(request, response)) {
-                // forward on 400
-                ArrayList<Product> products = new ArrayList<Product>();
-                request.setAttribute("products", products);
-                request.setAttribute("maxPage", 1);
-                if (user != null && user.getIsAdmin() == 1) {
-                    request.getRequestDispatcher(Router.ADMIN_PRODUCT_PAGE).forward(request, response);
-                    return;
-                }
-                request.getRequestDispatcher(Router.PRODUCT_FILTER_PAGE).forward(request, response);
-                return;
-            }
-            // forward on 200
-            if (user != null && user.getIsAdmin() == 1) {
-                request.getRequestDispatcher(Router.ADMIN_PRODUCT_PAGE).forward(request, response);
-                return;
-            }
-            request.getRequestDispatcher(Router.PRODUCT_FILTER_PAGE).forward(request, response);
-            return;
-        } catch (Exception e) {
-            System.out.println(e);
-            // forward on 500
-            Helper.setAttribute(request, StatusCode.INTERNAL_SERVER_ERROR.getValue(),
-                    Message.INTERNAL_ERROR_TITLE.getContent(),
-                    Message.INTERNAL_ERROR_MESSAGE.getContent());
-            request.getRequestDispatcher(Router.ERROR).forward(request, response);
+            processRequest(request, response);
+            request.getRequestDispatcher(Router.ADMIN_PRODUCT_PAGE).forward(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(AdminProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(AdminProductController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 
 }

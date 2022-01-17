@@ -37,7 +37,7 @@
                                 class="flex justify-start mt-10 space-x-3 sm:border-l sm:border-transparent sm:pl-6"
                                 >
                                 <a
-                                    href=""
+                                    href="<%=Router.HOME_CONTROLLER%>"
                                     class="items-center px-4 py-2 text-sm font-medium text-center text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                     >
                                     Go back home

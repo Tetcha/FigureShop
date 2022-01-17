@@ -107,17 +107,18 @@ public class OrderDao {
     }
 
     // get orders by date
-    public ArrayList<Order> getOrdersByDate(String formDate, String toDate, Integer page) throws Exception {
+    public ArrayList<Order> getOrdersForAdmin(String formDate, String toDate, Integer page, String userId) throws Exception {
         ArrayList<Order> orders = new ArrayList();
         try {
             Integer skip = (page - 1) * LIMIT;
             conn = Connector.getConnection();
-            String sql = "SELECT * FROM figure_order WHERE createdDate BETWEEN ? AND ? ORDER BY createdDate DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+            String sql = "SELECT * FROM figure_order WHERE userId = ? AND createdDate BETWEEN ? AND ? ORDER BY createdDate DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
             preStm = conn.prepareStatement(sql);
-            preStm.setString(1, formDate);
-            preStm.setString(2, toDate);
-            preStm.setInt(3, skip);
-            preStm.setInt(4, LIMIT);
+            preStm.setString(1, userId);
+            preStm.setString(2, formDate);
+            preStm.setString(3, toDate);
+            preStm.setInt(4, skip);
+            preStm.setInt(5, LIMIT);
             rs = preStm.executeQuery();
             Order order = null;
             while (rs.next()) {
@@ -127,7 +128,6 @@ public class OrderDao {
                 String phoneNumber = rs.getString("phoneNumber");
                 String consigneeName = rs.getString("consigneeName");
                 Date createDate = rs.getDate("createdDate");
-                String userId = rs.getString("userId");
                 Float totalPrice = rs.getFloat("totalPrice");
                 order = new Order(id, userId, address, phoneNumber, consigneeName, status, createDate, totalPrice);
                 orders.add(order);
@@ -163,6 +163,31 @@ public class OrderDao {
             this.closeConnection();
         }
         return orders;
+    }
+
+    // get order by orderId
+    public Order getOrderByOrderId(String orderId) throws Exception {
+        Order order = null;
+        try {
+            conn = Connector.getConnection();
+            String sql = "SELECT * FROM figure_order WHERE id=?";
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, orderId);
+            rs = preStm.executeQuery();
+            if (rs.next()) {
+                String userId = rs.getString("userId");
+                Integer status = rs.getInt("status");
+                String address = rs.getString("address");
+                String phoneNumber = rs.getString("phoneNumber");
+                String consigneeName = rs.getString("consigneeName");
+                Date createdDate = rs.getDate("createdDate");
+                Float totalPrice = rs.getFloat("totalPrice");
+                order = new Order(orderId, userId, address, phoneNumber, consigneeName, status, createdDate, totalPrice);
+            }
+        } finally {
+            this.closeConnection();
+        }
+        return order;
     }
 
     // update order status

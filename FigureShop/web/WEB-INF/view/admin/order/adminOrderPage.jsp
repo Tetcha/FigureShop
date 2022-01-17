@@ -1,3 +1,4 @@
+<%@page import="order.dtos.OrderWithEmailDto"%>
 <%@page import="java.util.Locale"%>
 <%@page import="orderitem.dtos.OrderItemDto"%>
 <%@page import="order.models.Order"%>
@@ -7,17 +8,21 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.text.NumberFormat"%>
 <%
+    String imageHead = "https://";
+    String pattern = "product.hstatic.net";
     String fromDate = (String) request.getAttribute("fromDate");
     String toDate = (String) request.getAttribute("toDate");
+    String email = (String) request.getAttribute("email");
+    email = email.replace("%", "");
     int currentPage = (Integer) request.getAttribute("page");
     int maxPage = (int) request.getAttribute("maxPage");
     ArrayList<OrderItemDto> currentShow = (ArrayList<OrderItemDto>) request.getAttribute("currentShow");
-    Order currentOrderShow = (Order) request.getAttribute("currentOrderShow");
+    OrderWithEmailDto currentOrderShow = (OrderWithEmailDto) request.getAttribute("currentOrderShow");
     ArrayList<Order> orders = (ArrayList<Order>) request.getAttribute("orders");
     // handle on login
-   
+
     session.setAttribute("prevUrl", request.getQueryString());
-    
+
 %>
 <div class="flex p-5 gap-5 h-screen overflow-hidden">
     <div class="flex flex-col max-w-3xl">
@@ -31,6 +36,10 @@
                     <div class="flex flex-col gap-3">
                         <label for="toDate" class="capitalize font-semibold">to</label>
                         <input value="<%= toDate%>" name="toDate" type="date" class="rounded-sm" />
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <label for="email" class="capitalize font-semibold">User email</label>
+                        <input value="<%= email%>" type="email" name="email" id="email" class="shadow-sm py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-base border-gray-300 rounded-md" >
                     </div>
                     <input name="page" value="1" type="number" class="hidden" />
                     <div class="flex flex-col justify-end">
@@ -122,6 +131,7 @@
             </div>
         </div>
         <!-- summary -->
+    <c:if test="<%= currentOrderShow != null%>">
         <div class="flex-1 overflow-auto">
             <div class="overflow-y-auto" role="dialog" aria-modal="true">
                 <div class="flex min-h-screen text-center sm:block" style="font-size: 0">
@@ -129,214 +139,233 @@
                         class="flex text-base text-left transform transition w-full sm:inline-block max-w-3xl sm:align-middle"
                         >
                         <form
-                            action="<%= Router.ADMIN_UPDATE_ORDER_STATUS_CONTROLLER%>"
-                        method="GET"
-                        class="w-full relative flex flex-col bg-white overflow-hidden sm:pb-6 sm:rounded-lg pt-5"
-                        >
-                        <div class="flex items-center justify-between px-4 sm:px-6 lg:px-8">
-                            <h2 class="text-lg font-medium text-gray-900">Shopping Cart</h2>
-                        </div>
-
-                        <section aria-labelledby="cart-heading">
-                            <h2 id="cart-heading" class="sr-only">
-                                Items in your shopping cart
-                            </h2>
-
-                            <ul
-                                role="list"
-                                class="divide-y divide-gray-200 px-4 sm:px-6 lg:px-8"
-                                >
-                                <%
-                                    float totalPrice = 0;
-                                %>
-                                <%for (int i = 0; i < currentShow.size(); i++) {%>
-                                <%
-                                    OrderItemDto item = currentShow.get(i);
-                                    totalPrice += item.getPrice() * item.getQuantity();
-                                %>
-                                <li class="py-8 flex text-sm sm:items-center">
-                                    <img
-                                        src="https://<%= item.getImage()%>"
-                                        alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
-                                        class="flex-none w-20 h-1w-20 rounded-lg border border-gray-200"
-                                        />
-                                    <div
-                                        class="ml-4 flex-auto grid gap-y-3 gap-x-5 grid-rows-1 grid-cols-1 items-start sm:ml-6 sm:flex sm:gap-0 sm:items-center"
-                                        >
-                                        <div class="flex-auto row-end-1 sm:pr-6">
-                                            <h3 class="font-medium text-gray-900">
-                                                <a href="#"><%= item.getName()%></a>
-                                                <span class="text-gray-500" >x<%= item.getQuantity()%></span>
-                                            </h3>
-                                        </div>
-                                        <p
-                                            class="row-end-2 row-span-2 font-medium text-gray-900 sm:ml-6 sm:order-1 sm:flex-none sm:w-1/3 sm:text-right"
-                                            >
-                                            <%=vndFormat.format(item.getPrice())%>
-                                        </p>
-                                    </div>
-                                </li>
-                                <%}%>
-
-                                <!-- More products... -->
-                            </ul>
-                        </section>
-
-                        <section
-                            aria-labelledby="summary-heading"
-                            class="mt-auto sm:px-6 lg:px-8"
+                            action="<%= Router.ADMIN_UPDATE_ORDER_CONTROLLER%>"
+                            method="GET"
+                            class="w-full relative flex flex-col bg-white overflow-hidden sm:pb-6 sm:rounded-lg pt-5"
                             >
-                            <div class="bg-gray-200 p-6 sm:p-8 sm:rounded-lg">
-                                <h2 id="summary-heading" class="sr-only">Order summary</h2>
-                                <div class="flow-root">
-                                    <dl class="-my-4 text-sm divide-y divide-gray-200">
-                                        <div class="py-4 flex items-center justify-between">
-                                            <dt class="text-base font-medium text-gray-900">
-                                                Order total
-                                            </dt>
-                                            <dd class="text-base font-medium text-gray-900">
-                                                <%= vndFormat.format(totalPrice) %>
-                                            </dd>
-                                        </div>
-                                    </dl>
-                                </div>
+                            <div class="flex items-center justify-between px-4 sm:px-6 lg:px-8">
+                                <h2 class="text-lg font-medium text-gray-900">Shopping Cart</h2>
                             </div>
-                        </section>
-                        <!-- devide line -->
-                        <div class="relative py-3">
-                            <div
-                                class="absolute inset-0 flex items-center"
-                                aria-hidden="true"
-                                >
-                                <div class="w-full border-t border-gray-300"></div>
-                            </div>
-                            <div class="relative flex justify-center">
-                                <span class="px-2 bg-white text-sm text-gray-500">
-                                    Order details
-                                </span>
-                            </div>
-                        </div>
-                        <!-- shipment detail -->
-                        <div class="flex flex-col gap-5 px-8">
-                            <!-- email field -->
-                            <div class="">
-                                <label
-                                    for="consigneeName"
-                                    class="block text-sm font-medium text-gray-700"
-                                    >Email</label
-                                >
-                                <div class="mt-1">
-                                    <input
-                                        type="text"
-                                        name="consigneeName"
-                                        id="consigneeName"
-                                        value="<%= currentOrderShow.getConsigneeName()%>"
-                                        class="shadow-sm w-full focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border-gray-300 rounded-md"
-                                        placeholder=""
-                                        />
-                                </div>
-                            </div>
-                            <!-- address field -->
-                            <div class="">
-                                <label
-                                    for="address"
-                                    class="block text-sm font-medium text-gray-700"
-                                    >Address</label
-                                >
-                                <div class="mt-1">
-                                    <input
-                                        type="text"
-                                        name="address"
-                                        id="address"
-                                        value="<%= currentOrderShow.getAddress()%>"
-                                        class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                        placeholder=""
-                                        />
-                                </div>
-                            </div>
-                            <!-- phone number field -->
-                            <div class="">
-                                <label
-                                    for="phone"
-                                    class="block text-sm font-medium text-gray-700"
-                                    >Phone number</label
-                                >
-                                <div class="mt-1">
-                                    <input
-                                        type="text"
-                                        name="phone"
-                                        id="phone"
-                                        value="<%= currentOrderShow.getPhoneNumber()%>"
-                                        class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                        placeholder=""
-                                        />
-                                </div>
-                            </div>
-                            <input
-                                type="text"
-                                name="id"
-                                value="<%= currentOrderShow.getId()%>"
-                                class="hidden"
-                                />
-                            <!-- status field -->
-                            <div class="">
-                                <label
-                                    for="status"
-                                    class="block text-sm font-medium text-gray-700"
-                                    >Status</label
-                                >
-                                <select
-                                    id="status"
-                                    name="status"
-                                    class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-                                    >
 
-                                    <c:choose>
-                                        <c:when test="<%= currentOrderShow.getStatus() == 0%>">
-                                            <option  selected>Waiting</option>
-                                        </c:when> 
-                                        <c:otherwise>
-                                            <option >Waiting</option>
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <c:choose>
-                                        <c:when test="<%= currentOrderShow.getStatus() == 1%>">
-                                            <option  selected>Confirm</option>
-                                        </c:when> 
-                                        <c:otherwise>
-                                            <option >Confirm</option>
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <c:choose>
-                                        <c:when test="<%= currentOrderShow.getStatus() == 2%>">
-                                            <option  selected>Done</option>
-                                        </c:when> 
-                                        <c:otherwise>
-                                            <option >Done</option>
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <c:choose>
-                                        <c:when test="<%= currentOrderShow.getStatus() == 3%>">
-                                            <option  selected>Cancel</option>
-                                        </c:when> 
-                                        <c:otherwise>
-                                            <option >Cancel</option>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mt-8 flex justify-end px-4 sm:px-6 lg:px-8">
-                            <button
-                                type="submit"
-                                class="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
+                            <section aria-labelledby="cart-heading">
+                                <h2 id="cart-heading" class="sr-only">
+                                    Items in your shopping cart
+                                </h2>
+
+                                <ul
+                                    role="list"
+                                    class="divide-y divide-gray-200 px-4 sm:px-6 lg:px-8"
+                                    >
+                                    <%
+                                        float totalPrice = 0;
+                                    %>
+                                    <%for (int i = 0; i < currentShow.size(); i++) {%>
+                                    <%
+                                        OrderItemDto item = currentShow.get(i);
+                                        totalPrice += item.getPrice() * item.getQuantity();
+                                    %>
+                                    <li class="py-8 flex text-sm sm:items-center">
+                                        <img
+                                            src="<%= currentShow.get(i).getImage().startsWith(pattern) ? imageHead + currentShow.get(i).getImage() : currentShow.get(i).getImage()%>"
+                                            alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
+                                            class="flex-none w-20 h-1w-20 rounded-lg border border-gray-200"
+                                            />
+                                        <div
+                                            class="ml-4 flex-auto grid gap-y-3 gap-x-5 grid-rows-1 grid-cols-1 items-start sm:ml-6 sm:flex sm:gap-0 sm:items-center"
+                                            >
+                                            <div class="flex-auto row-end-1 sm:pr-6">
+                                                <h3 class="font-medium text-gray-900">
+                                                    <a href="#"><%= item.getName()%></a>
+                                                    <span class="text-gray-500" >x<%= item.getQuantity()%></span>
+                                                </h3>
+                                            </div>
+                                            <p
+                                                class="row-end-2 row-span-2 font-medium text-gray-900 sm:ml-6 sm:order-1 sm:flex-none sm:w-1/3 sm:text-right"
+                                                >
+                                                <%=vndFormat.format(item.getPrice())%>
+                                            </p>
+                                        </div>
+                                    </li>
+                                    <%}%>
+
+                                    <!-- More products... -->
+                                </ul>
+                            </section>
+
+                            <section
+                                aria-labelledby="summary-heading"
+                                class="mt-auto sm:px-6 lg:px-8"
                                 >
-                                Update payment
-                            </button>
-                        </div>
-                    </form>
+                                <div class="bg-gray-200 p-6 sm:p-8 sm:rounded-lg">
+                                    <h2 id="summary-heading" class="sr-only">Order summary</h2>
+                                    <div class="flow-root">
+                                        <dl class="-my-4 text-sm divide-y divide-gray-200">
+                                            <div class="py-4 flex items-center justify-between">
+                                                <dt class="text-base font-medium text-gray-900">
+                                                    Order total
+                                                </dt>
+                                                <dd class="text-base font-medium text-gray-900">
+                                                    <%= vndFormat.format(totalPrice)%>
+                                                </dd>
+                                            </div>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </section>
+                            <!-- devide line -->
+                            <div class="relative py-3">
+                                <div
+                                    class="absolute inset-0 flex items-center"
+                                    aria-hidden="true"
+                                    >
+                                    <div class="w-full border-t border-gray-300"></div>
+                                </div>
+                                <div class="relative flex justify-center">
+                                    <span class="px-2 bg-white text-sm text-gray-500">
+                                        Order details
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- shipment detail -->
+                            <div class="flex flex-col gap-5 px-8">
+                                <!-- email field -->
+                                <div class="">
+                                    <label
+                                        for="consigneeName"
+                                        class="block text-sm font-medium text-gray-700"
+                                        >Email</label
+                                    >
+                                    <div class="mt-1">
+                                        <div class=" w-full focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border-gray-300 rounded-md">
+                                            <%=currentOrderShow.getEmail()%>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <label
+                                        for="consigneeName"
+                                        class="block text-sm font-medium text-gray-700"
+                                        >Receiver's name</label
+                                    >
+                                    <div class="mt-1">
+                                        <input
+                                            type="text"
+                                            name="consigneeName"
+                                            id="consigneeName"
+                                            value="<%= currentOrderShow.getConsigneeName()%>"
+                                            class="shadow-sm w-full focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border-gray-300 rounded-md"
+                                            placeholder=""
+                                            />
+                                    </div>
+                                </div>
+                                <!-- address field -->
+                                <div class="">
+                                    <label
+                                        for="address"
+                                        class="block text-sm font-medium text-gray-700"
+                                        >Address</label
+                                    >
+                                    <div class="mt-1">
+                                        <input
+                                            type="text"
+                                            name="address"
+                                            id="address"
+                                            value="<%= currentOrderShow.getAddress()%>"
+                                            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                            placeholder=""
+                                            />
+                                    </div>
+                                </div>
+                                <!-- phone number field -->
+                                <div class="">
+                                    <label
+                                        for="phone"
+                                        class="block text-sm font-medium text-gray-700"
+                                        >Phone number</label
+                                    >
+                                    <div class="mt-1">
+                                        <input
+                                            type="text"
+                                            name="phone"
+                                            id="phone"
+                                            value="<%= currentOrderShow.getPhoneNumber()%>"
+                                            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                            placeholder=""
+                                            />
+                                    </div>
+                                </div>
+                                <input
+                                    type="text"
+                                    name="id"
+                                    value="<%= currentOrderShow.getId()%>"
+                                    class="hidden"
+                                    />
+                                <!-- status field -->
+                                <div class="">
+                                    <label
+                                        for="status"
+                                        class="block text-sm font-medium text-gray-700"
+                                        >Status</label
+                                    >
+                                    <select
+                                        id="status"
+                                        name="status"
+                                        class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                                        >
+
+                                        <c:choose>
+                                            <c:when test="<%= currentOrderShow.getStatus() == 0%>">
+                                                <option  selected>Waiting</option>
+                                            </c:when> 
+                                            <c:otherwise>
+                                                <option >Waiting</option>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <c:choose>
+                                            <c:when test="<%= currentOrderShow.getStatus() == 1%>">
+                                                <option  selected>Confirm</option>
+                                            </c:when> 
+                                            <c:otherwise>
+                                                <option >Confirm</option>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <c:choose>
+                                            <c:when test="<%= currentOrderShow.getStatus() == 2%>">
+                                                <option  selected>Done</option>
+                                            </c:when> 
+                                            <c:otherwise>
+                                                <option >Done</option>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <c:choose>
+                                            <c:when test="<%= currentOrderShow.getStatus() == 3%>">
+                                                <option  selected>Cancel</option>
+                                            </c:when> 
+                                            <c:otherwise>
+                                                <option >Cancel</option>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </select>
+                                </div>
+                                <p class="text-sm text-left text-red-600">
+                                    ${requestScope.quantityError}
+                                </p>
+                            </div>
+
+                            <div class="mt-8 flex justify-end px-4 sm:px-6 lg:px-8">
+                                <button
+                                    type="submit"
+                                    class="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
+                                    >
+                                    Update payment
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </c:if>
+
 </div>
