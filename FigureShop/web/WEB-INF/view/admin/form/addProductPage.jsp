@@ -7,6 +7,8 @@
 <%
     CategoryDao categoryDao = new CategoryDao();
     ArrayList<Category> categoryList = categoryDao.getAllCategory();
+    String imageHead = "https://";
+    String pattern = "product.hstatic.net";
 %>
 <div class="p-10">
     <form action="<%=Router.ADMIN_ADD_PRODUCT_CONTROLLER%>" enctype="multipart/form-data" method="POST" class="space-y-8 divide-y divide-gray-200">
@@ -164,12 +166,12 @@
                                     </svg>
                                     <div class="flex text-sm text-gray-600">
                                         <label
-                                            for="image"
+                                            for="imageInputFile"
                                             class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                                             >
                                             <span>Upload a file</span>
                                             <input
-                                                id="image"
+                                                id="imageInputFile"
                                                 name="image"
                                                 type="file"
                                                 class="sr-only"
@@ -181,6 +183,19 @@
                             <p class="text-sm text-left text-red-600">
                                 ${requestScope.imageError}
                             </p>
+                        </div>
+                    </div>
+                    <div
+                        class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5"
+                        >
+                        <label
+                          
+                            class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                            >
+
+                        </label>
+                        <div class="mt-1 sm:mt-0 sm:col-span-2">
+                            <img class="w-40"  id="imagePreview"/>
                         </div>
                     </div>
                 </div>

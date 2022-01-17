@@ -1,3 +1,4 @@
+<%@page import="product.models.Product"%>
 <%@page import="category.daos.CategoryDao"%>
 <%@page import="category.models.Category"%>
 <%@page import="java.util.ArrayList"%>
@@ -6,6 +7,9 @@
 <%
     CategoryDao categoryDao = new CategoryDao();
     ArrayList<Category> categoryList = categoryDao.getAllCategory();
+    Product product = (Product) request.getAttribute("product");
+    String imageHead = "https://";
+    String pattern = "product.hstatic.net";
 %>
 <div class="p-10">
     <form class="space-y-8 divide-y divide-gray-200">
@@ -36,6 +40,7 @@
                                 type="text"
                                 name="name"
                                 id="name"
+                                value="<%= product.getName()%>"
                                 class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
                                 />
                         </div>
@@ -54,6 +59,7 @@
                                 min="0"
                                 type="number"
                                 name="quantity"
+                                value="<%= product.getQuantity()%>"
                                 id="quantity"
                                 class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
                                 />
@@ -73,6 +79,7 @@
                                 min="0"
                                 type="number"
                                 name="price"
+                                value="<%= product.getPrice()%>"
                                 id="price"
                                 class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
                                 />
@@ -91,9 +98,9 @@
                             <textarea
                                 id="description"
                                 name="description"
-                                rows="3"
+                                rows="5"
                                 class="max-w-lg shadow-sm block w-full focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border border-gray-300 rounded-md"
-                                ></textarea>
+                                ><%= product.getDescription()%></textarea>
                             <p class="mt-2 text-sm text-gray-500">
                                 Write a few sentences about product.
                             </p>
@@ -116,7 +123,15 @@
                                 class="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
                                 >
                                 <%for (int i = 0; i < categoryList.size(); i++) {%>
-                                    <option value="<%= categoryList.get(i).getId()%>"><%= categoryList.get(i).getName()%></option>
+                                <c:choose>
+                                    <c:when test="<%= categoryList.get(i).getId().equals(product.getCategoryId())%>">
+                                        <option selected value="<%= categoryList.get(i).getId()%>"><%= categoryList.get(i).getName()%></option>
+                                    </c:when>    
+                                    <c:otherwise>
+                                        <option value="<%= categoryList.get(i).getId()%>"><%= categoryList.get(i).getName()%></option>
+                                    </c:otherwise>
+                                </c:choose>
+
                                 <%}%>
                             </select>
 
@@ -157,15 +172,28 @@
                                             >
                                             <span>Upload a file</span>
                                             <input
-                                                id="image"
+                                                id="imageInputFile"
                                                 name="image"
                                                 type="file"
                                                 class="sr-only"
                                                 />
                                         </label>
                                     </div>
+
+
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div
+                        class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5"
+                        >
+                        <label
+                            class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                            >
+                        </label>
+                        <div class="mt-1 sm:mt-0 sm:col-span-2">
+                            <img class="w-40" src="<%= product.getImage().startsWith(pattern) ? imageHead + product.getImage() : product.getImage()%>"  id="imagePreview"/>
                         </div>
                     </div>
                 </div>
