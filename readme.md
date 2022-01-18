@@ -41,7 +41,6 @@ People can view the items, put products or edit the quantity of product in the c
      - SQL Server 2019 - Database
 - Deployment
      - Docker - Container Management
-     - Github Action - CI/CD
 
 ## Team Member
 
@@ -68,15 +67,11 @@ People can view the items, put products or edit the quantity of product in the c
 
 #### Relational Diagram
 
-![Database Page](FigureShop\document\database.PNG)
+![Database Page](FigureShop\document\database.png)
 
 ### Home Page
 
 ![Home Page](FigureShop\document\homePage.png)
-
-### Management Page
-
-![Management Page]()
 
 ### Sign In Page
 
@@ -88,10 +83,10 @@ People can view the items, put products or edit the quantity of product in the c
 ### Navbar
 
 #### Non-Authenticated User
-![Non-Authenticated User](FigureShop\document\navbar_nonAuthenticatedUser.PNG)
+![Non-Authenticated User](FigureShop\document\navbar_nonAuthenticatedUser.png)
 
 #### Authenticated User
-![Authenticated User](FigureShop\document\navbar_authenticatedUser.PNG)
+![Authenticated User](FigureShop\document\navbar_authenticatedUser.png)
 
 ### Product Page
 ![Product Page](FigureShop\document\productPage.png)
@@ -107,6 +102,17 @@ People can view the items, put products or edit the quantity of product in the c
 
 ### Order Detail Page
 ![Order Detail Page](FigureShop\document\orderDetailPage.png)
+
+### Management Page
+
+#### Order Managerment Page
+![Order Managerment Page](FigureShop\document\orderManagermentPage.png)
+
+#### Product Managerment Page
+![Product Managerment Page](FigureShop\document\productManagermentPage.png)
+
+#### Add New Product Page
+![Add New Product Page](FigureShop\document\addNewProductPage.png)
 
 ## Bug Report
 

@@ -49,7 +49,7 @@
         </a>
         <%for (int i = 1; i <= maxPage; i++) {%>
         <a
-            href="<%= Router.PRODUCT_FILTER_CONTROLLER%>?name=<%= name%>&from=<%= minPrice%>&to=<%= maxPrice%>&categoryId=<%= categoryId%>&page=<%= i%>"
+            href="<%= Router.ADMIN_PRODUCT_CONTROLLER %>?name=<%= name%>&from=<%= minPrice%>&to=<%= maxPrice%>&categoryId=<%= categoryId%>&page=<%= i%>"
             aria-current="page"
             class="<%= i == pageNumber ? selectedClass : unSelectedClass%>"
             >
@@ -60,7 +60,7 @@
 
 
         <a
-            href="<%= Router.PRODUCT_FILTER_CONTROLLER%>?name=<%= name%>&from=<%= minPrice%>&to=<%= maxPrice%>&categoryId=<%= categoryId%>&page=<%= isHaveNextPage ? pageNumber + 1 : maxPage%>"
+            href="<%= Router.ADMIN_PRODUCT_CONTROLLER%>?name=<%= name%>&from=<%= minPrice%>&to=<%= maxPrice%>&categoryId=<%= categoryId%>&page=<%= isHaveNextPage ? pageNumber + 1 : maxPage%>"
             class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
             >
             <span class="sr-only">Next</span>
