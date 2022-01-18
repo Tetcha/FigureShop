@@ -29,6 +29,7 @@ public class DeleteProductController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         OrderItemDao orderItemDao = new OrderItemDao();
         ProductDao productDao = new ProductDao();
+        HttpSession session = request.getSession();
 
         // get param
         String id = GetParam.getStringParam(request, "id", "Product", 0, 40, null);
@@ -38,9 +39,9 @@ public class DeleteProductController extends HttpServlet {
 
         OrderItem orderItem = orderItemDao.getOrderItemByProductId(id);
         if (orderItem != null) {
-            request.setAttribute(Notification.AttrType.notiStatus.name(), Notification.Status.ERROR);
-            request.setAttribute(Notification.AttrType.notiMessage.name(), Message.DELETE_ERROR_MESSAGE);
-            request.setAttribute(Notification.AttrType.notiDescription.name(), Message.DELETE_ERROR_DESCRIPTION);
+            session.setAttribute(Notification.AttrType.notiStatus.name(), Notification.Status.ERROR);
+            session.setAttribute(Notification.AttrType.notiMessage.name(), Message.DELETE_ERROR_MESSAGE);
+            session.setAttribute(Notification.AttrType.notiDescription.name(), Message.DELETE_ERROR_DESCRIPTION);
             return false;
         }
 
@@ -56,11 +57,11 @@ public class DeleteProductController extends HttpServlet {
             String prevUrl = (String) session.getAttribute("prevUrl");
             if (!processRequest(request, response)) {
                 // forward on 400
-                request.getRequestDispatcher(Router.ADMIN_PRODUCT_CONTROLLER + "?" + prevUrl).forward(request, response);
+                response.sendRedirect(Router.ADMIN_PRODUCT_CONTROLLER + "?" + prevUrl);
                 return;
             }
             // forward on 200
-            request.getRequestDispatcher(Router.ADMIN_PRODUCT_CONTROLLER + "?" + prevUrl).forward(request, response);
+            response.sendRedirect(Router.ADMIN_PRODUCT_CONTROLLER + "?" + prevUrl);
         } catch (Exception e) {
             System.out.println(e);
             // forward on 500
