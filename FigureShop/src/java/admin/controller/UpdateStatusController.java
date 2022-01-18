@@ -61,7 +61,7 @@ public class UpdateStatusController extends HttpServlet {
         String phone = GetParam.getStringParam(request, "phone", "phone number", 3, 255, null);
 
         if (phone == null) {
-            consigneeName = "";
+            phone = "";
         }
 
         Order order = orderDao.getOrderByOrderId(id);
