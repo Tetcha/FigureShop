@@ -62,7 +62,6 @@ public class OrderItemDao {
     //get order item by orderId
     public ArrayList<OrderItem> getOrderItemByOrderId(String orderId) throws Exception {
         ArrayList<OrderItem> orderItems = new ArrayList<OrderItem>();
-
         try {
             conn = Connector.getConnection();
             String sql = "SELECT * FROM figure_order_item WHERE orderId=?";
@@ -81,5 +80,26 @@ public class OrderItemDao {
             this.closeConnection();
         }
         return orderItems;
+    }
+
+    // get order item by product id
+    public OrderItem getOrderItemByProductId(String productId) throws Exception {
+        OrderItem orderItem = null;
+        try {
+            conn = Connector.getConnection();
+            String sql = "SELECT * FROM figure_order_item WHERE productId=?";
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, productId);
+            rs = preStm.executeQuery();
+            if (rs.next()) {
+                String orderId = rs.getString("orderId");
+                Integer quantity = rs.getInt("quantity");
+                Float price = rs.getFloat("price");
+                orderItem = new OrderItem(orderId, productId, quantity, price);
+            }
+        } finally {
+            this.closeConnection();
+        }
+        return orderItem;
     }
 }
