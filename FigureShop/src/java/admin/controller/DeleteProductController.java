@@ -46,6 +46,8 @@ public class DeleteProductController extends HttpServlet {
         }
 
         productDao.deleteProductById(id);
+        session.setAttribute(Notification.AttrType.notiStatus.name(), Notification.Status.SUCCESS);
+        session.setAttribute(Notification.AttrType.notiMessage.name(), Message.DELETE_SUCCESS.getContent());
         return true;
     }
 
