@@ -90,8 +90,11 @@
                                 <td
                                     class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
                                     >
-                                    <a href="<%= Router.ADMIN_UPDATE_PRODUCT_CONTROLLER %>?id=<%= products.get(i).getId() %>" class="text-indigo-600 hover:text-indigo-900"
+                                    <a href="<%= Router.ADMIN_UPDATE_PRODUCT_CONTROLLER%>?id=<%= products.get(i).getId()%>" class="text-indigo-600 hover:text-indigo-900"
                                        >Update</a
+                                    >
+                                    <a href="<%= Router.ADMIN_UPDATE_PRODUCT_CONTROLLER%>?id=<%= products.get(i).getId()%>" class="text-red-600 hover:text-red-900 ml-5"
+                                       >Delete</a
                                     >
                                 </td>
                                 </tr>
