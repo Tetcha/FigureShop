@@ -17,6 +17,7 @@ public class Helper {
         if (!isLogin(request) || !correctRole(request, isAdmin)) {
             request.setAttribute(Notification.AttrType.notiStatus.name(), Notification.Status.WARNING);
             request.setAttribute(Notification.AttrType.notiMessage.name(), "Action is not allow, please login first");
+            request.setAttribute(Notification.AttrType.notiDescription.name(), "Day la description");
             request.getRequestDispatcher(page).forward(request, response);
 
             return false;
