@@ -75,7 +75,7 @@ $(document).ready(function () {
   adminSearchButton.click(function (e) {
     e.preventDefault();
     actionOnClick();
-    // if (canMove)
-    //   window.location.href = `${baseUrl}/adminProduct?name=${nameValue}&from=${fromValue}&to=${toValue}&categoryId=${selectedVal}&page=${1}`;
+    if (canMove)
+      window.location.href = `${baseUrl}/adminProduct?name=${nameValue}&from=${fromValue}&to=${toValue}&categoryId=${selectedVal}&page=${1}`;
   });
 });
