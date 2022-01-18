@@ -12,6 +12,8 @@
     String pattern = "product.hstatic.net";
     Locale vi = new Locale("vi", "VN");
     NumberFormat vndFormat = NumberFormat.getCurrencyInstance(vi);
+
+    session.setAttribute("prevUrl", request.getQueryString());
 %>
 
 <div class="bg-white flex-1 h-screen">
@@ -93,7 +95,7 @@
                                     <a href="<%= Router.ADMIN_UPDATE_PRODUCT_CONTROLLER%>?id=<%= products.get(i).getId()%>" class="text-indigo-600 hover:text-indigo-900"
                                        >Update</a
                                     >
-                                    <a href="<%= Router.ADMIN_UPDATE_PRODUCT_CONTROLLER%>?id=<%= products.get(i).getId()%>" class="text-red-600 hover:text-red-900 ml-5"
+                                    <a href="<%= Router.ADMIN_DELETE_PRODCUT_CONTROLLER%>?id=<%= products.get(i).getId()%>" class="text-red-600 hover:text-red-900 ml-5"
                                        >Delete</a
                                     >
                                 </td>
