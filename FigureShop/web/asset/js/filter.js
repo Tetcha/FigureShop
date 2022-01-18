@@ -44,9 +44,13 @@ $(document).ready(function () {
   const baseUrl = "http://localhost:8080/FigureShop";
   const actionOnClick = () => {
     canMove = true;
-    fromValue = fromElement.val();
-    toValue = toElement.val();
-    nameValue = nameElement.val();
+    fromValue = fromElement.val().trim().replace(" ", "");
+    toValue = toElement.val().trim().replace(" ", "");
+    nameValue = nameElement
+      .val()
+      .trim()
+      .replace(/[ ]{2,}/, " ");
+    console.log(nameValue);
     if (isNaN(fromValue) || parseInt(fromValue) < 0) {
       fromText.text("From value should be a valid positive number");
       canMove = false;
@@ -64,7 +68,6 @@ $(document).ready(function () {
   userSearchButton.click(function (e) {
     e.preventDefault();
     actionOnClick();
-    console.log(canMove);
     if (canMove)
       window.location.href = `${baseUrl}/filter?name=${nameValue}&from=${fromValue}&to=${toValue}&categoryId=${selectedVal}&page=${1}`;
   });
@@ -72,7 +75,7 @@ $(document).ready(function () {
   adminSearchButton.click(function (e) {
     e.preventDefault();
     actionOnClick();
-    if (canMove)
-      window.location.href = `${baseUrl}/adminProduct?name=${nameValue}&from=${fromValue}&to=${toValue}&categoryId=${selectedVal}&page=${1}`;
+    // if (canMove)
+    //   window.location.href = `${baseUrl}/adminProduct?name=${nameValue}&from=${fromValue}&to=${toValue}&categoryId=${selectedVal}&page=${1}`;
   });
 });
