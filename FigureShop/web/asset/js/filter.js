@@ -23,11 +23,11 @@ $(document).ready(function () {
     paramQueryList.forEach((param) => {
       const paramSplitList = param.split("=");
       if (param[1] != "") {
-        paramValue[paramSplitList[0]] = paramSplitList[1];
+        paramValue[paramSplitList[0]] = decodeURI(paramSplitList[1]).trim();
       }
     });
     //set default value for each field
-    nameElement.val(decodeURI(paramValue.name));
+    nameElement.val(paramValue.name);
     fromElement.val(paramValue.from);
     toElement.val(paramValue.to);
     $(`#categoryFilter option[value='${paramValue.categoryId}']`).attr(
