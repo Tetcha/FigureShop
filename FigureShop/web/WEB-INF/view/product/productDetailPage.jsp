@@ -1,7 +1,5 @@
-<%@page import="constants.Router"%> 
-<%@page import="java.util.Locale"%> 
-<%@page import="java.text.NumberFormat"%> 
-<%@page import="product.models.Product"%>
+<%@page import="constants.Router"%> <%@page import="java.util.Locale"%> <%@page
+import="java.text.NumberFormat"%> <%@page import="product.models.Product"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -13,12 +11,9 @@
   </head>
   <body>
     <jsp:include page="../common/navbar.jsp"></jsp:include>
-    <% 
-        Locale vi = new Locale("vi", "VN"); 
-        NumberFormat vndFormat = NumberFormat.getCurrencyInstance(vi); 
-        String pattern = "product.hstatic.net";
-        String imageHead = "https://";
-    %>
+    <% Locale vi = new Locale("vi", "VN"); NumberFormat vndFormat =
+    NumberFormat.getCurrencyInstance(vi); String pattern =
+    "product.hstatic.net"; String imageHead = "https://"; %>
     <div class="bg-white">
       <div
         class="max-w-2xl px-4 py-16 mx-auto sm:py-24 sm:px-6 flex flex-col-reverse lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:gap-x-8"
@@ -60,6 +55,8 @@
                     >Quantity</label
                   >
                   <input
+                    min="1"
+                    max="999"
                     name="quantity"
                     type="number"
                     value="1"
@@ -74,34 +71,31 @@
                 />
 
                 <div class="flex items-center mt-4">
-                    <%
-                        if(product.getQuantity() > 0) {
-                    %>
-                      <!-- Heroicon name: solid/check -->
-                      <div class="flex items-center">
-                        <svg
-                          class="flex-shrink-0 w-5 h-5 text-green-500"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                          aria-hidden="true"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                            clip-rule="evenodd"
-                          />
-                        </svg>
-                        <p class="ml-2 text-lg text-gray-500">
-                          In stock and ready to ship
-                        </p>
-                      </div>
-                    <%}%>
-                    <% if(product.getQuantity() <= 0) { %>
-                      <p class="ml-2 text-sm text-gray-500">
-                        This product is out stock
-                      </p>
-                    <% } %>     
+                  <% if(product.getQuantity() > 0) { %>
+                  <!-- Heroicon name: solid/check -->
+                  <div class="flex items-center">
+                    <svg
+                      class="flex-shrink-0 w-5 h-5 text-green-500"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                    <p class="ml-2 text-lg text-gray-500">
+                      In stock and ready to ship
+                    </p>
+                  </div>
+                  <%}%> <% if(product.getQuantity() <= 0) { %>
+                  <p class="ml-2 text-sm text-gray-500">
+                    This product is out stock
+                  </p>
+                  <% } %>
                 </div>
               </div>
             </section>
