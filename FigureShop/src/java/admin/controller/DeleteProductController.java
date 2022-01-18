@@ -40,8 +40,8 @@ public class DeleteProductController extends HttpServlet {
         OrderItem orderItem = orderItemDao.getOrderItemByProductId(id);
         if (orderItem != null) {
             session.setAttribute(Notification.AttrType.notiStatus.name(), Notification.Status.ERROR);
-            session.setAttribute(Notification.AttrType.notiMessage.name(), Message.DELETE_ERROR_MESSAGE);
-            session.setAttribute(Notification.AttrType.notiDescription.name(), Message.DELETE_ERROR_DESCRIPTION);
+            session.setAttribute(Notification.AttrType.notiMessage.name(), Message.DELETE_ERROR_MESSAGE.getContent());
+            session.setAttribute(Notification.AttrType.notiDescription.name(), Message.DELETE_ERROR_DESCRIPTION.getContent());
             return false;
         }
 

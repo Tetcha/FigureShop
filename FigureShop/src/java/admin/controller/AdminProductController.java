@@ -35,7 +35,7 @@ public class AdminProductController extends HttpServlet {
         HttpSession session = request.getSession();
 
         // get error
-        String notiStatus = (String) session.getAttribute(Notification.AttrType.notiStatus.name());
+        Notification.Status notiStatus = (Notification.Status) session.getAttribute(Notification.AttrType.notiStatus.name());
         String notiMessage = (String) session.getAttribute(Notification.AttrType.notiMessage.name());
         String notiDescription = (String) session.getAttribute(Notification.AttrType.notiDescription.name());
 
