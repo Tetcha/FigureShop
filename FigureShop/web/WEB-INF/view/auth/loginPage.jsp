@@ -16,7 +16,7 @@
         class="relative flex-1 flex flex-col justify-center  bg-white lg:py-12 lg:bg-gradient-to-b lg:from-gray-50 lg:to-gray-100 sm:px-6 lg:px-8"
         >
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
-            
+  
             <h2
                 class="mt-6 text-4xl font-extrabold text-center text-gray-900 hello"
                 >

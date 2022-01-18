@@ -28,6 +28,8 @@ import user.models.User;
 @WebServlet(name = "ViewOrderController", urlPatterns = {"/" + Router.ADMIN_ORDERS_CONTROLLER})
 public class AdminOrdersController extends HttpServlet {
 
+    private static final int LIMIT = 11;
+
     protected boolean processRequest(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         response.setContentType("text/html;charset=UTF-8");
@@ -62,7 +64,7 @@ public class AdminOrdersController extends HttpServlet {
         // get orders
         ArrayList<Order> orders = new ArrayList<>();
         for (String id : ids) {
-            ArrayList<Order> order = orderDao.getOrdersForAdmin(fromDate, toDate, page, id);
+            ArrayList<Order> order = orderDao.getOrdersForAdmin(fromDate, toDate, page, id, LIMIT);
             for (Order element : order) {
                 orders.add(element);
             }
@@ -85,8 +87,8 @@ public class AdminOrdersController extends HttpServlet {
             }
         }
 
-        Integer maxPage = allOrders.size() / 20;
-        if (allOrders.size() % 20 != 0) {
+        Integer maxPage = allOrders.size() / LIMIT;
+        if (allOrders.size() % LIMIT != 0) {
             maxPage++;
         }
 

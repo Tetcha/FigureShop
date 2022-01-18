@@ -28,6 +28,7 @@ public class UpdateProductController extends HttpServlet {
      */
     protected int postHandler(HttpServletRequest request, HttpServletResponse response) throws Exception {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         ProductDao productDao = new ProductDao();
         // get the current product
         String productId = GetParam.getStringParam(request, "id", "Product's id", 0, 40, null);

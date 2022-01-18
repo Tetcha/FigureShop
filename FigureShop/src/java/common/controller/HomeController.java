@@ -1,4 +1,4 @@
-package common;
+package common.controller;
 
 import constants.Router;
 import java.io.IOException;

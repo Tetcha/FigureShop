@@ -23,6 +23,25 @@ public class CartController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
+
+        // get error message
+        String nameError = (String) session.getAttribute("nameError");
+        String addressError = (String) session.getAttribute("addressError");
+        String phoneError = (String) session.getAttribute("phoneError");
+        String emptyMessage = (String) session.getAttribute("emptyMessage");
+
+        // reset message
+        session.setAttribute("nameError", null);
+        session.setAttribute("addressError", null);
+        session.setAttribute("phoneError", null);
+        session.setAttribute("emptyMessage", null);
+
+        // set to request
+        request.setAttribute("consigneeNameError", nameError);
+        request.setAttribute("addressError", addressError);
+        request.setAttribute("phoneError", phoneError);
+        request.setAttribute("emptyMessage", emptyMessage);
+
         ArrayList<Product> products = (ArrayList<Product>) session.getAttribute("products");
         if (products != null) {
             if (!products.isEmpty()) {

@@ -11,6 +11,7 @@
     Product product = (Product) request.getAttribute("product");
     String imageHead = "https://";
     String pattern = "product.hstatic.net";
+    request.setCharacterEncoding("UTF-8");
 %>
 <div class="p-10">
     <form method="post" enctype="multipart/form-data" action="<%= Router.ADMIN_UPDATE_PRODUCT_CONTROLLER%>" class="space-y-8 divide-y divide-gray-200">

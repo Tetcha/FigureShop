@@ -70,7 +70,7 @@
                             <jsp:include page="../components/orderItem.jsp">
                                 <jsp:param
                                     name="avatar"
-                                    value="<%= products.get(i).getImage().startsWith(pattern) ? imageHead + products.get(i).getImage() : products.get(i).getImage()%>"
+                                value="<%= products.get(i).getImage().startsWith(pattern) ? imageHead + products.get(i).getImage() : products.get(i).getImage()%>"
                                     />
                                 <jsp:param name="name" value="<%= products.get(i).getName()%>" />
                                 <jsp:param name="price" value="<%=vndFormat.format(products.get(i).getPrice())%>" />
@@ -134,6 +134,9 @@
                                         value ="<%= userAddress%>"
                                         class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                         />
+                                    <p class="text-sm text-left text-red-600">
+                                        ${requestScope.addressError}
+                                    </p>
                                 </div>
                             </div>
                             <div class="mt-5">
@@ -153,6 +156,9 @@
                                         value ="<%= userPhone%>"
                                         class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                         />
+                                     <p class="text-sm text-left text-red-600">
+                                        ${requestScope.phoneError}
+                                    </p>
                                 </div>
                             </div>
                             <div class="mt-5">
@@ -172,22 +178,25 @@
                                         value="<%= userName%>"
                                         class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                         />
+                                     <p class="text-sm text-left text-red-600">
+                                        ${requestScope.consigneeNameError}
+                                    </p>
                                 </div>
                             </div>
-                             <div class="mt-6">
-                            <button
-                                type="submit"
-                                class="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
-                                >
-                                Checkout
-                            </button>
-                            <br></br>
-                            <p class="text-sm text-left text-red-600">
-                                ${requestScope.emptyMessage}
-                            </p>
-                        </div>
+                            <div class="mt-6">
+                                <button
+                                    type="submit"
+                                    class="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
+                                    >
+                                    Checkout
+                                </button>
+                                <br></br>
+                                <p class="text-sm text-left text-red-600">
+                                    ${requestScope.emptyMessage}
+                                </p>
+                            </div>
                         </form>
-                       
+
                     </section>
                     </form>
                 </div>

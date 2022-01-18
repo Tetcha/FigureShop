@@ -38,6 +38,13 @@ public class CheckoutController extends HttpServlet {
         String phone = GetParam.getPhoneParams(request, "phone", "Phone number");
 
         if (consigneeName == null || address == null || phone == null) {
+            String nameError = (String) request.getAttribute("consigneeNameError");
+            String addressError = (String) request.getAttribute("addressError");
+            String phoneError = (String) request.getAttribute("phoneError");
+
+            session.setAttribute("phoneError", phoneError);
+            session.setAttribute("nameError", nameError);
+            session.setAttribute("addressError", addressError);
             return false;
         }
 
@@ -45,7 +52,7 @@ public class CheckoutController extends HttpServlet {
         ArrayList<Product> products = (ArrayList<Product>) session.getAttribute("products");
 
         if (products == null || products.isEmpty()) {
-            request.setAttribute("emptyMessage", Message.EMPTY_CART_MESSAGE.getContent());
+            session.setAttribute("emptyMessage", Message.EMPTY_CART_MESSAGE.getContent());
             return false;
         }
 
