@@ -21,6 +21,7 @@ public enum Message {
     DULICATE_NAME_MESSAGE("This product's name is already existed"),
     NOT_ENOUGH_QUANTITY_MESSAGE("Products do not have enough quantity"),
     DELETE_ERROR_MESSAGE("Delete fail"),
+    DELETE_SUCCESS("Delete success"),
     DELETE_ERROR_DESCRIPTION("This product has already existed in some orders"),
     //order
     EMPTY_MESSAGE("There is no order yet"),
