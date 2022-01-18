@@ -234,4 +234,17 @@ public class ProductDao {
             this.closeConnection();
         }
     }
+
+    // delete product by id
+    public void deleteProductById(String productId) throws Exception {
+        try {
+            conn = Connector.getConnection();
+            String sql = "DELETE figure_product WHERE id = ?";
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, productId);
+            preStm.executeUpdate();
+        } finally {
+            this.closeConnection();
+        }
+    }
 }

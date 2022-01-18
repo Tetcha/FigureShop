@@ -8,6 +8,8 @@ public enum Message {
 
     // login
     LOGIN_ERROR_MESSAGE("Username or password is not correct"),
+    NOT_LOGIN_MESSAGE("Permission Denied"),
+    NOT_LOGIN_DESCRIPTION("Action is not allow, please login first"),
     // register
     EXISTED_EMAIL_MESSAGE("Email already existed"),
     CONFIRM_PASSWORD_ERROR_MESSAGE("Confirm password should be same with password"),
@@ -18,6 +20,8 @@ public enum Message {
     EMPTY_CART_MESSAGE("There is no product in your cart yet"),
     DULICATE_NAME_MESSAGE("This product's name is already existed"),
     NOT_ENOUGH_QUANTITY_MESSAGE("Products do not have enough quantity"),
+    DELETE_ERROR_MESSAGE("Delete fail"),
+    DELETE_ERROR_DESCRIPTION("This product has already existed in some orders"),
     //order
     EMPTY_MESSAGE("There is no order yet"),
     //common

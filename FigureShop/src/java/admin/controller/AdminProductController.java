@@ -87,20 +87,4 @@ public class AdminProductController extends HttpServlet {
             Logger.getLogger(AdminProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (Exception ex) {
-            Logger.getLogger(AdminProductController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }
