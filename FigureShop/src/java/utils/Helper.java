@@ -85,4 +85,13 @@ public class Helper {
         request.setAttribute(Notification.AttrType.notiMessage.name(), notiMessage);
         request.setAttribute(Notification.AttrType.notiDescription.name(), notiDescription);
     }
+
+    public static void resetErrorMessage(HttpServletRequest request, String[] errors) {
+        HttpSession session = request.getSession();
+        for (int i = 0; i < errors.length; i++) {
+            String value = (String) session.getAttribute(errors[i]);
+            session.setAttribute(errors[i], null);
+            request.setAttribute(errors[i], value);
+        }
+    }
 }

@@ -48,9 +48,9 @@ public class UpdateStatusController extends HttpServlet {
             default:
         }
         String id = GetParam.getStringParam(request, "id", "user id", 3, 255, null);
-        String address = GetParam.getStringParam(request, "address", "address", 3, 255, null);
+        String address = GetParam.getStringParam(request, "address", "Address", 3, 255, null);
         String consigneeName = GetParam.getStringParam(request, "consigneeName", "Consignee name", 3, 255, null);
-        String phone = GetParam.getStringParam(request, "phone", "phone number", 3, 255, null);
+        String phone = GetParam.getStringParam(request, "phone", "Phone number", 3, 255, null);
 
         if (address == null || consigneeName == null || phone == null) {
             String addressError = (String) request.getAttribute("addressError");
