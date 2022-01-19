@@ -1,6 +1,7 @@
 package admin.controller;
 
 import constants.Message;
+import constants.Notification;
 import constants.Router;
 import constants.StatusCode;
 import java.io.IOException;
@@ -58,6 +59,9 @@ public class AddProductController extends HttpServlet {
         Product product = new Product(name, image, quantity, price, description, categoryId);
         productDao.addNewProduct(product);
 
+        request.setAttribute(Notification.AttrType.notiStatus.name(), Notification.Status.SUCCESS);
+        request.setAttribute(Notification.AttrType.notiMessage.name(), Message.SUCCESS_MESSAGE.getContent());
+        request.setAttribute(Notification.AttrType.notiDescription.name(), Message.ADD_PRODUCT_SUCCESS_DESCRIPTION.getContent());
         return true;
     }
 

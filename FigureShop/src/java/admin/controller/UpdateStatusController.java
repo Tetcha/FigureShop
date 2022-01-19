@@ -1,6 +1,7 @@
 package admin.controller;
 
 import constants.Message;
+import constants.Notification;
 import constants.Router;
 import constants.StatusCode;
 import java.io.IOException;
@@ -83,6 +84,10 @@ public class UpdateStatusController extends HttpServlet {
         order.setPhoneNumber(phone);
 
         orderDao.updateOrderStatus(order, statusValue);
+
+        session.setAttribute(Notification.AttrType.notiStatus.name(), Notification.Status.SUCCESS);
+        session.setAttribute(Notification.AttrType.notiMessage.name(), Message.SUCCESS_MESSAGE.getContent());
+        session.setAttribute(Notification.AttrType.notiDescription.name(), Message.UPDATE_STATUS_SUCCESS_DESCRIPTION.getContent());
         return 1;
     }
 
