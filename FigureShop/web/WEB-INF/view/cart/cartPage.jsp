@@ -96,13 +96,13 @@
                             <% float total = 0; %>
                             <%for (int i = 0; i < products.size(); i++) {%>
                             <% total = total + (float) products.get(i).getPrice() * products.get(i).getQuantity() ;%>
-                            <div class="flex items-start justify-between">
-                                <dt class="text-sm text-gray-600"><%= products.get(i).getName()%></dt>
+                            <div class="flex items-start justify-between ">
+                                <dt class="text-sm text-gray-600 w-2/3"><%= products.get(i).getName()%></dt>
                                 <dd class="text-sm font-medium text-gray-900"><%=vndFormat.format(products.get(i).getPrice())%></dd>
                             </div>
                             <%}%>
-                            <div class="flex items-start justify-between">
-                                <dt class="text-sm text-gray-600 font-semibold">Total</dt>
+                            <div class="flex items-start justify-between ">
+                                <dt class="text-sm text-gray-600 font-semibold w-2/3">Total</dt>
                                 <dd class="text-sm font-medium text-gray-900"><%=vndFormat.format(total)%></dd>
                             </div>
                         </dl>
