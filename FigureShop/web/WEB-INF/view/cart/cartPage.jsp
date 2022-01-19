@@ -95,7 +95,7 @@
                         <dl class="mt-6 space-y-6">
                             <% float total = 0; %>
                             <%for (int i = 0; i < products.size(); i++) {%>
-                            <% total = total + (float) products.get(i).getPrice();%>
+                            <% total = total + (float) products.get(i).getPrice() * products.get(i).getQuantity() ;%>
                             <div class="flex items-start justify-between">
                                 <dt class="text-sm text-gray-600"><%= products.get(i).getName()%></dt>
                                 <dd class="text-sm font-medium text-gray-900"><%=vndFormat.format(products.get(i).getPrice())%></dd>
