@@ -1,6 +1,7 @@
 package admin.controller;
 
 import constants.Message;
+import constants.Notification;
 import constants.Router;
 import constants.StatusCode;
 import java.io.IOException;
@@ -48,7 +49,6 @@ public class UpdateProductController extends HttpServlet {
         String description = GetParam.getStringParam(request, "description", "Description", 3, 255, null);
         String categoryId = GetParam.getStringParam(request, "type", "Type", 0, 40, null);
 
-        System.out.println("post4");
         // check null value for params
         if (name == null) {
             name = product.getName();
@@ -72,6 +72,9 @@ public class UpdateProductController extends HttpServlet {
         // update to database
         productDao.updateProduct(productId, name, imageUrl, quantity, price, description, categoryId);
 
+        request.setAttribute(Notification.AttrType.notiStatus.name(), Notification.Status.SUCCESS);
+        request.setAttribute(Notification.AttrType.notiMessage.name(), Message.SUCCESS_MESSAGE.getContent());
+        request.setAttribute(Notification.AttrType.notiDescription.name(), Message.UPDATE_PRODUCT_SUCCESS_DESCRIPTION.getContent());
         return 2;
     }
 

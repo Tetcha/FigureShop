@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import utils.Helper;
 
 /**
  *
@@ -18,7 +19,7 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Helper.resetNoti(request);
         request.getRequestDispatcher(Router.HOME_PAGE).forward(request, response);
-
     }
 }

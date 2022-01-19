@@ -37,20 +37,10 @@ public class AdminOrdersController extends HttpServlet {
         OrderItemDao orderItemDao = new OrderItemDao();
         UserDao userDao = new UserDao();
         HttpSession session = request.getSession();
+        String[] errors = {"addressError", "consigneeNameError", "phoneError"};
 
-        // get error messages
-        String addressError = (String) session.getAttribute("addressError");
-        String consigneeNameError = (String) session.getAttribute("consigneeNameError");
-        String phoneError = (String) session.getAttribute("phoneError");
-
-        session.setAttribute("addressError", null);
-        session.setAttribute("consigneeNameError", null);
-        session.setAttribute("phoneError", null);
-
-        // set error message
-        request.setAttribute("addressError", addressError);
-        request.setAttribute("consigneeNameError", consigneeNameError);
-        request.setAttribute("phoneError", phoneError);
+        Helper.resetNoti(request);
+        Helper.resetErrorMessage(request, errors);
 
         // get param
         String fromDate = GetParam.getStringParam(request, "fromDate", "from date", 7, 12, null);

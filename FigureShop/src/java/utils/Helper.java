@@ -67,4 +67,31 @@ public class Helper {
         request.setAttribute("errorTitle", errorTitle);
         request.setAttribute("errorDescription", errorDescription);
     }
+
+    public static void resetNoti(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        // get noti
+        Notification.Status notiStatus = (Notification.Status) session.getAttribute(Notification.AttrType.notiStatus.name());
+        String notiMessage = (String) session.getAttribute(Notification.AttrType.notiMessage.name());
+        String notiDescription = (String) session.getAttribute(Notification.AttrType.notiDescription.name());
+
+        // reset
+        session.setAttribute(Notification.AttrType.notiStatus.name(), null);
+        session.setAttribute(Notification.AttrType.notiMessage.name(), null);
+        session.setAttribute(Notification.AttrType.notiDescription.name(), null);
+
+        // set noti
+        request.setAttribute(Notification.AttrType.notiStatus.name(), notiStatus);
+        request.setAttribute(Notification.AttrType.notiMessage.name(), notiMessage);
+        request.setAttribute(Notification.AttrType.notiDescription.name(), notiDescription);
+    }
+
+    public static void resetErrorMessage(HttpServletRequest request, String[] errors) {
+        HttpSession session = request.getSession();
+        for (int i = 0; i < errors.length; i++) {
+            String value = (String) session.getAttribute(errors[i]);
+            session.setAttribute(errors[i], null);
+            request.setAttribute(errors[i], value);
+        }
+    }
 }

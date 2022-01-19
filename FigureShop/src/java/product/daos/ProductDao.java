@@ -210,12 +210,7 @@ public class ProductDao {
             preStm.setString(5, description);
             preStm.setString(6, categoryId);
             preStm.setString(7, productId);
-
-            System.out.println("post5");
             preStm.executeUpdate();
-
-            System.out.println("post6");
-
         } finally {
             this.closeConnection();
         }

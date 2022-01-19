@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import product.models.Product;
+import utils.Helper;
 
 /**
  *
@@ -23,24 +24,9 @@ public class CartController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
+        String[] errors = {"nameError", "addressError", "phoneError", "emptyMessage"};
 
-        // get error message
-        String nameError = (String) session.getAttribute("nameError");
-        String addressError = (String) session.getAttribute("addressError");
-        String phoneError = (String) session.getAttribute("phoneError");
-        String emptyMessage = (String) session.getAttribute("emptyMessage");
-
-        // reset message
-        session.setAttribute("nameError", null);
-        session.setAttribute("addressError", null);
-        session.setAttribute("phoneError", null);
-        session.setAttribute("emptyMessage", null);
-
-        // set to request
-        request.setAttribute("consigneeNameError", nameError);
-        request.setAttribute("addressError", addressError);
-        request.setAttribute("phoneError", phoneError);
-        request.setAttribute("emptyMessage", emptyMessage);
+        Helper.resetErrorMessage(request, errors);
 
         ArrayList<Product> products = (ArrayList<Product>) session.getAttribute("products");
         if (products != null) {

@@ -1,6 +1,7 @@
 package order.controller;
 
 import constants.Message;
+import constants.Notification;
 import constants.Router;
 import constants.StatusCode;
 import java.io.IOException;
@@ -71,6 +72,9 @@ public class CheckoutController extends HttpServlet {
         // update products in cart
         products.clear();
         session.setAttribute("products", products);
+        session.setAttribute(Notification.AttrType.notiStatus.name(), Notification.Status.SUCCESS);
+        session.setAttribute(Notification.AttrType.notiMessage.name(), Message.SUCCESS_MESSAGE.getContent());
+        session.setAttribute(Notification.AttrType.notiDescription.name(), Message.CHECKOUT_SUCCESS_DESCRIPTION.getContent());
         return true;
     }
 
