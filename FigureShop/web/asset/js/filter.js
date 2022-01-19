@@ -41,7 +41,8 @@ $(document).ready(function () {
     e.preventDefault();
     selectedVal = $("#categoryFilter option:selected").val();
   });
-  const baseUrl = "http://localhost:8080/FigureShop";
+  console.log(window.location);
+  const baseUrl = `http://${window.location.host}/FigureShop`;
   const actionOnClick = () => {
     canMove = true;
     fromValue = fromElement.val().trim().replace(" ", "");
