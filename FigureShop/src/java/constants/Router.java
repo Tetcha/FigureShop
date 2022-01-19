@@ -62,4 +62,6 @@ public class Router {
     public static final String ADMIN_PRODUCT_PAGE = "WEB-INF/view/admin/product/adminProductPageMap.jsp";
     public static final String ADMIN_PRODUCT_CONTROLLER = "adminProduct";
 
+    public static final String ADMIN_DELETE_PRODCUT_CONTROLLER = "deleteProduct";
+
 }

@@ -46,22 +46,20 @@ public class UpdateStatusController extends HttpServlet {
                 break;
             default:
         }
-        String address = GetParam.getStringParam(request, "address", "address", 3, 255, null);
-
-        if (address == null) {
-            address = "";
-        }
         String id = GetParam.getStringParam(request, "id", "user id", 3, 255, null);
+        String address = GetParam.getStringParam(request, "address", "address", 3, 255, null);
         String consigneeName = GetParam.getStringParam(request, "consigneeName", "Consignee name", 3, 255, null);
-
-        if (consigneeName == null) {
-            consigneeName = "";
-        }
-
         String phone = GetParam.getStringParam(request, "phone", "phone number", 3, 255, null);
 
-        if (phone == null) {
-            consigneeName = "";
+        if (address == null || consigneeName == null || phone == null) {
+            String addressError = (String) request.getAttribute("addressError");
+            String consigneeNameError = (String) request.getAttribute("consigneeNameError");
+            String phoneError = (String) request.getAttribute("phoneError");
+
+            session.setAttribute("addressError", addressError);
+            session.setAttribute("consigneeNameError", consigneeNameError);
+            session.setAttribute("phoneError", phoneError);
+            return 1;
         }
 
         Order order = orderDao.getOrderByOrderId(id);

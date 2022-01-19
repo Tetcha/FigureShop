@@ -7,8 +7,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.text.NumberFormat"%>
-<%  
-    
+<%
+
     String imageHead = "https://";
     String pattern = "product.hstatic.net";
     String fromDate = (String) request.getAttribute("fromDate");
@@ -256,6 +256,9 @@
                                             class="shadow-sm w-full focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border-gray-300 rounded-md"
                                             placeholder=""
                                             />
+                                        <p class="text-sm text-left text-red-600">
+                                            ${requestScope.consigneeNameError}
+                                        </p>
                                     </div>
                                 </div>
                                 <!-- address field -->
@@ -274,6 +277,9 @@
                                             class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                                             placeholder=""
                                             />
+                                        <p class="text-sm text-left text-red-600">
+                                            ${requestScope.addressError}
+                                        </p>
                                     </div>
                                 </div>
                                 <!-- phone number field -->
@@ -292,6 +298,9 @@
                                             class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                                             placeholder=""
                                             />
+                                        <p class="text-sm text-left text-red-600">
+                                            ${requestScope.phoneError}
+                                        </p>
                                     </div>
                                 </div>
                                 <input
