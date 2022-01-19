@@ -1,9 +1,46 @@
+<<<<<<< HEAD
 <%@page import="constants.Router" %>
   <%@page import="java.util.Locale" %>
     <%@page import="java.text.NumberFormat" %>
       <%@page import="product.models.Product" %>
         <!DOCTYPE html>
         <html lang="en">
+=======
+<%@page import="constants.Router"%> <%@page import="java.util.Locale"%> <%@page
+import="java.text.NumberFormat"%> <%@page import="product.models.Product"%>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product in detail</title>
+    <jsp:include page="../common/init.jsp"></jsp:include>
+  </head>
+  <body>
+    <jsp:include page="../common/navbar.jsp"></jsp:include>
+    <% Locale vi = new Locale("vi", "VN"); NumberFormat vndFormat =
+    NumberFormat.getCurrencyInstance(vi); String pattern =
+    "product.hstatic.net"; String imageHead = "https://"; %>
+    <div class="bg-white">
+      <div
+        class="max-w-2xl px-4 py-16 mx-auto sm:py-24 sm:px-6 flex flex-col-reverse lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:gap-x-8"
+      >
+        <!-- Product details -->
+        <form
+          class="w-full flex flex-col"
+          action="<%=Router.PRODUCT_DETAIL_CONTROLLER%>"
+          method="POST"
+        >
+          <div class="lg:max-w-lg lg:self-start">
+            <div class="mt-4">
+              <h1
+                class="text-3x1 font-extrabold tracking-tight text-gray-900 sm:text-3xl"
+              >
+                ${requestScope.product.getName()}
+              </h1>
+            </div>
+>>>>>>> main/master
 
         <head>
           <meta charset="UTF-8" />
@@ -13,6 +50,7 @@
           <jsp:include page="../common/init.jsp"></jsp:include>
         </head>
 
+<<<<<<< HEAD
         <body>
           <jsp:include page="../common/navbar.jsp"></jsp:include>
           <% Locale vi=new Locale("vi", "VN" ); NumberFormat vndFormat=NumberFormat.getCurrencyInstance(vi); String
@@ -36,6 +74,71 @@
                             <%=vndFormat.format(product.getPrice())%>
                         </p>
                       </div>
+=======
+              <div class="mt-4 space-y-6">
+                <p class="text-base text-gray-500 text-justify">
+                  ${requestScope.product.getDescription()}
+                </p>
+              </div>
+              <div class="flex flex-col mt-6">
+                <div class="flex flex-col">
+                  <label
+                    for="quantity"
+                    class="text-sm font-medium text-gray-700"
+                    >Quantity</label
+                  >
+                  <input
+                    min="1"
+                    max="999"
+                    name="quantity"
+                    type="number"
+                    value="1"
+                    class="flex w-4/5 px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none sm:w-16 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  />
+                </div>
+                <input
+                  name="id"
+                  type="text"
+                  value="${requestScope.product.getId()}"
+                  class="hidden"
+                />
+
+                <div class="flex items-center mt-4">
+                  <% if(product.getQuantity() > 0) { %>
+                  <!-- Heroicon name: solid/check -->
+                  <div class="flex items-center">
+                    <svg
+                      class="flex-shrink-0 w-5 h-5 text-green-500"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                    <p class="ml-2 text-lg text-gray-500">
+                      In stock and ready to ship
+                    </p>
+                  </div>
+                  <%}%> <% if(product.getQuantity() <= 0) { %>
+                  <p class="ml-2 text-sm text-gray-500">
+                    This product is out stock
+                  </p>
+                  <% } %>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div
+            class="mt-16 lg:max-w-lg lg:col-start-1 lg:row-start-2 lg:self-start"
+          >
+            <section aria-labelledby="options-heading">
+              <h2 id="options-heading" class="sr-only">Product options</h2>
+>>>>>>> main/master
 
                       <div class="mt-4 space-y-6">
                         <p class="text-base text-gray-500 text-justify">

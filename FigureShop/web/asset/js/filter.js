@@ -23,11 +23,11 @@ $(document).ready(function () {
     paramQueryList.forEach((param) => {
       const paramSplitList = param.split("=");
       if (param[1] != "") {
-        paramValue[paramSplitList[0]] = paramSplitList[1];
+        paramValue[paramSplitList[0]] = decodeURI(paramSplitList[1]).trim();
       }
     });
     //set default value for each field
-    nameElement.val(decodeURI(paramValue.name));
+    nameElement.val(paramValue.name);
     fromElement.val(paramValue.from);
     toElement.val(paramValue.to);
     $(`#categoryFilter option[value='${paramValue.categoryId}']`).attr(
@@ -44,9 +44,13 @@ $(document).ready(function () {
   const baseUrl = "http://localhost:8080/FigureShop";
   const actionOnClick = () => {
     canMove = true;
-    fromValue = fromElement.val();
-    toValue = toElement.val();
-    nameValue = nameElement.val();
+    fromValue = fromElement.val().trim().replace(" ", "");
+    toValue = toElement.val().trim().replace(" ", "");
+    nameValue = nameElement
+      .val()
+      .trim()
+      .replace(/[ ]{2,}/, " ");
+    console.log(nameValue);
     if (isNaN(fromValue) || parseInt(fromValue) < 0) {
       fromText.text("From value should be a valid positive number");
       canMove = false;
@@ -64,7 +68,6 @@ $(document).ready(function () {
   userSearchButton.click(function (e) {
     e.preventDefault();
     actionOnClick();
-    console.log(canMove);
     if (canMove)
       window.location.href = `${baseUrl}/filter?name=${nameValue}&from=${fromValue}&to=${toValue}&categoryId=${selectedVal}&page=${1}`;
   });
