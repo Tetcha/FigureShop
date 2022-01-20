@@ -1,6 +1,6 @@
 
 
-[![Tetcha Logo](FigureShop\document\logo.png)](http://13.213.51.140/FigureShop/)
+[![Tetcha Logo](document\logo.png)](http://13.213.51.140/FigureShop/)
 
 ## [Live Demo]() - [Live Document]()
 
@@ -69,56 +69,56 @@ People can view the items, put products or edit the quantity of product in the c
 
 #### Entity Diagram 
 
-![Database Page](FigureShop\document\figureShop_Diagram.png)
+![Database Page](document\figureShop_Diagram.png)
 
 #### Relational Diagram
 
-![Database Page](FigureShop\document\database.png)
+![Database Page](document\database.png)
 
 ### Home Page
 
-![Home Page](FigureShop\document\homePage.png)
+![Home Page](document\homePage.png)
 
 ### Sign In Page
 
-![Sign In Page](FigureShop\document\signInPage.png)
+![Sign In Page](document\signInPage.png)
 
 ### Register Page
-![Register Page](FigureShop\document\registerPage.png)
+![Register Page](document\registerPage.png)
 
 ### Navbar
 
 #### Non-Authenticated User
-![Non-Authenticated User](FigureShop\document\navbar_nonAuthenticatedUser.png)
+![Non-Authenticated User](document\navbar_nonAuthenticatedUser.png)
 
 #### Authenticated User
-![Authenticated User](FigureShop\document\navbar_authenticatedUser.png)
+![Authenticated User](document\navbar_authenticatedUser.png)
 
 ### Product Page
-![Product Page](FigureShop\document\productPage.png)
+![Product Page](document\productPage.png)
 
 ### Product Detail Page
-![Product Detail Page](FigureShop\document\productDetailPage.png)
+![Product Detail Page](document\productDetailPage.png)
 
 ### Cart Page
-![Cart Page](FigureShop\document\cartPage.png)
+![Cart Page](document\cartPage.png)
 
 ### Order History Page
-![Order History Page](FigureShop\document\orderHistoryPage.png)
+![Order History Page](document\orderHistoryPage.png)
 
 ### Order Detail Page
-![Order Detail Page](FigureShop\document\orderDetailPage.png)
+![Order Detail Page](document\orderDetailPage.png)
 
 ### Management Page
 
 #### Order Managerment Page
-![Order Managerment Page](FigureShop\document\orderManagermentPage.png)
+![Order Managerment Page](document\orderManagermentPage.png)
 
 #### Product Managerment Page
-![Product Managerment Page](FigureShop\document\productManagermentPage.png)
+![Product Managerment Page](document\productManagermentPage.png)
 
 #### Add New Product Page
-![Add New Product Page](FigureShop\document\addNewProductPage.png)
+![Add New Product Page](document\addNewProductPage.png)
 
 ## Bug Report
 
