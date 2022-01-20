@@ -1,12 +1,12 @@
 
 
-[![SinninSC Logo](FigureShop\document\logo.png)]("")
+[![Tetcha Logo](FigureShop\document\logo.png)](http://13.213.51.140/FigureShop/)
 
 ## [Live Demo]() - [Live Document]()
 
-# Shopping Online - Servlet + JSP + Tailwind
+# Tetcha Figure Shop - Servlet + JSP + Tailwind
 
-## Case Study
+## Case Study 
 
 A longtime shop specializing in figures is called Tetcha. This store has a full range of models and accessories on display. The business situation is not very positive with the current epidemic, the shop owner has decided to develop a web application to be able to manage and sell online. This web application needs to include an item management system and a customer ordering system.
 
@@ -18,17 +18,22 @@ People can view the items, put products or edit the quantity of product in the c
 
 - ### Both Role Action
      - Login, register new account and logout
-     - Change password
 - ### Customer Role Action
      - Add new product to cart
-     - Checkout or cancel in cart
+     - Change quantity, remove product in cart
+     - Checkout in cart
      - Checking order information
 - ### Admin Role Action
-     - Create new product
+     - 
      - Update information for a product
-     - Checkout (2 options ) or cancel order
      - Manage all product
+          - Create new product
+          - Update information of product
+          - Delete product
+          - Search product
      - Manage all order
+          - Update information of order
+          - Search order
 
 ## Technology
 
@@ -36,6 +41,7 @@ People can view the items, put products or edit the quantity of product in the c
      - JSP - Server Side Rendering
      - Tailwind - Styling
      - Javascript
+     - JQuery
 - Backend
      - Servlet - Server Core
      - SQL Server 2019 - Database
@@ -61,7 +67,7 @@ People can view the items, put products or edit the quantity of product in the c
 
 ### Database Diagram
 
-#### Entity Diagram
+#### Entity Diagram 
 
 ![Database Page](FigureShop\document\figureShop_Diagram.png)
 
