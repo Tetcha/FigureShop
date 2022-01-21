@@ -52,6 +52,7 @@ public class AddProductController extends HttpServlet {
 
         //check error occur
         if (!isTrue) {
+            request.setAttribute("image", image);
             return false;
         }
 

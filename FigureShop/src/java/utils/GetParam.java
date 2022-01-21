@@ -50,6 +50,7 @@ public class GetParam {
             Integer defaultValue) {
 
         String value = (String) request.getParameter(field);
+        request.setAttribute(field, value);
         Integer realValue;
 
         //check empty string, if empty then return to default value
@@ -88,6 +89,7 @@ public class GetParam {
             Float defaultValue) {
 
         String value = (String) request.getParameter(field);
+        request.setAttribute(field, value);
         Float realValue;
 
         //check empty string, if empty then return to default value

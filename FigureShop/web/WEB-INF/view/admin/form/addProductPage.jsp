@@ -33,7 +33,7 @@
                             Name
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <input type="text" name="name" id="name"
+                            <input type="text" name="name" id="name" value="${requestScope.name}"
                                    class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md" />
                             <p class="text-sm text-left text-red-600">
                                 ${requestScope.nameError}
@@ -47,7 +47,7 @@
                             Quantity
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <input min="0" type="number" name="quantity" id="quantity"
+                            <input min="0" type="number" name="quantity" id="quantity" value="${requestScope.quantity}"
                                    class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md" />
                             <p class="text-sm text-left text-red-600">
                                 ${requestScope.quantityError}
@@ -61,7 +61,7 @@
                             Price
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <input min="0" type="number" name="price" id="price"
+                            <input min="0" type="number" name="price" id="price" value="${requestScope.price}"
                                    class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md" />
                             <p class="text-sm text-left text-red-600">
                                 ${requestScope.priceError}
@@ -76,7 +76,7 @@
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
                             <textarea id="description" name="description" rows="3"
-                                      class="max-w-lg shadow-sm block w-full focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border border-gray-300 rounded-md"></textarea>
+                                class="max-w-lg shadow-sm block w-full focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border border-gray-300 rounded-md">${requestScope.description}</textarea>
                             <p class="text-sm text-left text-red-600">
                                 ${requestScope.descriptionError}
                             </p>
