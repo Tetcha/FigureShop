@@ -5,13 +5,15 @@
 <%@page import="java.util.ArrayList"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
+<%  
+    request.setCharacterEncoding("UTF-8");
     CategoryDao categoryDao = new CategoryDao();
     ArrayList<Category> categoryList = categoryDao.getAllCategory();
     Product product = (Product) request.getAttribute("product");
+    String preImage = (String) request.getAttribute("prevImage");
     String imageHead = "https://";
     String pattern = "product.hstatic.net";
-    request.setCharacterEncoding("UTF-8");
+    
 %>
 <div class="p-10">
     <form method="post" enctype="multipart/form-data" action="<%= Router.ADMIN_UPDATE_PRODUCT_CONTROLLER%>" class="space-y-8 divide-y divide-gray-200">
@@ -192,6 +194,13 @@
                                                 name="image"
                                                 type="file"
                                                 class="sr-only"
+                                                />
+                                            <input
+                                                id="defaultImage"
+                                                name="prevImage"
+                                                value="<%= preImage == null ? product.getImage() : preImage %>"
+                                                type="text"
+                                                class="hidden"
                                                 />
                                         </label>
                                     </div>

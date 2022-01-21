@@ -34,13 +34,20 @@ public class AddProductController extends HttpServlet {
         //validate param
         String name = GetParam.getStringParam(request, "name", "Product's name", 5, 255, null);
         String image = GetParam.getFileParam(request, "image", "Product's image", 1080 * 1080);
+        String prevImage = GetParam.getStringParam(request, "prevImage", "prevImage's name", 5, 255, null);
         Integer quantity = GetParam.getIntParams(request, "quantity", "Quantity", 0, Integer.MAX_VALUE, null);
         Float price = GetParam.getFloatParams(request, "price", "Price", 0, Float.MAX_VALUE, null);
         String description = GetParam.getStringParam(request, "description", "Description", 5, Integer.MAX_VALUE, null);
         String categoryId = GetParam.getStringParam(request, "category", "Category", 0, 40, null);
-
+        if (image != null) {
+            prevImage = image;
+        }
+        if (image == null && prevImage != null) {
+            image = prevImage;
+            request.setAttribute("imageError", null);
+        }
         //check params
-        if (name == null || image == null || quantity == null || price == null || description == null || categoryId == null) {
+        if (name == null || (image == null && prevImage == null) || quantity == null || price == null || description == null || categoryId == null) {
             isTrue = false;
         }
 
@@ -49,6 +56,7 @@ public class AddProductController extends HttpServlet {
             request.setAttribute("nameError", Message.DULICATE_NAME_MESSAGE.getContent());
             isTrue = false;
         }
+        request.setAttribute("prevImage", prevImage);
 
         //check error occur
         if (!isTrue) {
@@ -59,7 +67,6 @@ public class AddProductController extends HttpServlet {
         //add new product to database
         Product product = new Product(name, image, quantity, price, description, categoryId);
         productDao.addNewProduct(product);
-
         request.setAttribute(Notification.AttrType.notiStatus.name(), Notification.Status.SUCCESS);
         request.setAttribute(Notification.AttrType.notiMessage.name(), Message.SUCCESS_MESSAGE.getContent());
         request.setAttribute(Notification.AttrType.notiDescription.name(), Message.ADD_PRODUCT_SUCCESS_DESCRIPTION.getContent());
