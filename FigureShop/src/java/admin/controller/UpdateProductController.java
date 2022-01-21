@@ -49,24 +49,8 @@ public class UpdateProductController extends HttpServlet {
         String description = GetParam.getStringParam(request, "description", "Description", 3, 255, null);
         String categoryId = GetParam.getStringParam(request, "type", "Type", 0, 40, null);
 
-        // check null value for params
-        if (name == null) {
-            name = product.getName();
-        }
-        if (quantity == null) {
-            quantity = product.getQuantity();
-        }
-        if (price == null) {
-            price = product.getPrice();
-        }
-        if (description == null) {
-            description = product.getDescription();
-        }
-        if (categoryId == null) {
-            categoryId = product.getCategoryId();
-        }
-        if (imageUrl == null) {
-            imageUrl = product.getImage();
+        if (name == null || imageUrl == null || quantity == null || price == null || description == null || categoryId == null) {
+            return 1;
         }
 
         // update to database

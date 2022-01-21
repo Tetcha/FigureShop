@@ -45,6 +45,9 @@
                                 value="<%= product.getName()%>"
                                 class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
                                 />
+                            <p class="text-sm text-left text-red-600">
+                                ${requestScope.nameError}
+                            </p>
                         </div>
                     </div>
                     <div
@@ -65,6 +68,9 @@
                                 id="quantity"
                                 class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
                                 />
+                            <p class="text-sm text-left text-red-600">
+                                ${requestScope.quantityError}
+                            </p>
                         </div>
                     </div>
                     <input
@@ -91,6 +97,9 @@
                                 id="price"
                                 class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
                                 />
+                            <p class="text-sm text-left text-red-600">
+                                ${requestScope.priceError}
+                            </p>
                         </div>
                     </div>
                     <div
@@ -109,8 +118,8 @@
                                 rows="5"
                                 class="max-w-lg shadow-sm block w-full focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border border-gray-300 rounded-md"
                                 ><%= product.getDescription()%></textarea>
-                            <p class="mt-2 text-sm text-gray-500">
-                                Write a few sentences about product.
+                            <p class="text-sm text-left text-red-600">
+                                ${requestScope.descriptionError}
                             </p>
                         </div>
                     </div>
@@ -186,10 +195,11 @@
                                                 />
                                         </label>
                                     </div>
-
-
                                 </div>
                             </div>
+                            <p class="text-sm text-left text-red-600">
+                                ${requestScope.imageError}
+                            </p>
                         </div>
                     </div>
                     <div
