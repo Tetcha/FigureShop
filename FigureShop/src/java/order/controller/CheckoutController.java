@@ -39,13 +39,8 @@ public class CheckoutController extends HttpServlet {
         String phone = GetParam.getPhoneParams(request, "phone", "Phone number");
 
         if (consigneeName == null || address == null || phone == null) {
-            String nameError = (String) request.getAttribute("consigneeNameError");
-            String addressError = (String) request.getAttribute("addressError");
-            String phoneError = (String) request.getAttribute("phoneError");
-
-            session.setAttribute("phoneError", phoneError);
-            session.setAttribute("nameError", nameError);
-            session.setAttribute("addressError", addressError);
+            String[] fields = {"phoneError", "consigneeNameError", "addressError", "address", "phone", "consigneeName"};
+            Helper.setFieldsToSession(request, fields);
             return false;
         }
 

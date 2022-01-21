@@ -40,6 +40,7 @@ public class RegisterController extends HttpServlet {
         //Checking existed email
         User existedEmail = userDao.getUserByEmail(email);
         if (existedEmail != null) {
+            request.setAttribute("email", email);
             request.setAttribute("emailError", Message.EXISTED_EMAIL_MESSAGE.getContent());
             isValid = false;
         }

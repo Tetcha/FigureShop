@@ -19,6 +19,7 @@ public class GetParam {
             String defaultValue) {
 
         String value = (String) request.getParameter(field);
+        request.setAttribute(field, value);
         //check empty string, if empty then return to default value
         if (value == null || value.trim().isEmpty()) {
             if (defaultValue == null) {

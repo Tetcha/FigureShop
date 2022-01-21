@@ -24,7 +24,7 @@ public class CartController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        String[] errors = {"nameError", "addressError", "phoneError", "emptyMessage"};
+        String[] errors = {"consigneeNameError", "addressError", "phoneError", "emptyMessage", "phone", "address", "consigneeName"};
 
         Helper.resetErrorMessage(request, errors);
 

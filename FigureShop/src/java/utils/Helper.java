@@ -94,4 +94,12 @@ public class Helper {
             request.setAttribute(errors[i], value);
         }
     }
+
+    public static void setFieldsToSession(HttpServletRequest request, String[] fields) {
+        HttpSession session = request.getSession();
+        for (int i = 0; i < fields.length; i++) {
+            String value = (String) request.getAttribute(fields[i]);
+            session.setAttribute(fields[i], value);
+        }
+    }
 }

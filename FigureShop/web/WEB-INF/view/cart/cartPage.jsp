@@ -39,6 +39,8 @@
                 }
 
             }
+            String consigneeName = (String) request.getAttribute("consigneeName");
+            if(consigneeName == null || consigneeName.isEmpty()) consigneeName = userName;
             Locale vi = new Locale("vi", "VN");
             NumberFormat vndFormat = NumberFormat.getCurrencyInstance(vi);
             request.setCharacterEncoding("UTF-8");
@@ -128,10 +130,10 @@
                                     <input
                                         id="address"
                                         name="address"
-                                        placeholder="<%= userAddress%>"
+                                        placeholder="${requestScope.address}"
                                         type="text"
                                         required
-                                        value ="<%= userAddress%>"
+                                        value ="${requestScope.address}"
                                         class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                         />
                                     <p class="text-sm text-left text-red-600">
@@ -150,10 +152,10 @@
                                     <input
                                         id="phone"
                                         name="phone"
-                                        placeholder="<%= userPhone%>"
+                                        placeholder="${requestScope.phone}"
                                         type="text"
                                         required
-                                        value ="<%= userPhone%>"
+                                        value ="${requestScope.phone}"
                                         class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                         />
                                      <p class="text-sm text-left text-red-600">
@@ -172,10 +174,10 @@
                                     <input
                                         id="consigneeName"
                                         name="consigneeName"
-                                        placeholder="<%= userName%>"
+                                        placeholder="<%= consigneeName%>"
                                         type="text"
                                         required
-                                        value="<%= userName%>"
+                                        value="<%=consigneeName%>"
                                         class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                         />
                                      <p class="text-sm text-left text-red-600">
