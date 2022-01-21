@@ -62,6 +62,7 @@ $(document).ready(function () {
     }
     if (parseInt(fromValue) > parseInt(toValue)) {
       toText.text("To value should be higher than from value");
+      canMove = false;
     }
     if (!toValue) toValue = "99999999";
     if (!fromValue) fromValue = "0";
