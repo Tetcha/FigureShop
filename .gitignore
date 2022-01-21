@@ -19,3 +19,4 @@ nbdist/
 /test
 /FigureShop/dist/
 docker-compose.yml
+/FigureShop/web/asset/**/styles.css
