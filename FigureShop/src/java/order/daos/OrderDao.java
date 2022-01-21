@@ -208,7 +208,7 @@ public class OrderDao {
             preStm.executeUpdate();
 
             // check status
-            if ((order.getStatus() == 0 || order.getStatus() == 3) && (nStatus != 3 && nStatus != 0)) {
+            if (order.getStatus() == 3 && nStatus != 3) {
                 OrderItemDao orderItemDao = new OrderItemDao();
                 ProductDao productDao = new ProductDao();
                 ArrayList<OrderItem> orderItems = orderItemDao.getOrderItemByOrderId(order.getId());
@@ -216,7 +216,7 @@ public class OrderDao {
                     Product product = productDao.getProductById(orderItem.getProductId());
                     productDao.updateProductQuantity(product.getQuantity() - orderItem.getQuantity(), orderItem.getProductId());
                 }
-            } else if ((order.getStatus() != 0 && order.getStatus() != 3) && (nStatus == 3 || nStatus == 0)) {
+            } else if (order.getStatus() != 3 && nStatus == 3) {
                 OrderItemDao orderItemDao = new OrderItemDao();
                 ProductDao productDao = new ProductDao();
                 ArrayList<OrderItem> orderItems = orderItemDao.getOrderItemByOrderId(order.getId());

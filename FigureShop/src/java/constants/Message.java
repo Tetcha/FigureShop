@@ -29,6 +29,7 @@ public enum Message {
     UPDATE_STATUS_SUCCESS_DESCRIPTION("Update order's status successful"),
     EMPTY_MESSAGE("There is no order yet"),
     CHECKOUT_SUCCESS_DESCRIPTION("Checkout successful"),
+    CHECKOUT_FAIL_MESSAGE("Checkout fail"),
     //common
     SUCCESS_MESSAGE("Success"),
     INTERNAL_ERROR_TITLE("Something failed"),

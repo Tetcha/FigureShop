@@ -61,7 +61,7 @@ public class UpdateStatusController extends HttpServlet {
         Order order = orderDao.getOrderByOrderId(id);
 
         // check quantity
-        if ((order.getStatus() == 0 || order.getStatus() == 3) && (statusValue != 3 && statusValue != 0)) {
+        if (order.getStatus() == 3 && statusValue != 3) {
             OrderItemDao orderItemDao = new OrderItemDao();
             ProductDao productDao = new ProductDao();
             ArrayList<OrderItem> orderItems = orderItemDao.getOrderItemByOrderId(order.getId());

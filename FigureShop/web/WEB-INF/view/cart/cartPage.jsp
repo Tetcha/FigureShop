@@ -196,6 +196,9 @@
                                 <p class="text-sm text-left text-red-600">
                                     ${requestScope.emptyMessage}
                                 </p>
+                                <p class="text-sm text-left text-red-600">
+                                    ${requestScope.notEnoughQuantityError}
+                                </p>
                             </div>
                         </form>
 

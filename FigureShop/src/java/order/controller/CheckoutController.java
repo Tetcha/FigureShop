@@ -14,10 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import order.constants.OrderStatus;
 import order.daos.OrderDao;
+import product.daos.ProductDao;
 import utils.GetParam;
 import product.models.Product;
 import utils.Helper;
 import user.models.User;
+import product.models.Product;
 
 /**
  *
@@ -31,7 +33,9 @@ public class CheckoutController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         OrderDao orderDao = new OrderDao();
+        ProductDao productDao = new ProductDao();
         HttpSession session = request.getSession();
+        String[] fields = {"phoneError", "consigneeNameError", "addressError", "address", "phone", "consigneeName"};
 
         // check params
         String consigneeName = GetParam.getStringParam(request, "consigneeName", "Consignee name", 5, 255, null);
@@ -39,7 +43,6 @@ public class CheckoutController extends HttpServlet {
         String phone = GetParam.getPhoneParams(request, "phone", "Phone number");
 
         if (consigneeName == null || address == null || phone == null) {
-            String[] fields = {"phoneError", "consigneeNameError", "addressError", "address", "phone", "consigneeName"};
             Helper.setFieldsToSession(request, fields);
             return false;
         }
@@ -48,6 +51,7 @@ public class CheckoutController extends HttpServlet {
         ArrayList<Product> products = (ArrayList<Product>) session.getAttribute("products");
 
         if (products == null || products.isEmpty()) {
+            Helper.setFieldsToSession(request, fields);
             session.setAttribute("emptyMessage", Message.EMPTY_CART_MESSAGE.getContent());
             return false;
         }
@@ -55,13 +59,31 @@ public class CheckoutController extends HttpServlet {
         // get current userId
         User user = (User) session.getAttribute("user");
         Float totalPrice = 0f;
+        boolean isValid = true;
+        String quantityMessage = "Not enough quantity: <br>";
         for (Product product : products) {
             totalPrice += product.getPrice() * product.getQuantity();
+            Product storeProduct = productDao.getProductById(product.getId());
+            if (storeProduct.getQuantity() < product.getQuantity()) {
+                isValid = false;
+                quantityMessage += product.getName() + " (" + storeProduct.getQuantity() + ") <br>";
+            }
+        }
+
+        if (!isValid) {
+            session.setAttribute("notEnoughQuantityError", quantityMessage);
+            Helper.setFieldsToSession(request, fields);
+            return false;
         }
 
         // save to db
         if (!orderDao.addNewOrder(products, OrderStatus.WAITING.ordinal(), user.getId(), consigneeName, address, phone, totalPrice)) {
             throw new Exception();
+        }
+
+        for (Product product : products) {
+            Product storeProduct = productDao.getProductById(product.getId());
+            productDao.updateProductQuantity(storeProduct.getQuantity() - product.getQuantity(), product.getId());
         }
 
         // update products in cart
