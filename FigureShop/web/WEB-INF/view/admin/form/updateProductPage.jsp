@@ -206,7 +206,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <p class="text-sm text-left text-red-600">
+                            <p id="imageError"  class="text-sm text-left text-red-600">
                                 ${requestScope.imageError}
                             </p>
                         </div>

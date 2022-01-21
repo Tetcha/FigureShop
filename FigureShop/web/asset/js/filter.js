@@ -41,7 +41,6 @@ $(document).ready(function () {
     e.preventDefault();
     selectedVal = $("#categoryFilter option:selected").val();
   });
-  console.log(window.location);
   const baseUrl = `http://${window.location.host}/FigureShop`;
   const actionOnClick = () => {
     canMove = true;
@@ -51,7 +50,6 @@ $(document).ready(function () {
       .val()
       .trim()
       .replace(/[ ]{2,}/, " ");
-    console.log(nameValue);
     if (isNaN(fromValue) || parseInt(fromValue) < 0) {
       fromText.text("From value should be a valid positive number");
       canMove = false;
