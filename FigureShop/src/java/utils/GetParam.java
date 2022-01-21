@@ -11,6 +11,8 @@ import javax.servlet.http.Part;
 
 public class GetParam {
 
+    public static final String[] imageExtension = {"png", "jpg", "svg", "jpeg", "bmp"};
+
     /**
      * Get string from request parameter and validate it, if it invalid, return
      * default value
@@ -162,15 +164,50 @@ public class GetParam {
         if (filePart == null) {
             return null;
         }
-        if (Helper.getFileName(filePart).equals("")) {
+
+        String fileName = Helper.getFileName(filePart);
+
+        if (fileName.equals("")) {
             request.setAttribute(field + "Error", label + " is required");
             return null;
         }
+
+        //check size
+        if (filePart.getSize() > maxSize) {
+            request.setAttribute(field + "Error", label + " is too large");
+            return null;
+        }
+
+        boolean isCorrect = false;
+        String fileExtension;
+        int indexOfExtension = fileName.lastIndexOf(".");
+        if (indexOfExtension > 0) {
+            fileExtension = fileName.substring(indexOfExtension + 1).toLowerCase();
+        } else {
+            request.setAttribute(field + "Error", label + " is wrong extension ." + String.join(" .", imageExtension));
+            return null;
+        }
+
+        for (String item : imageExtension) {
+            if (item.equals(fileExtension)) {
+                isCorrect = true;
+                break;
+            }
+
+        }
+
+        if (!isCorrect) {
+            request.setAttribute(field + "Error", label + " is wrong extension ." + String.join(" .", imageExtension));
+            return null;
+        }
+
         //upload dir where save the image in server
         String uploadDir = "asset/productImages";
+
         //get absolute path to project
         String appPath = request.getServletContext().getRealPath("");
         appPath = appPath.replace('\\', '/');
+
         //path to save file
         String fullSavePath = null;
         if (appPath.endsWith("/")) {
@@ -186,13 +223,7 @@ public class GetParam {
             fileSaveDir.mkdir();
         }
 
-        //check size
-        if (filePart.getSize() > maxSize) {
-            request.setAttribute(field + "Error", label + " is too large");
-            return null;
-        }
-
-        String fileName = UUID.randomUUID().toString() + Helper.getFileName(filePart);
+        fileName = UUID.randomUUID().toString() + fileName;
 
         //absolute path to image
         String filePath = null;
