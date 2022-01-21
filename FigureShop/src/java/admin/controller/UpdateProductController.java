@@ -31,16 +31,19 @@ public class UpdateProductController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         ProductDao productDao = new ProductDao();
+
         // get the current product
         String productId = GetParam.getStringParam(request, "id", "Product's id", 0, 40, null);
         if (productId == null) {
             return 0;
         }
         Product product = productDao.getProductById(productId);
+
         // check existed product
         if (product == null) {
             return 0;
         }
+
         // validate params
         String name = GetParam.getStringParam(request, "name", "Product's name", 3, 255, null);
         String imageUrl = GetParam.getFileParam(request, "image", "Product's image", 1080 * 1080);
@@ -49,6 +52,7 @@ public class UpdateProductController extends HttpServlet {
         Float price = GetParam.getFloatParams(request, "price", "Price", 0, Float.MAX_VALUE, null);
         String description = GetParam.getStringParam(request, "description", "Description", 3, 255, null);
         String categoryId = GetParam.getStringParam(request, "type", "Type", 0, 40, null);
+
         if (imageUrl != null) {
             prevImage = imageUrl;
         }
@@ -57,6 +61,9 @@ public class UpdateProductController extends HttpServlet {
             request.setAttribute("imageError", null);
         }
 
+        System.out.println("prevImage : " + prevImage);
+        System.out.println("imageUrl : " + imageUrl);
+
         if (name == null || (imageUrl == null && prevImage == null) || quantity == null || price == null || description == null || categoryId == null) {
             return 1;
         }
@@ -64,6 +71,7 @@ public class UpdateProductController extends HttpServlet {
         // update to database
         productDao.updateProduct(productId, name, imageUrl, quantity, price, description, categoryId);
 
+        // get the current product
         request.setAttribute(Notification.AttrType.notiStatus.name(), Notification.Status.SUCCESS);
         request.setAttribute(Notification.AttrType.notiMessage.name(), Message.SUCCESS_MESSAGE.getContent());
         request.setAttribute(Notification.AttrType.notiDescription.name(), Message.UPDATE_PRODUCT_SUCCESS_DESCRIPTION.getContent());
@@ -100,6 +108,7 @@ public class UpdateProductController extends HttpServlet {
                 request.getRequestDispatcher(Router.ERROR).forward(request, response);
                 return;
             }
+
             // forward on 200
             request.getRequestDispatcher(Router.ADMIN_UPDATE_PRODUCT_PAGE).forward(request, response);
         } catch (Exception e) {
@@ -131,6 +140,7 @@ public class UpdateProductController extends HttpServlet {
                 this.doGet(request, response);
                 return;
             }
+
             // forward on 200
             this.doGet(request, response);
         } catch (Exception e) {

@@ -13,7 +13,6 @@
     String preImage = (String) request.getAttribute("prevImage");
     String imageHead = "https://";
     String pattern = "product.hstatic.net";
-    
 %>
 <div class="p-10">
     <form method="post" enctype="multipart/form-data" action="<%= Router.ADMIN_UPDATE_PRODUCT_CONTROLLER%>" class="space-y-8 divide-y divide-gray-200">
@@ -198,7 +197,7 @@
                                             <input
                                                 id="defaultImage"
                                                 name="prevImage"
-                                                value="<%= preImage == null ? product.getImage() : preImage %>"
+                                                value="<%= product.getImage() %>"
                                                 type="text"
                                                 class="hidden"
                                                 />
