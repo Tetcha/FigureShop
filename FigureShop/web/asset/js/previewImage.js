@@ -13,7 +13,6 @@ $(document).ready(function () {
       if (inputType.match(/jpg|jpeg|png/)) {
         $("#imagePreview").attr("src", dataURL);
       } else {
-        console.log(errorMessage);
         errorMessage.text("The image should be jpg, jpeg or png");
       }
     };
