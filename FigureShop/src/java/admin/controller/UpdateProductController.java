@@ -47,24 +47,12 @@ public class UpdateProductController extends HttpServlet {
         // validate params
         String name = GetParam.getStringParam(request, "name", "Product's name", 3, 255, null);
         String imageUrl = GetParam.getFileParam(request, "image", "Product's image", 1080 * 1080);
-        String prevImage = GetParam.getStringParam(request, "prevImage", "prevImage's name", 5, 255, null);
         Integer quantity = GetParam.getIntParams(request, "quantity", "Quantity", 0, Integer.MAX_VALUE, null);
         Float price = GetParam.getFloatParams(request, "price", "Price", 0, Float.MAX_VALUE, null);
         String description = GetParam.getStringParam(request, "description", "Description", 3, 255, null);
         String categoryId = GetParam.getStringParam(request, "type", "Type", 0, 40, null);
 
-        if (imageUrl != null) {
-            prevImage = imageUrl;
-        }
-        if (imageUrl == null && prevImage != null) {
-            imageUrl = prevImage;
-            request.setAttribute("imageError", null);
-        }
-
-        System.out.println("prevImage : " + prevImage);
-        System.out.println("imageUrl : " + imageUrl);
-
-        if (name == null || (imageUrl == null && prevImage == null) || quantity == null || price == null || description == null || categoryId == null) {
+        if (name == null || imageUrl == null || quantity == null || price == null || description == null || categoryId == null) {
             return 1;
         }
 
