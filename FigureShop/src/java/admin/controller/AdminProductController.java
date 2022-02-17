@@ -26,7 +26,7 @@ public class AdminProductController extends HttpServlet {
 
     private final int LIMIT = 9;
 
-    protected boolean processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         ProductDao productDao = new ProductDao();
@@ -51,7 +51,7 @@ public class AdminProductController extends HttpServlet {
         }
 
         if (minPrice == null || maxPrice == null || page == null) {
-            return false;
+            return;
         }
 
         // get products
@@ -60,7 +60,6 @@ public class AdminProductController extends HttpServlet {
             if (products.get(i).getName().length() > 30) {
                 products.get(i).setName(products.get(i).getName().substring(0, 26) + "...");
             }
-
         }
         int resultSize = productDao.filterAllProducts(name, categoryId, minPrice, maxPrice).size();
         int maxPage = resultSize / LIMIT;
@@ -71,15 +70,14 @@ public class AdminProductController extends HttpServlet {
 
         for (int i = 0; i < products.size(); i++) {
             Product product = products.get(i);
-            Category newCategory = categoryDao.getCategoryByID(product.getCategoryId());
-            product.setCategoryId(newCategory.getName());
-
+            Category category = categoryDao.getCategoryByID(product.getCategoryId());
+            product.setCategoryId(category.getName());
         }
 
         // send products
         request.setAttribute("products", products);
         request.setAttribute("maxPage", maxPage);
-        return true;
+        return;
     }
 
     @Override
