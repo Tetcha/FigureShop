@@ -66,7 +66,6 @@
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
                             <input
-                                min="0"
                                 type="number"
                                 name="quantity"
                                 id="quantity"
@@ -89,7 +88,6 @@
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
                             <input
-                                min="0"
                                 type="number"
                                 name="price"
                                 id="price"

@@ -62,7 +62,6 @@
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
                             <input
-                                min="0"
                                 type="number"
                                 name="quantity"
                                 value="<%= product.getQuantity()%>"
@@ -91,7 +90,6 @@
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
                             <input
-                                min="0"
                                 type="number"
                                 name="price"
                                 value="<%= product.getPrice()%>"
@@ -194,13 +192,7 @@
                                                 type="file"
                                                 class="sr-only"
                                                 />
-                                            <input
-                                                id="defaultImage"
-                                                name="prevImage"
-                                                value="<%= product.getImage() %>"
-                                                type="text"
-                                                class="hidden"
-                                                />
+                                          
                                         </label>
                                     </div>
                                 </div>

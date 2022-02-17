@@ -20,3 +20,5 @@ nbdist/
 /FigureShop/dist/
 docker-compose.yml
 /FigureShop/web/asset/**/styles.css
+
+/document
