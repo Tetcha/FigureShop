@@ -139,7 +139,7 @@
                                 >
                                 <%for (int i = 0; i < categoryList.size(); i++) {%>
                                 <c:choose>
-                                    <c:when test="<%= categoryList.get(i).getId().equals(product.getCategoryId())%>">
+                                    <c:when test="<%= categoryList.get(i).getId().equals(product.getCategory().getId())%>">
                                         <option selected value="<%= categoryList.get(i).getId()%>"><%= categoryList.get(i).getName()%></option>
                                     </c:when>    
                                     <c:otherwise>

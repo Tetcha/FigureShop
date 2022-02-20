@@ -1,7 +1,5 @@
 package admin.controller;
 
-import category.daos.CategoryDao;
-import category.models.Category;
 import constants.Router;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,7 +28,6 @@ public class AdminProductController extends HttpServlet {
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         ProductDao productDao = new ProductDao();
-        CategoryDao categoryDao = new CategoryDao();
 
         Helper.resetNoti(request);
 
@@ -68,16 +65,9 @@ public class AdminProductController extends HttpServlet {
             maxPage = maxPage + 1;
         }
 
-        for (int i = 0; i < products.size(); i++) {
-            Product product = products.get(i);
-            Category category = categoryDao.getCategoryByID(product.getCategoryId());
-            product.setCategoryId(category.getName());
-        }
-
         // send products
         request.setAttribute("products", products);
         request.setAttribute("maxPage", maxPage);
-        return;
     }
 
     @Override

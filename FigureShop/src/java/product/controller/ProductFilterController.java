@@ -1,7 +1,5 @@
 package product.controller;
 
-import category.daos.CategoryDao;
-import category.models.Category;
 import constants.Message;
 import constants.Router;
 import constants.StatusCode;
@@ -28,7 +26,6 @@ public class ProductFilterController extends HttpServlet {
             throws Exception {
         response.setContentType("text/html;charset=UTF-8");
         ProductDao productDao = new ProductDao();
-        CategoryDao categoryDao = new CategoryDao();
         final int LIMIT = 20;
         // get params
         String name = GetParam.getStringParam(request, "name", "Name", 0, 255, "");
@@ -62,12 +59,6 @@ public class ProductFilterController extends HttpServlet {
         int maxPage = resultSize / LIMIT;
         if (resultSize % LIMIT > 0) {
             maxPage = maxPage + 1;
-        }
-        for (int i = 0; i < products.size(); i++) {
-            Product product = products.get(i);
-            Category newCategory = categoryDao.getCategoryByID(product.getCategoryId());
-            product.setCategoryId(newCategory.getName());
-
         }
 
         // send products

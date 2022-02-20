@@ -1,5 +1,6 @@
 package product.daos;
 
+import category.models.Category;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,18 +39,21 @@ public class ProductDao {
         Product product = null;
         try {
             conn = Connector.getConnection();
-            String sql = "SELECT * FROM figure_product WHERE id = ?";
+            String sql = "SELECT p.name AS pName, p.image, p.quantity, p.price, p.description, p.categoryId, c.name AS cName"
+                    + " FROM figure_product p LEFT JOIN figure_category c ON p.categoryId = c.id WHERE p.id = ?";
             preStm = conn.prepareStatement(sql);
             preStm.setString(1, productId);
             rs = preStm.executeQuery();
             if (rs.next()) {
                 String categoryId = rs.getString("categoryId");
-                String name = rs.getString("name");
+                String productName = rs.getString("pName");
                 String image = rs.getString("image");
                 Integer quantity = rs.getInt("quantity");
                 Float price = rs.getFloat("price");
                 String description = rs.getString("description");
-                product = new Product(productId, name, image, quantity, price, description, categoryId);
+                String categoryName = rs.getString("cName");
+                Category category = new Category(categoryId, categoryName);
+                product = new Product(productId, productName, image, quantity, price, description, category);
             }
         } finally {
             this.closeConnection();
@@ -65,9 +69,9 @@ public class ProductDao {
             name = "%" + name + "%";
             categoryId = "%" + categoryId + "%";
             Integer offset = (page - 1) * limit;
-
             conn = Connector.getConnection();
-            String sql = "SELECT * FROM figure_product WHERE name LIKE ? AND categoryId LIKE ? AND price BETWEEN ? AND ? ORDER BY price ASC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+            String sql = "SELECT p.id AS pId, p.name AS pName, p.image, p.quantity, p.price, p.description, p.categoryId, c.name AS cName "
+                    + "FROM figure_product p LEFT JOIN figure_category c ON p.categoryId = c.id WHERE p.name LIKE ? AND categoryId LIKE ? AND price BETWEEN ? AND ? ORDER BY price ASC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
             preStm = conn.prepareStatement(sql);
             preStm.setString(1, name);
             preStm.setString(2, categoryId);
@@ -77,13 +81,15 @@ public class ProductDao {
             preStm.setInt(6, limit);
             rs = preStm.executeQuery();
             while (rs.next()) {
-                String id = rs.getString("id");
-                String pName = rs.getString("name");
+                String id = rs.getString("pId");
+                String pName = rs.getString("pName");
                 String image = rs.getString("image");
                 Integer quantity = rs.getInt("quantity");
                 Float price = rs.getFloat("price");
                 String description = rs.getString("description");
-                String category = rs.getString("categoryId");
+                String pCategoryId = rs.getString("categoryId");
+                String categoryName = rs.getString("cName");
+                Category category = new Category(pCategoryId, categoryName);
                 product = new Product(id, pName, image, quantity, price, description, category);
                 products.add(product);
             }
@@ -100,9 +106,9 @@ public class ProductDao {
             Product product = null;
             name = "%" + name + "%";
             categoryId = "%" + categoryId + "%";
-
             conn = Connector.getConnection();
-            String sql = "SELECT * FROM figure_product WHERE name LIKE ? AND categoryId LIKE ? AND price BETWEEN ? AND ? ORDER BY price ASC";
+            String sql = "SELECT p.id AS pId, p.name AS pName, p.image, p.quantity, p.price, p.description, p.categoryId, c.name AS cName "
+                    + "FROM figure_product p LEFT JOIN figure_category c ON p.categoryId = c.id WHERE p.name LIKE ? AND categoryId LIKE ? AND price BETWEEN ? AND ? ORDER BY price ASC";
             preStm = conn.prepareStatement(sql);
             preStm.setString(1, name);
             preStm.setString(2, categoryId);
@@ -110,13 +116,15 @@ public class ProductDao {
             preStm.setFloat(4, maxPrice);
             rs = preStm.executeQuery();
             while (rs.next()) {
-                String id = rs.getString("id");
-                String pName = rs.getString("name");
+                String id = rs.getString("pId");
+                String pName = rs.getString("pName");
                 String image = rs.getString("image");
                 Integer quantity = rs.getInt("quantity");
                 Float price = rs.getFloat("price");
                 String description = rs.getString("description");
-                String category = rs.getString("categoryId");
+                String pCategoryId = rs.getString("categoryId");
+                String categoryName = rs.getString("cName");
+                Category category = new Category(pCategoryId, categoryName);
                 product = new Product(id, pName, image, quantity, price, description, category);
                 products.add(product);
             }
@@ -126,47 +134,26 @@ public class ProductDao {
         return products;
     }
 
-    // get product by category
-    public Product getProductByCategory(String name) throws Exception {
-        Product product = null;
-        try {
-            conn = Connector.getConnection();
-            String sql = "SELECT * FROM figure_product WHERE name = ?";
-            preStm = conn.prepareStatement(sql);
-            preStm.setString(1, name);
-            rs = preStm.executeQuery();
-            if (rs.next()) {
-                String id = rs.getString("id");
-                String categoryId = rs.getString("categoryId");
-                String image = rs.getString("image");
-                Integer quantity = rs.getInt("quantity");
-                Float price = rs.getFloat("price");
-                String description = rs.getString("description");
-                product = new Product(id, name, image, quantity, price, description, categoryId);
-            }
-        } finally {
-            this.closeConnection();
-        }
-        return product;
-    }
-
-    // get product by name
+    // get product by given id
     public Product getProductByName(String name) throws Exception {
         Product product = null;
         try {
             conn = Connector.getConnection();
-            String sql = "SELECT * FROM figure_product WHERE name = ?";
+            String sql = "SELECT p.id AS pId, p.image, p.quantity, p.price, p.description, p.categoryId, c.name AS cName"
+                    + " FROM figure_product p LEFT JOIN figure_category c ON p.categoryId = c.id WHERE p.name = ?";
             preStm = conn.prepareStatement(sql);
             preStm.setString(1, name);
             rs = preStm.executeQuery();
             if (rs.next()) {
-                String id = rs.getString("id");
                 String categoryId = rs.getString("categoryId");
+                String productId = rs.getString("pId");
                 String image = rs.getString("image");
                 Integer quantity = rs.getInt("quantity");
                 Float price = rs.getFloat("price");
                 String description = rs.getString("description");
-                product = new Product(id, name, image, quantity, price, description, categoryId);
+                String categoryName = rs.getString("cName");
+                Category category = new Category(categoryId, categoryName);
+                product = new Product(productId, name, image, quantity, price, description, category);
             }
         } finally {
             this.closeConnection();
@@ -188,7 +175,7 @@ public class ProductDao {
             preStm.setInt(4, product.getQuantity());
             preStm.setFloat(5, product.getPrice());
             preStm.setString(6, product.getDescription());
-            preStm.setString(7, product.getCategoryId());
+            preStm.setString(7, product.getCategory().getId());
             //
             preStm.executeUpdate();
         } finally {
