@@ -16,7 +16,6 @@ import order.constants.OrderStatus;
 import order.daos.OrderDao;
 import product.daos.ProductDao;
 import utils.GetParam;
-import product.models.Product;
 import utils.Helper;
 import user.models.User;
 import product.models.Product;

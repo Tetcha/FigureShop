@@ -21,7 +21,7 @@ import utils.Helper;
  */
 @WebFilter(filterName = "AdminFilter", urlPatterns = {"/" + Router.ADMIN_ADD_PRODUCT_CONTROLLER,
     "/" + Router.ADMIN_ORDERS_CONTROLLER, "/" + Router.ADMIN_PRODUCT_CONTROLLER, "/" + Router.ADMIN_UPDATE_ORDER_CONTROLLER,
-    "/" + Router.ADMIN_UPDATE_PRODUCT_CONTROLLER, "/" + Router.ADMIN_USER_CONTROLLER, "/" + Router.ADMIN_VIEW_PRODUCT_CONTROLLER})
+    "/" + Router.ADMIN_UPDATE_PRODUCT_CONTROLLER, "/" + Router.ADMIN_USER_CONTROLLER})
 public class AdminFilter implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response,

@@ -1,6 +1,5 @@
 package utils;
 
-//import daos.UserDAO;
 import constants.Message;
 import constants.Notification;
 import javax.servlet.http.HttpServletRequest;
