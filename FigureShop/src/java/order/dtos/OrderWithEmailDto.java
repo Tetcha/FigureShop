@@ -2,6 +2,7 @@ package order.dtos;
 
 import java.util.Date;
 import order.models.Order;
+import user.models.User;
 
 /**
  *
@@ -14,12 +15,12 @@ public class OrderWithEmailDto extends Order {
     public OrderWithEmailDto() {
     }
 
-    public OrderWithEmailDto(String id, String userId, String address, String phoneNumber, String consigneeName, Integer status, Date createdDate, Float totalPrice) {
-        super(id, userId, address, phoneNumber, consigneeName, status, createdDate, totalPrice);
+    public OrderWithEmailDto(String id, User user, String address, String phoneNumber, String consigneeName, Integer status, Date createdDate, Float totalPrice) {
+        super(id, user, address, phoneNumber, consigneeName, status, createdDate, totalPrice);
     }
 
-    public OrderWithEmailDto(String email, String id, String userId, String address, String phoneNumber, String consigneeName, Integer status, Date createdDate, Float totalPrice) {
-        super(id, userId, address, phoneNumber, consigneeName, status, createdDate, totalPrice);
+    public OrderWithEmailDto(String email, String id, User user, String address, String phoneNumber, String consigneeName, Integer status, Date createdDate, Float totalPrice) {
+        super(id, user, address, phoneNumber, consigneeName, status, createdDate, totalPrice);
         this.email = email;
     }
 

@@ -76,7 +76,7 @@
                                     />
                                 <jsp:param name="name" value="<%= products.get(i).getName()%>" />
                                 <jsp:param name="price" value="<%=vndFormat.format(products.get(i).getPrice())%>" />
-                                <jsp:param name="category" value="<%= products.get(i).getCategoryId()%>" />
+                                <jsp:param name="category" value="<%= products.get(i).getCategory().getName()%>" />
                                 <jsp:param name="quantity" value="<%= products.get(i).getQuantity()%>" />
                                 <jsp:param name="index" value="<%= i%>" />
                                 <jsp:param name="id" value="<%= products.get(i).getId()%>" />

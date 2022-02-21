@@ -12,6 +12,7 @@ import product.daos.ProductDao;
 import utils.Connector;
 import product.models.Product;
 import orderitem.models.OrderItem;
+import user.models.User;
 
 /**
  *
@@ -43,20 +44,34 @@ public class OrderDao {
         ArrayList<Order> orders = new ArrayList<Order>();
         try {
             conn = Connector.getConnection();
-            String sql = "SELECT * FROM figure_order WHERE userId=? ORDER BY createdDate DESC";
+            String sql = "SELECT o.id AS oId, status, o.address AS oAddress, phoneNumber, consigneeName, o.createdDate AS oCreatedDate, totalPrice, "
+                    + " u.id AS uId, fullName, email, password, u.address AS uAddress, phone, isAdmin"
+                    + " FROM figure_order o LEFT JOIN figure_user u ON o.userId = u.id"
+                    + " WHERE userId=? ORDER BY o.createdDate DESC";
             preStm = conn.prepareStatement(sql);
             preStm.setString(1, userId);
             rs = preStm.executeQuery();
             Order order = null;
             while (rs.next()) {
-                String id = rs.getString("id");
+                // get user fields
+                String fullName = rs.getString("fullName");
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                String uAddress = rs.getString("uAddress");
+                String phone = rs.getString("phone");
+                int isAdmin = rs.getInt("isAdmin");
+
+                // get order fields
+                String id = rs.getString("oId");
                 Integer status = rs.getInt("status");
-                String address = rs.getString("address");
+                String address = rs.getString("oAddress");
                 String phoneNumber = rs.getString("phoneNumber");
                 String consigneeName = rs.getString("consigneeName");
-                Date createDate = rs.getDate("createdDate");
+                Date createDate = rs.getDate("oCreatedDate");
                 Float totalPrice = rs.getFloat("totalPrice");
-                order = new Order(id, userId, address, phoneNumber, consigneeName, status, createDate, totalPrice);
+
+                User user = new User(userId, fullName, email, password, uAddress, phone, isAdmin);
+                order = new Order(id, user, address, phoneNumber, consigneeName, status, createDate, totalPrice);
                 orders.add(order);
             }
         } finally {
@@ -114,7 +129,10 @@ public class OrderDao {
         try {
             Integer skip = (page - 1) * limit;
             conn = Connector.getConnection();
-            String sql = "SELECT * FROM figure_order WHERE userId = ? AND createdDate BETWEEN ? AND ? ORDER BY createdDate DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+            String sql = "SELECT o.id AS oId, status, o.address AS oAddress, phoneNumber, consigneeName, o.createdDate AS oCreatedDate, totalPrice, "
+                    + "u.id AS uId, fullName, email, password, u.address AS uAddress, phone, isAdmin"
+                    + " FROM figure_order o LEFT JOIN figure_user u ON o.userId = u.id"
+                    + " WHERE userId = ? AND o.createdDate BETWEEN ? AND ? ORDER BY o.createdDate DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
             preStm = conn.prepareStatement(sql);
             preStm.setString(1, userId);
             preStm.setString(2, formDate);
@@ -124,14 +142,26 @@ public class OrderDao {
             rs = preStm.executeQuery();
             Order order = null;
             while (rs.next()) {
-                String id = rs.getString("id");
+                // get user fields
+                String uId = rs.getString("uId");
+                String fullName = rs.getString("fullName");
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                String uAddress = rs.getString("uAddress");
+                String phone = rs.getString("phone");
+                int isAdmin = rs.getInt("isAdmin");
+
+                // get order fields
+                String id = rs.getString("oId");
                 Integer status = rs.getInt("status");
-                String address = rs.getString("address");
+                String address = rs.getString("oAddress");
                 String phoneNumber = rs.getString("phoneNumber");
                 String consigneeName = rs.getString("consigneeName");
-                Date createDate = rs.getDate("createdDate");
+                Date createDate = rs.getDate("oCreatedDate");
                 Float totalPrice = rs.getFloat("totalPrice");
-                order = new Order(id, userId, address, phoneNumber, consigneeName, status, createDate, totalPrice);
+
+                User user = new User(uId, fullName, email, password, uAddress, phone, isAdmin);
+                order = new Order(id, user, address, phoneNumber, consigneeName, status, createDate, totalPrice);
                 orders.add(order);
             }
         } finally {
@@ -145,20 +175,33 @@ public class OrderDao {
         ArrayList<Order> orders = new ArrayList();
         try {
             conn = Connector.getConnection();
-            String sql = "SELECT * FROM figure_order";
+            String sql = "SELECT o.id AS oId, status, o.address AS oAddress, phoneNumber, consigneeName, o.createdDate AS oCreatedDate, totalPrice, "
+                    + " u.id AS uId, fullName, email, password, u.address AS uAddress, phone, isAdmin"
+                    + " FROM figure_order o LEFT JOIN figure_user u ON o.userId = u.id";
             preStm = conn.prepareStatement(sql);
             rs = preStm.executeQuery();
             Order order = null;
             while (rs.next()) {
-                String id = rs.getString("id");
+                // get user fields
+                String uId = rs.getString("uId");
+                String fullName = rs.getString("fullName");
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                String uAddress = rs.getString("uAddress");
+                String phone = rs.getString("phone");
+                int isAdmin = rs.getInt("isAdmin");
+
+                // get order fields
+                String id = rs.getString("oId");
                 Integer status = rs.getInt("status");
-                String address = rs.getString("address");
+                String address = rs.getString("oAddress");
                 String phoneNumber = rs.getString("phoneNumber");
                 String consigneeName = rs.getString("consigneeName");
-                Date createDate = rs.getDate("createdDate");
-                String userId = rs.getString("userId");
+                Date createDate = rs.getDate("oCreatedDate");
                 Float totalPrice = rs.getFloat("totalPrice");
-                order = new Order(id, userId, address, phoneNumber, consigneeName, status, createDate, totalPrice);
+
+                User user = new User(uId, fullName, email, password, uAddress, phone, isAdmin);
+                order = new Order(id, user, address, phoneNumber, consigneeName, status, createDate, totalPrice);
                 orders.add(order);
             }
         } finally {
@@ -172,19 +215,32 @@ public class OrderDao {
         Order order = null;
         try {
             conn = Connector.getConnection();
-            String sql = "SELECT * FROM figure_order WHERE id=?";
+            String sql = "SELECT o.id AS oId, status, o.address AS oAddress, phoneNumber, consigneeName, o.createdDate AS oCreatedDate, totalPrice, "
+                    + " u.id AS uId, fullName, email, password, u.address AS uAddress, phone, isAdmin"
+                    + " FROM figure_order o LEFT JOIN figure_user u ON o.userId = u.id WHERE o.id=?";
             preStm = conn.prepareStatement(sql);
             preStm.setString(1, orderId);
             rs = preStm.executeQuery();
             if (rs.next()) {
-                String userId = rs.getString("userId");
+                // get user fields
+                String uId = rs.getString("uId");
+                String fullName = rs.getString("fullName");
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                String uAddress = rs.getString("uAddress");
+                String phone = rs.getString("phone");
+                int isAdmin = rs.getInt("isAdmin");
+
+                // get order fields
                 Integer status = rs.getInt("status");
-                String address = rs.getString("address");
+                String address = rs.getString("oAddress");
                 String phoneNumber = rs.getString("phoneNumber");
                 String consigneeName = rs.getString("consigneeName");
-                Date createdDate = rs.getDate("createdDate");
+                Date createdDate = rs.getDate("oCreatedDate");
                 Float totalPrice = rs.getFloat("totalPrice");
-                order = new Order(orderId, userId, address, phoneNumber, consigneeName, status, createdDate, totalPrice);
+
+                User user = new User(uId, fullName, email, password, uAddress, phone, isAdmin);
+                order = new Order(orderId, user, address, phoneNumber, consigneeName, status, createdDate, totalPrice);
             }
         } finally {
             this.closeConnection();
