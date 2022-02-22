@@ -12,6 +12,8 @@ import product.daos.ProductDao;
 import utils.Connector;
 import product.models.Product;
 import orderitem.models.OrderItem;
+import user.daos.UserDao;
+import user.models.User;
 
 /**
  *
@@ -41,14 +43,18 @@ public class OrderDao {
     // get orders by userId
     public ArrayList<Order> getOrdersByUserId(String userId) throws Exception {
         ArrayList<Order> orders = new ArrayList<Order>();
+        UserDao userDao = new UserDao();
         try {
             conn = Connector.getConnection();
-            String sql = "SELECT * FROM figure_order WHERE userId=? ORDER BY createdDate DESC";
+            String sql = "SELECT *"
+                    + " FROM figure_order"
+                    + " WHERE userId=? ORDER BY createdDate DESC";
             preStm = conn.prepareStatement(sql);
             preStm.setString(1, userId);
             rs = preStm.executeQuery();
             Order order = null;
             while (rs.next()) {
+                // get order fields
                 String id = rs.getString("id");
                 Integer status = rs.getInt("status");
                 String address = rs.getString("address");
@@ -56,7 +62,9 @@ public class OrderDao {
                 String consigneeName = rs.getString("consigneeName");
                 Date createDate = rs.getDate("createdDate");
                 Float totalPrice = rs.getFloat("totalPrice");
-                order = new Order(id, userId, address, phoneNumber, consigneeName, status, createDate, totalPrice);
+
+                User user = userDao.getUserById(userId);
+                order = new Order(id, user, address, phoneNumber, consigneeName, status, createDate, totalPrice);
                 orders.add(order);
             }
         } finally {
@@ -111,10 +119,13 @@ public class OrderDao {
     // get orders by date
     public ArrayList<Order> getOrdersForAdmin(String formDate, String toDate, Integer page, String userId, int limit) throws Exception {
         ArrayList<Order> orders = new ArrayList();
+        UserDao userDao = new UserDao();
         try {
             Integer skip = (page - 1) * limit;
             conn = Connector.getConnection();
-            String sql = "SELECT * FROM figure_order WHERE userId = ? AND createdDate BETWEEN ? AND ? ORDER BY createdDate DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+            String sql = "SELECT *"
+                    + " FROM figure_order"
+                    + " WHERE userId = ? AND createdDate BETWEEN ? AND ? ORDER BY createdDate DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
             preStm = conn.prepareStatement(sql);
             preStm.setString(1, userId);
             preStm.setString(2, formDate);
@@ -124,6 +135,7 @@ public class OrderDao {
             rs = preStm.executeQuery();
             Order order = null;
             while (rs.next()) {
+                // get order fields
                 String id = rs.getString("id");
                 Integer status = rs.getInt("status");
                 String address = rs.getString("address");
@@ -131,7 +143,9 @@ public class OrderDao {
                 String consigneeName = rs.getString("consigneeName");
                 Date createDate = rs.getDate("createdDate");
                 Float totalPrice = rs.getFloat("totalPrice");
-                order = new Order(id, userId, address, phoneNumber, consigneeName, status, createDate, totalPrice);
+
+                User user = userDao.getUserById(userId);
+                order = new Order(id, user, address, phoneNumber, consigneeName, status, createDate, totalPrice);
                 orders.add(order);
             }
         } finally {
@@ -143,22 +157,27 @@ public class OrderDao {
     // get all order
     public ArrayList<Order> getOrders() throws Exception {
         ArrayList<Order> orders = new ArrayList();
+        UserDao userDao = new UserDao();
         try {
             conn = Connector.getConnection();
-            String sql = "SELECT * FROM figure_order";
+            String sql = "SELECT *"
+                    + " FROM figure_order";
             preStm = conn.prepareStatement(sql);
             rs = preStm.executeQuery();
             Order order = null;
             while (rs.next()) {
+                // get order fields
                 String id = rs.getString("id");
                 Integer status = rs.getInt("status");
                 String address = rs.getString("address");
                 String phoneNumber = rs.getString("phoneNumber");
                 String consigneeName = rs.getString("consigneeName");
-                Date createDate = rs.getDate("createdDate");
                 String userId = rs.getString("userId");
+                Date createDate = rs.getDate("createdDate");
                 Float totalPrice = rs.getFloat("totalPrice");
-                order = new Order(id, userId, address, phoneNumber, consigneeName, status, createDate, totalPrice);
+
+                User user = userDao.getUserById(userId);
+                order = new Order(id, user, address, phoneNumber, consigneeName, status, createDate, totalPrice);
                 orders.add(order);
             }
         } finally {
@@ -170,21 +189,26 @@ public class OrderDao {
     // get order by orderId
     public Order getOrderByOrderId(String orderId) throws Exception {
         Order order = null;
+        UserDao userDao = new UserDao();
         try {
             conn = Connector.getConnection();
-            String sql = "SELECT * FROM figure_order WHERE id=?";
+            String sql = "SELECT *"
+                    + " FROM figure_order WHERE id=?";
             preStm = conn.prepareStatement(sql);
             preStm.setString(1, orderId);
             rs = preStm.executeQuery();
             if (rs.next()) {
-                String userId = rs.getString("userId");
+                // get order fields
                 Integer status = rs.getInt("status");
                 String address = rs.getString("address");
                 String phoneNumber = rs.getString("phoneNumber");
                 String consigneeName = rs.getString("consigneeName");
+                String userId = rs.getString("userId");
                 Date createdDate = rs.getDate("createdDate");
                 Float totalPrice = rs.getFloat("totalPrice");
-                order = new Order(orderId, userId, address, phoneNumber, consigneeName, status, createdDate, totalPrice);
+
+                User user = userDao.getUserById(userId);
+                order = new Order(orderId, user, address, phoneNumber, consigneeName, status, createdDate, totalPrice);
             }
         } finally {
             this.closeConnection();
@@ -197,7 +221,6 @@ public class OrderDao {
         boolean isTrue = true;
         try {
             conn = Connector.getConnection();
-            conn.setAutoCommit(false);
             String sql = "UPDATE figure_order SET status = ?, address = ?, phoneNumber = ?, consigneeName = ? WHERE id = ?";
             preStm = conn.prepareStatement(sql);
             preStm.setInt(1, nStatus);
@@ -213,22 +236,20 @@ public class OrderDao {
                 ProductDao productDao = new ProductDao();
                 ArrayList<OrderItem> orderItems = orderItemDao.getOrderItemByOrderId(order.getId());
                 for (OrderItem orderItem : orderItems) {
-                    Product product = productDao.getProductById(orderItem.getProductId());
-                    productDao.updateProductQuantity(product.getQuantity() - orderItem.getQuantity(), orderItem.getProductId());
+                    Product product = orderItem.getProduct();
+                    productDao.updateProductQuantity(product.getQuantity() - orderItem.getQuantity(), orderItem.getProduct().getId());
                 }
             } else if (order.getStatus() != 3 && nStatus == 3) {
                 OrderItemDao orderItemDao = new OrderItemDao();
                 ProductDao productDao = new ProductDao();
                 ArrayList<OrderItem> orderItems = orderItemDao.getOrderItemByOrderId(order.getId());
                 for (OrderItem orderItem : orderItems) {
-                    Product product = productDao.getProductById(orderItem.getProductId());
-                    productDao.updateProductQuantity(product.getQuantity() + orderItem.getQuantity(), orderItem.getProductId());
+                    Product product = orderItem.getProduct();
+                    productDao.updateProductQuantity(product.getQuantity() + orderItem.getQuantity(), orderItem.getProduct().getId());
                 }
             }
-            conn.commit();
         } catch (Exception e) {
             isTrue = false;
-            conn.rollback();
         } finally {
             this.closeConnection();
         }

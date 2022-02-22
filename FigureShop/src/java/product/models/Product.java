@@ -1,5 +1,7 @@
 package product.models;
 
+import category.models.Category;
+
 /**
  *
  * @author locnh
@@ -12,28 +14,28 @@ public class Product {
     private Integer quantity;
     private Float price;
     private String description;
-    private String categoryId;
+    private Category category;
 
     public Product() {
     }
 
-    public Product(String id, String name, String image, Integer quantity, Float price, String description, String categoryId) {
+    public Product(String name, String image, Integer quantity, Float price, String description, Category category) {
+        this.name = name;
+        this.image = image;
+        this.quantity = quantity;
+        this.price = price;
+        this.description = description;
+        this.category = category;
+    }
+
+    public Product(String id, String name, String image, Integer quantity, Float price, String description, Category category) {
         this.id = id;
         this.name = name;
         this.image = image;
         this.quantity = quantity;
         this.price = price;
         this.description = description;
-        this.categoryId = categoryId;
-    }
-
-    public Product(String name, String image, Integer quantity, Float price, String description, String categoryId) {
-        this.name = name;
-        this.image = image;
-        this.quantity = quantity;
-        this.price = price;
-        this.description = description;
-        this.categoryId = categoryId;
+        this.category = category;
     }
 
     public String getId() {
@@ -84,17 +86,17 @@ public class Product {
         this.description = description;
     }
 
-    public String getCategoryId() {
-        return categoryId;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     @Override
     public String toString() {
-        return "Product{" + "id=" + id + ", name=" + name + ", image=" + image + ", quantity=" + quantity + ", price=" + price + ", description=" + description + ", categoryId=" + categoryId + '}';
+        return "Product{" + "id=" + id + ", name=" + name + ", image=" + image + ", quantity=" + quantity + ", price=" + price + ", description=" + description + ", category=" + category + '}';
     }
 
 }

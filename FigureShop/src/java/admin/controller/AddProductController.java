@@ -1,5 +1,6 @@
 package admin.controller;
 
+import category.daos.CategoryDao;
 import constants.Message;
 import constants.Notification;
 import constants.Router;
@@ -15,6 +16,7 @@ import product.daos.ProductDao;
 import utils.GetParam;
 import product.models.Product;
 import utils.Helper;
+import category.models.Category;
 
 /**
  *
@@ -29,6 +31,7 @@ public class AddProductController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         ProductDao productDao = new ProductDao();
+        CategoryDao categoryDao = new CategoryDao();
         boolean isTrue = true;
 
         //validate param
@@ -64,8 +67,10 @@ public class AddProductController extends HttpServlet {
             return false;
         }
 
+        Category category = categoryDao.getCategoryByID(categoryId);
+
         //add new product to database
-        Product product = new Product(name, image, quantity, price, description, categoryId);
+        Product product = new Product(name, image, quantity, price, description, category);
         productDao.addNewProduct(product);
         request.setAttribute(Notification.AttrType.notiStatus.name(), Notification.Status.SUCCESS);
         request.setAttribute(Notification.AttrType.notiMessage.name(), Message.SUCCESS_MESSAGE.getContent());

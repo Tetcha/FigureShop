@@ -87,7 +87,7 @@
                                     <%=vndFormat.format(products.get(i).getPrice())%>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    <%= products.get(i).getCategoryId()%>
+                                    <%= products.get(i).getCategory().getName()%>
                                 </td>
                                 <td
                                     class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"

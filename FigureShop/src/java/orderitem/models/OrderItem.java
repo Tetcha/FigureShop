@@ -1,40 +1,43 @@
 package orderitem.models;
 
+import order.models.Order;
+import product.models.Product;
+
 /**
  *
  * @author locnh
  */
 public class OrderItem {
 
-    private String orderId;
-    private String productId;
+    private Order order;
+    private Product product;
     private Integer quantity;
     private Float price;
 
     public OrderItem() {
     }
 
-    public OrderItem(String orderId, String productId, Integer quantity, Float price) {
-        this.orderId = orderId;
-        this.productId = productId;
+    public OrderItem(Order order, Product product, Integer quantity, Float price) {
+        this.order = order;
+        this.product = product;
         this.quantity = quantity;
         this.price = price;
     }
 
-    public String getOrderId() {
-        return orderId;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
-    public String getProductId() {
-        return productId;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductId(String productId) {
-        this.productId = productId;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public Integer getQuantity() {
@@ -55,7 +58,7 @@ public class OrderItem {
 
     @Override
     public String toString() {
-        return "OrderItem{" + "orderId=" + orderId + ", productId=" + productId + ", quantity=" + quantity + ", price=" + price + '}';
+        return "OrderItem{" + "order=" + order + ", product=" + product + ", quantity=" + quantity + ", price=" + price + '}';
     }
 
 }

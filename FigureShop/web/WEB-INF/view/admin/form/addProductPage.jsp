@@ -114,8 +114,7 @@
                                 name="description"
                                 rows="3"
                                 class="max-w-lg shadow-sm block w-full focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border border-gray-300 rounded-md"
-                                >
-                                ${requestScope.description}</textarea
+                                >${requestScope.description}</textarea
                             >
                             <p class="text-sm text-left text-red-600">
                                 ${requestScope.descriptionError}

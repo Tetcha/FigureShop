@@ -52,7 +52,12 @@ public class UpdateProductController extends HttpServlet {
         String description = GetParam.getStringParam(request, "description", "Description", 3, 255, null);
         String categoryId = GetParam.getStringParam(request, "type", "Type", 0, 40, null);
 
-        if (name == null || imageUrl == null || quantity == null || price == null || description == null || categoryId == null) {
+        if (imageUrl == null) {
+            request.setAttribute("imageError", null);
+            imageUrl = product.getImage();
+        }
+
+        if (name == null || quantity == null || price == null || description == null || categoryId == null) {
             return 1;
         }
 

@@ -61,7 +61,7 @@
                                     </a>
                                 </h3>
                                 <p class="mt-1 text-sm text-gray-500">
-                                    <%= products.get(i).getCategoryId()%>
+                                    <%= products.get(i).getCategory().getName()%>
                                 </p>
                                 <p class="text-sm font-medium text-gray-900">
                                     <%=vndFormat.format(products.get(i).getPrice())%>

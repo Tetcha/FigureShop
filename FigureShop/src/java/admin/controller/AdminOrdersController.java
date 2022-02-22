@@ -84,9 +84,9 @@ public class AdminOrdersController extends HttpServlet {
         for (Order order : orders) {
             if (order.getId().equals(currentOrderId)) {
                 currentOrderShow = new OrderWithEmailDto(order.getId(),
-                        order.getUserId(), order.getAddress(), order.getPhoneNumber(),
+                        order.getUser(), order.getAddress(), order.getPhoneNumber(),
                         order.getConsigneeName(), order.getStatus(), order.getCreatedDate(), order.getTotalPrice());
-                User user = userDao.getUserById(order.getUserId());
+                User user = userDao.getUserById(order.getUser().getId());
                 currentOrderShow.setEmail(user.getEmail());
             }
         }

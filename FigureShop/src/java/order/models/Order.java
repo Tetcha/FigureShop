@@ -1,6 +1,7 @@
 package order.models;
 
 import java.util.Date;
+import user.models.User;
 
 /**
  *
@@ -9,7 +10,7 @@ import java.util.Date;
 public class Order {
 
     private String id;
-    private String userId;
+    private User user;
     private String address;
     private String phoneNumber;
     private String consigneeName;
@@ -20,9 +21,9 @@ public class Order {
     public Order() {
     }
 
-    public Order(String id, String userId, String address, String phoneNumber, String consigneeName, Integer status, Date createdDate, Float totalPrice) {
+    public Order(String id, User user, String address, String phoneNumber, String consigneeName, Integer status, Date createdDate, Float totalPrice) {
         this.id = id;
-        this.userId = userId;
+        this.user = user;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.consigneeName = consigneeName;
@@ -39,12 +40,12 @@ public class Order {
         this.id = id;
     }
 
-    public String getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getAddress() {
@@ -97,6 +98,7 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" + "id=" + id + ", userId=" + userId + ", address=" + address + ", phoneNumber=" + phoneNumber + ", consigneeName=" + consigneeName + ", status=" + status + ", createdDate=" + createdDate + ", totalPrice=" + totalPrice + '}';
+        return "Order{" + "id=" + id + ", user=" + user + ", address=" + address + ", phoneNumber=" + phoneNumber + ", consigneeName=" + consigneeName + ", status=" + status + ", createdDate=" + createdDate + ", totalPrice=" + totalPrice + '}';
     }
+
 }
