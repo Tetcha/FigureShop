@@ -16,7 +16,7 @@ public class Helper {
     public static boolean protectedRouter(HttpServletRequest request, HttpServletResponse response, int isAdmin, String page) throws Exception {
         if (!isLogin(request) || !correctRole(request, isAdmin)) {
             request.setAttribute(Notification.AttrType.notiStatus.name(), Notification.Status.WARNING);
-            request.setAttribute(Notification.AttrType.notiMessage.name(), Message.NOT_LOGIN_MESSAGE);
+            request.setAttribute(Notification.AttrType.notiMessage.name(), Message.NOT_LOGIN_MESSAGE.getContent());
             request.setAttribute(Notification.AttrType.notiDescription.name(), Message.NOT_LOGIN_DESCRIPTION.getContent());
             request.getRequestDispatcher(page).forward(request, response);
 

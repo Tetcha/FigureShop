@@ -17,7 +17,6 @@ import utils.GetParam;
 import utils.Helper;
 import order.models.Order;
 import orderitem.daos.OrderItemDao;
-import product.daos.ProductDao;
 import orderitem.models.OrderItem;
 import product.models.Product;
 
@@ -63,10 +62,9 @@ public class UpdateStatusController extends HttpServlet {
         // check quantity
         if (order.getStatus() == 3 && statusValue != 3) {
             OrderItemDao orderItemDao = new OrderItemDao();
-            ProductDao productDao = new ProductDao();
             ArrayList<OrderItem> orderItems = orderItemDao.getOrderItemByOrderId(order.getId());
             for (OrderItem orderItem : orderItems) {
-                Product product = productDao.getProductById(orderItem.getProductId());
+                Product product = orderItem.getProduct();
                 if (product.getQuantity() < orderItem.getQuantity()) {
                     session.setAttribute("quantityError", Message.NOT_ENOUGH_QUANTITY_MESSAGE.getContent());
                     return 2;

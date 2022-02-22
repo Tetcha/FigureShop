@@ -4,9 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import order.daos.OrderDao;
+import order.models.Order;
 import orderitem.dtos.OrderItemDto;
 import utils.Connector;
 import orderitem.models.OrderItem;
+import product.daos.ProductDao;
+import product.models.Product;
 
 /**
  *
@@ -62,18 +66,28 @@ public class OrderItemDao {
     //get order item by orderId
     public ArrayList<OrderItem> getOrderItemByOrderId(String orderId) throws Exception {
         ArrayList<OrderItem> orderItems = new ArrayList<OrderItem>();
+        Product product = null;
+        Order order = null;
+        ProductDao productDao = new ProductDao();
+        OrderDao orderDao = new OrderDao();
         try {
             conn = Connector.getConnection();
-            String sql = "SELECT * FROM figure_order_item WHERE orderId=?";
+            String sql = "SELECT * "
+                    + "FROM figure_order_item "
+                    + "WHERE orderId=?";
             preStm = conn.prepareStatement(sql);
             preStm.setString(1, orderId);
             rs = preStm.executeQuery();
             OrderItem orderItem = null;
             while (rs.next()) {
+                // get order item fields
                 String productId = rs.getString("productId");
                 Integer quantity = rs.getInt("quantity");
                 Float price = rs.getFloat("price");
-                orderItem = new OrderItem(orderId, productId, quantity, price);
+
+                product = productDao.getProductById(productId);
+                order = orderDao.getOrderByOrderId(orderId);
+                orderItem = new OrderItem(order, product, quantity, price);
                 orderItems.add(orderItem);
             }
         } finally {
@@ -85,17 +99,25 @@ public class OrderItemDao {
     // get order item by product id
     public OrderItem getOrderItemByProductId(String productId) throws Exception {
         OrderItem orderItem = null;
+        ProductDao productDao = new ProductDao();
+        OrderDao orderDao = new OrderDao();
         try {
             conn = Connector.getConnection();
-            String sql = "SELECT * FROM figure_order_item WHERE productId=?";
+            String sql = "SELECT * "
+                    + "FROM figure_order_item "
+                    + "WHERE productId=?";
             preStm = conn.prepareStatement(sql);
             preStm.setString(1, productId);
             rs = preStm.executeQuery();
             if (rs.next()) {
-                String orderId = rs.getString("orderId");
+                // get order item fields
                 Integer quantity = rs.getInt("quantity");
                 Float price = rs.getFloat("price");
-                orderItem = new OrderItem(orderId, productId, quantity, price);
+                String orderId = rs.getString("orderId");
+
+                Order order = orderDao.getOrderByOrderId(orderId);
+                Product product = productDao.getProductById(productId);
+                orderItem = new OrderItem(order, product, quantity, price);
             }
         } finally {
             this.closeConnection();
