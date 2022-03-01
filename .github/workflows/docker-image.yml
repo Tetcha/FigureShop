@@ -22,4 +22,4 @@ jobs:
         username: ${{ secrets.USER_NAME }}
         host: ${{ secrets.HOST }}
         password: ${{ secrets.SSHKEY }}
-        script: 'cd /app/Dating-app && docker-compose pull && docker-compose up -d'
+        script: 'sudo su && cd /app/Dating-app && docker-compose pull && docker-compose up -d'
