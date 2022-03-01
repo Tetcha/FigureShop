@@ -21,5 +21,6 @@ jobs:
       with:
         username: ${{ secrets.USER_NAME }}
         host: ${{ secrets.HOST }}
-        password: ${{ secrets.SSHKEY }}
+        key: ${{ secrets.SSHKEY }}
+        port: ${{ secrets.PORT }}
         script: 'sudo su && cd /app/Dating-app && docker-compose pull && docker-compose up -d'
