@@ -34,8 +34,8 @@ jobs:
       uses: appleboy/ssh-action@master
       with:
         username: ${{ secrets.USER_NAME }}
-        password: ${{ secrets.PASSWORD }}
+        # password: ${{ secrets.PASSWORD }}
         host: ${{ secrets.HOST }}
-        # key: ${{ secrets.SSHKEY }}
+        key: ${{ secrets.SSHKEY }}
         port: ${{ secrets.PORT }}
         script: 'sudo su && cd /app/Dating-app && docker-compose pull && docker-compose up -d'
