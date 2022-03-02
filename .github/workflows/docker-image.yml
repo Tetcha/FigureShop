@@ -29,7 +29,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/figureShop:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/figureshop:latest
     - name: Deploy to vps
       uses: appleboy/ssh-action@master
       with:
