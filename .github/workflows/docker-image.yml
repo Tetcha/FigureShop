@@ -26,17 +26,16 @@ jobs:
   #         file: ./Dockerfile
   #         push: true
   #         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/figureshop:latest
-  deployment:
+  deploy:
     runs-on: ubuntu-latest
+    needs: build-push
     steps:
-    - name: Deploy to vps
-      uses: appleboy/ssh-action@master
-      with:
-        username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
-        host: ${{ secrets.HOST }}
-        # KEY: ${{ secrets.SSHKEY }}
-        port: ${{ secrets.PORT }}
-        # script: 'sudo su && cd /app/Dating-app && docker-compose pull && docker-compose up -d'
-        script: |
-                ls
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+                  ls
