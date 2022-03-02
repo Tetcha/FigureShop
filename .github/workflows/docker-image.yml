@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [master]
 jobs:
-  build and push to docker-hub:
+  buildAndPush:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
