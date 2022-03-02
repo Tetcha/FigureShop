@@ -37,5 +37,6 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
-            cd ./
-            ls
+            cd /app/FigureShop
+            docker-compose pull
+            docker-compose up -d
