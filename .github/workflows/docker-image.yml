@@ -32,10 +32,10 @@ jobs:
     - name: Deploy to vps
       uses: appleboy/ssh-action@master
       with:
-        username: ${{ secrets.USER_NAME }}
+        USERNAME: ${{ secrets.USER_NAME }}
         # password: ${{ secrets.PASSWORD }}
         host: ${{ secrets.HOST }}
-        key: ${{ secrets.SSHKEY }}
-        port: ${{ secrets.PORT }}
+        KEY: ${{ secrets.SSHKEY }}
+        PORT: ${{ secrets.PORT }}
         # script: 'sudo su && cd /app/Dating-app && docker-compose pull && docker-compose up -d'
         script: 'ls'
