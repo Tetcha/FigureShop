@@ -11,10 +11,9 @@
 
         <div class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:grid-rows-2 sm:gap-x-6 lg:gap-8">
             <div
-                class="group aspect-w-2 aspect-h-1 rounded-lg overflow-hidden sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2">
+                class="relative group aspect-w-2 aspect-h-1 rounded-lg overflow-hidden sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2">
                 <img src="./asset/images/category_OnePiece.jpg" alt="OnePiece"
                      class="object-center width-auto sm:h-full object-cover group-hover:opacity-75" />
-
                 <div aria-hidden="true" class="bg-gradient-to-b from-transparent to-black opacity-50"></div>
                 <div class="p-6 flex items-end">
                     <div>
