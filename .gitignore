@@ -6,19 +6,17 @@ nbbuild/
 nbdist/
 .nb-gradle/
 .vscode/
-/dist/
 **/asset/styles.css
 /Planning
 /tailwind-fast-kit
 **/**.sql
 **context.xml
-/GameShop/dist/
 /SQL_query
 /mono-tailwind-kit
 
 /test
-/FigureShop/dist/
 docker-compose.yml
 /FigureShop/web/asset/**/styles.css
 
 /document
+/FigureShop/dist/
