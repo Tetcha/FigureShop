@@ -19,4 +19,3 @@ docker-compose.yml
 /FigureShop/web/asset/**/styles.css
 
 /document
-/FigureShop/dist/
