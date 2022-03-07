@@ -52,7 +52,6 @@ public class ProductFilterController extends HttpServlet {
             request.setAttribute("priceError", Message.PRICE_ERROR_MESSAGE.getContent());
             return false;
         }
-
         // get products
         ArrayList<Product> products = productDao.getProducts(name, categoryId, minPrice, maxPrice, page, LIMIT);
         int resultSize = productDao.filterAllProducts(name, categoryId, minPrice, maxPrice).size();
