@@ -36,7 +36,7 @@ $(document).ready(function () {
     );
   }
 
-  let selectedVal = "";
+  let selectedVal = $("#categoryFilter option:selected").val();
   $("#categoryFilter").change(function (e) {
     e.preventDefault();
     selectedVal = $("#categoryFilter option:selected").val();
