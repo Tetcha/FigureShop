@@ -98,7 +98,6 @@ public class AdminOrdersController extends HttpServlet {
 
         String quantityMessage = (String) session.getAttribute("quantityError");
         session.setAttribute("quantityError", null);
-
         request.setAttribute("orders", orders);
         request.setAttribute("maxPage", maxPage);
         request.setAttribute("currentShow", currentShow);

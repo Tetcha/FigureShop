@@ -49,7 +49,7 @@ public class UpdateProductController extends HttpServlet {
         String imageUrl = GetParam.getFileParam(request, "image", "Product's image", 1080 * 1080);
         Integer quantity = GetParam.getIntParams(request, "quantity", "Quantity", 0, Integer.MAX_VALUE, null);
         Float price = GetParam.getFloatParams(request, "price", "Price", 0, Float.MAX_VALUE, null);
-        String description = GetParam.getStringParam(request, "description", "Description", 3, 255, null);
+        String description = GetParam.getStringParam(request, "description", "Description", 3, Integer.MAX_VALUE, null);
         String categoryId = GetParam.getStringParam(request, "type", "Type", 0, 40, null);
 
         if (imageUrl == null) {

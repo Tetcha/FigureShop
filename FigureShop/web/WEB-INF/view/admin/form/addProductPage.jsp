@@ -66,7 +66,7 @@
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
                             <input
-                                type="number"
+                                type="text"
                                 name="quantity"
                                 id="quantity"
                                 value="${requestScope.quantity}"
@@ -88,7 +88,7 @@
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
                             <input
-                                type="number"
+                                type="text"
                                 name="price"
                                 id="price"
                                 value="${requestScope.price}"

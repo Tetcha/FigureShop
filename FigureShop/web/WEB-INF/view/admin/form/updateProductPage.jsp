@@ -62,7 +62,7 @@
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
                             <input
-                                type="number"
+                                type="text"
                                 name="quantity"
                                 value="<%= product.getQuantity()%>"
                                 id="quantity"
@@ -90,7 +90,7 @@
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
                             <input
-                                type="number"
+                                type="text"
                                 name="price"
                                 value="<%= product.getPrice()%>"
                                 id="price"

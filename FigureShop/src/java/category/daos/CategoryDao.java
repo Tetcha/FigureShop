@@ -8,10 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import utils.Connector;
 
-/**
- *
- * @author locnh
- */
 public class CategoryDao {
 
     private Connection conn;

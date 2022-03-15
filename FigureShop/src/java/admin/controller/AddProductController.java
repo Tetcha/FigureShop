@@ -18,10 +18,6 @@ import product.models.Product;
 import utils.Helper;
 import category.models.Category;
 
-/**
- *
- * @author locnh
- */
 @WebServlet(name = "AddProductController", urlPatterns = {"/" + Router.ADMIN_ADD_PRODUCT_CONTROLLER})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 50, maxFileSize = 1024 * 1024 * 50, maxRequestSize = 1024 * 1024 * 50)
 public class AddProductController extends HttpServlet {

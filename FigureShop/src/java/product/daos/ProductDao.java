@@ -165,8 +165,8 @@ public class ProductDao {
         }
         return product;
     }
-
     // add a new product
+
     public void addNewProduct(Product product) throws Exception {
         String uuid = UUID.randomUUID().toString();
         try {
