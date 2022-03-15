@@ -16,7 +16,10 @@
                         = NumberFormat.getCurrencyInstance(vi);
                 String pattern
                 = "product.hstatic.net";
-        String imageHead = "https://";%>
+        String imageHead = "https://";
+            String quantityError = (String) session.getAttribute("quantityError");
+            session.setAttribute("quantityError", null);
+            %>
             <div class="bg-white">
                 <div
                     class="max-w-2xl px-4 py-16 mx-auto sm:py-24 sm:px-6 flex flex-col-reverse lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:gap-x-8"
@@ -58,21 +61,22 @@
                                             >Quantity</label
                                         >
                                         <input
-                                            min="1"
-                                            max="999"
                                             name="quantity"
-                                            type="number"
+                                            type="text"
                                             value="1"
                                             class="flex w-4/5 px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none sm:w-16 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                             />
                                     </div>
+                                    <p class="text-sm text-left text-red-600">
+                                        ${quantityError}
+                                    </p>
                                     <input
                                         name="id"
                                         type="text"
                                         value="${requestScope.product.getId()}"
                                         class="hidden"
                                         />
-
+                                    
                                     <div class="flex items-center mt-4">
                                         <% if (product.getQuantity() > 0) { %>
                                         <!-- Heroicon name: solid/check -->

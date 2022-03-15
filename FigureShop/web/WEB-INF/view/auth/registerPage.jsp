@@ -39,10 +39,9 @@
                             <input
                                 id="email"
                                 name="email"
-                                type="email"
+                                type="text"
                                 autocomplete="email"
                                 value="${requestScope.email}"
-                                required
                                 class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 />
                             <p class="mt-2 text-sm text-red-600" id="email-error">
@@ -63,9 +62,7 @@
                                 id="fullName"
                                 name="fullName"
                                 type="text"
-                                autocomplete="email"
                                 value="${requestScope.fullName}"
-                                required
                                 class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 />
                             <p class="mt-2 text-sm text-red-600" id="email-error">
@@ -85,7 +82,6 @@
                                 id="password"
                                 name="password"
                                 type="password"
-                                required
                                 class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 />
                             <p class="mt-2 text-sm text-red-600" id="email-error">
@@ -106,7 +102,6 @@
                                 name="confirmPassword"
                                 type="password"
                                 autocomplete="current-password"
-                                required
                                 class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 />
 

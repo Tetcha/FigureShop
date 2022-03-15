@@ -70,23 +70,28 @@ public class ProductDetailController extends HttpServlet {
         }
     }
 
-    protected boolean postHandler(HttpServletRequest request, HttpServletResponse response)
+    protected int postHandler(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
         ProductDao productDao = new ProductDao();
 
         // get productId
         String productId = GetParam.getStringParam(request, "id", "Product", 0, 40, null);
         Integer quantity = GetParam.getIntParams(request, "quantity", "Quantity", 1, Integer.MAX_VALUE, 1);
 
+        if (quantity == null) {
+            session.setAttribute("quantityError", "Invalid quantity");
+            return 0;
+        }
+
         // find product
         Product product = productDao.getProductById(productId);
         if (product == null) {
-            return false;
+            return 1;
         }
 
         // get products in cart
-        HttpSession session = request.getSession();
         ArrayList<Product> products = (ArrayList<Product>) session.getAttribute("products");
         if (products == null) {
             products = new ArrayList<Product>();
@@ -99,7 +104,7 @@ public class ProductDetailController extends HttpServlet {
                 quantity += pro.getQuantity();
                 pro.setQuantity(quantity);
                 request.setAttribute("id", productId);
-                return true;
+                return 0;
             }
         }
         product.setQuantity(quantity);
@@ -108,14 +113,14 @@ public class ProductDetailController extends HttpServlet {
         products.add(product);
         request.setAttribute("id", productId);
         session.setAttribute("products", products);
-        return true;
+        return 0;
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            if (!postHandler(request, response)) {
+            if (postHandler(request, response) == 1) {
                 // forward on 404
                 Helper.setAttribute(request, StatusCode.NOT_FOUND.getValue(),
                         Message.NOT_FOUND_ERROR_TITLE.getContent(),
