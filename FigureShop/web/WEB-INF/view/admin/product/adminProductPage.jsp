@@ -95,7 +95,7 @@
                                     <a href="<%= Router.ADMIN_UPDATE_PRODUCT_CONTROLLER%>?id=<%= products.get(i).getId()%>" class="text-indigo-600 hover:text-indigo-900"
                                        >Update</a
                                     >
-                                    <a href="<%= Router.ADMIN_DELETE_PRODCUT_CONTROLLER%>?id=<%= products.get(i).getId()%>" class="text-red-600 hover:text-red-900 ml-5"
+                                    <a onclick="return confirm('Do you want to delete this product?')" href="<%= Router.ADMIN_DELETE_PRODCUT_CONTROLLER%>?id=<%= products.get(i).getId()%>" class="text-red-600 hover:text-red-900 ml-5"
                                        >Delete</a
                                     >
                                 </td>
